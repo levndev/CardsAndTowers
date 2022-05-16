@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class GameManager : MonoBehaviour
     public Queue<Card> Deck = new Queue<Card>();
     private int HandSize;
     public GameObject CardPrefab;
+    public bool TurretSpawningMode;
+    public GameObject BasicTurretPrefab;
+    public Camera camera;
     public GameManager Instance
     {
         get
@@ -47,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        
         if (Deck.Count > 0)
         {
             for (var i = 0; i < HandSize; i++)
@@ -56,10 +61,31 @@ public class GameManager : MonoBehaviour
                     var card = Deck.Dequeue();
                     Hand[i] = card;
                     var uiCard = Instantiate(CardPrefab, HandPositions[i].transform);
+                    var uiCardButton = uiCard.GetComponent<Button>();
+                    uiCardButton.onClick.AddListener(CardClick);
                     var uiCardController = uiCard.GetComponent<UICardController>();
                     uiCardController.card = card;
                 }
             }
         }
+        if (TurretSpawningMode)
+        {
+            if (Input.touchCount > 0)
+            {
+                var touchPosition = Input.GetTouch(0);
+
+                Instantiate(BasicTurretPrefab, camera.ScreenToWorldPoint(new Vector3(touchPosition.position.x, touchPosition.position.y, 0)), new Quaternion());
+                TurretSpawningMode = false;
+            }
+        }
+        
     }
+
+    void CardClick()
+    {
+        Debug.Log("sususus");
+        TurretSpawningMode = true;
+    }
+
+
 }
