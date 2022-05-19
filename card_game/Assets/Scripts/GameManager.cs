@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,12 +10,12 @@ public class GameManager : MonoBehaviour
     public List<Card> Hand = new List<Card>();
     public Queue<Card> Deck = new Queue<Card>();
     private int HandSize;
+    public bool CardPlayingMode;
+    private int CurrentCardSelected = -1;
     public GameObject CardPrefab;
-    public bool TurretSpawningMode;
     public GameObject BasicTurretPrefab;
-    public Camera camera;
     public InputManager InputManager;
-
+    
     public GameManager Instance
     {
         get
@@ -41,9 +40,9 @@ public class GameManager : MonoBehaviour
         }
         HandSize = HandPositions.Count;
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Basic2"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Basic2"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
         for (var i = 0; i < HandSize; i++)
         {
@@ -58,38 +57,46 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
-        if (Deck.Count > 0)
+        for (var i = 0; i < HandSize; i++)
         {
-            for (var i = 0; i < HandSize; i++)
+            if (Deck.Count <= 0)
+                break;
+            if (Hand[i] == null)
             {
-                if (Hand[i] == null)
-                {
-                    var card = Deck.Dequeue();
-                    Hand[i] = card;
-                    var uiCard = Instantiate(CardPrefab, HandPositions[i].transform);
-                    var uiCardButton = uiCard.GetComponent<Button>();
-                    uiCardButton.onClick.AddListener(CardClick);
-                    var uiCardController = uiCard.GetComponent<UICardController>();
-                    uiCardController.card = card;
-                }
+                var card = Deck.Dequeue();
+                Hand[i] = card;
+                var uiCard = Instantiate(CardPrefab, HandPositions[i].transform);
+                var uiCardController = uiCard.GetComponent<UICardController>();
+                uiCardController.card = card;
+                uiCardController.GameManager = this;
+                uiCardController.HandIndex = i;
             }
         }
     }
 
-    void CardClick()
+    public void CardClick(int HandIndex)
     {
-        Debug.Log("sususus");
-        TurretSpawningMode = true;
+        Debug.Log("Current Card: " + CurrentCardSelected.ToString() + " Hand index: " + HandIndex.ToString());
+        CardPlayingMode = CurrentCardSelected != HandIndex;
+        if (CardPlayingMode)
+        {
+            CurrentCardSelected = HandIndex;
+        }
+        else
+        {
+            CurrentCardSelected = -1;
+        }
     }
 
     private void OnTap(object sender, TapEventArgs args)
     {
-        if (TurretSpawningMode)
+        if (CardPlayingMode)
         {
             var touchPosition = args.Position;
-            Instantiate(BasicTurretPrefab, touchPosition, new Quaternion());
-            TurretSpawningMode = false;
+
+            Instantiate(Hand[CurrentCardSelected].SpawnedObject, touchPosition, new Quaternion());
+            CardPlayingMode = false;
+            CurrentCardSelected = -1;
         }
     }
 }

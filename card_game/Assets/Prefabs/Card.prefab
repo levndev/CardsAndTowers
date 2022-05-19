@@ -141,6 +141,9 @@ MonoBehaviour:
   costText: {fileID: 6008148487815825989}
   nameText: {fileID: 2137826276137261983}
   artImage: {fileID: 7978467021153873980}
+  HandIndex: 0
+  Button: {fileID: 7804967601000818021}
+  GameManager: {fileID: 0}
 --- !u!1 &485424553953543629
 GameObject:
   m_ObjectHideFlags: 0

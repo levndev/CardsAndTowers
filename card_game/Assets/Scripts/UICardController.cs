@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.UI;
 public class UICardController : MonoBehaviour
 {
     public Card card;
     public TextMeshProUGUI costText;
     public TextMeshProUGUI nameText;
-    public UnityEngine.UI.Image artImage;
-
+    public Image artImage;
+    public int HandIndex;
+    public Button Button;
+    public GameManager GameManager;
     void Awake()
     {
         //costText = transform.Find("CostText").GetComponent<TextMeshProUGUI>();
@@ -19,8 +21,18 @@ public class UICardController : MonoBehaviour
 
     void Start()
     {
+        if (GameManager == null)
+        {
+            GameManager = GameManager.Instance;
+        }
+        Button.onClick.AddListener(OnClick);
         costText.text = card.Cost.ToString();
         nameText.text = card.Name;
         artImage.sprite = card.Art;
+    }
+
+    public void OnClick()
+    {
+        GameManager.CardClick(HandIndex);
     }
 }

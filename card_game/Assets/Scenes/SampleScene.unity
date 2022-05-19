@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22d46b43f73138a4389f180a1100b1a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UiCanvas: {fileID: 42197719}
 --- !u!114 &90242938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,6 +505,7 @@ MonoBehaviour:
   TurretSpawningMode: 0
   BasicTurretPrefab: {fileID: 6422741524440096503, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
   camera: {fileID: 519420031}
+  InputManager: {fileID: 90242937}
 --- !u!4 &848346995
 Transform:
   m_ObjectHideFlags: 0

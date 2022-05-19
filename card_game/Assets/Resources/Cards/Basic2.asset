@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41e404fb969624a4aaacb536f6ddd5dc, type: 3}
-  m_Name: Basic
+  m_Name: Basic2
   m_EditorClassIdentifier: 
-  Cost: 5
-  Name: Basic
+  Cost: 10
+  Name: Basic 2
   Art: {fileID: 21300000, guid: 55ddcf84b85e72b45b51ebec1c791b46, type: 3}
-  SpawnedObject: {fileID: 6422741524440096503, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
+  SpawnedObject: {fileID: 3871876453089479586, guid: 9bccbab1ad8bb4a42a941745b86e269d, type: 3}
