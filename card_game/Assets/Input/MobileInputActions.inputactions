@@ -1,0 +1,46 @@
+{
+    "name": "MobileInputActions",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "5a75a547-8ef9-40cf-af9b-54d69e64b2a3",
+            "actions": [
+                {
+                    "name": "Tap",
+                    "type": "Value",
+                    "id": "33fdaacb-36ff-4043-b0df-9ab6921aeb95",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "42486d49-f297-41cf-866c-b1cfd794f86c",
+                    "path": "<Touchscreen>/primaryTouch/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mobile",
+                    "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Mobile",
+            "bindingGroup": "Mobile",
+            "devices": [
+                {
+                    "devicePath": "<Touchscreen>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
