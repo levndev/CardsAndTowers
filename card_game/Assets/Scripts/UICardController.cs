@@ -26,13 +26,19 @@ public class UICardController : MonoBehaviour
             GameManager = GameManager.Instance;
         }
         Button.onClick.AddListener(OnClick);
-        costText.text = card.Cost.ToString();
-        nameText.text = card.Name;
-        artImage.sprite = card.Art;
+        SetFromCard(card);
     }
 
     public void OnClick()
     {
         GameManager.CardClick(HandIndex);
+    }
+
+    public void SetFromCard(Card card)
+    {
+        this.card = card;
+        costText.text = card.Cost.ToString();
+        nameText.text = card.Name;
+        artImage.sprite = card.Art;
     }
 }

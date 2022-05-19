@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private GameManager _instance;
+    private static GameManager _instance;
     public List<GameObject> HandPositions;
     public List<Card> Hand = new List<Card>();
     public Queue<Card> Deck = new Queue<Card>();
@@ -23,10 +23,12 @@ public class GameManager : MonoBehaviour
     public float EnergyGenerationRate;
     public TMPro.TextMeshProUGUI EnergyText;
     public UnityEngine.UI.Slider EnergyBar;
-    public float DeckDrawCoolDown;
-    private bool deckDrawTimerEnabled;
-    private float deckDrawTimeRemaining;
-    public GameManager Instance
+    public float DeckDrawCooldown;
+    private bool deckDrawTimerEnabled = false;
+    private float deckDrawTimeRemaining = 0;
+    public UICardController DeckTop;
+    public UnityEngine.UI.Slider DrawCooldownBar;
+    public static GameManager Instance
     {
         get
         {
@@ -49,6 +51,11 @@ public class GameManager : MonoBehaviour
             throw new System.Exception("GameManager already exists");
         }
         HandSize = HandPositions.Count;
+        Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
@@ -82,7 +89,16 @@ public class GameManager : MonoBehaviour
                 uiCardController.GameManager = this;
                 uiCardController.HandIndex = i;
                 deckDrawTimerEnabled = true;
-                deckDrawTimeRemaining = DeckDrawCoolDown;
+                deckDrawTimeRemaining = DeckDrawCooldown;
+                if (Deck.Count > 0)
+                {
+                    DeckTop.gameObject.SetActive(true);
+                    DeckTop.SetFromCard(Deck.Peek());
+                }
+                else
+                {
+                    DeckTop.gameObject.SetActive(false);
+                }
             }
         }
         if (deckDrawTimerEnabled)
@@ -90,12 +106,17 @@ public class GameManager : MonoBehaviour
             if (deckDrawTimeRemaining > 0)
             {
                 deckDrawTimeRemaining -= Time.deltaTime;
+                DrawCooldownBar.value = 1 - (deckDrawTimeRemaining / DeckDrawCooldown);
             }
             else
             {
                 deckDrawTimeRemaining = 0;
                 deckDrawTimerEnabled = false;
             }
+        }
+        else
+        {
+            DrawCooldownBar.value = 1;
         }
         UpdateEnergyDisplay();
     }
