@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7825429303348041045
+--- !u!1001 &7364656127518894835
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -53,19 +53,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6422741524440096503, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
       propertyPath: m_Name
-      value: Basic_Tower2
+      value: Sniper_Tower
       objectReference: {fileID: 0}
-    - target: {fileID: 6422741524558562277, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
-      propertyPath: m_Color.b
-      value: 0
+    - target: {fileID: 6422741524558562276, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
       objectReference: {fileID: 0}
-    - target: {fileID: 6422741524558562277, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
-      propertyPath: m_Color.g
-      value: 0
+    - target: {fileID: 6422741524558562276, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
       objectReference: {fileID: 0}
-    - target: {fileID: 6422741524558562277, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
-      propertyPath: m_Color.r
+    - target: {fileID: 6422741524558562276, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6422741524558562277, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f940016bbc53b4a49a408674016e6202, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}

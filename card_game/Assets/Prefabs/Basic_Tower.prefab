@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6422741524440096456}
   - component: {fileID: 6422741524440096457}
+  - component: {fileID: 7033319787590762133}
   m_Layer: 0
   m_Name: Basic_Tower
   m_TagString: Untagged
@@ -50,6 +51,19 @@ MonoBehaviour:
   AttackDamage: 0
   HealthPoints: 0
   Turret: {fileID: 6422741524558562275}
+--- !u!114 &7033319787590762133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6422741524440096503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9aae822b8e95e4081487fa85a51115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Size: {x: 2, y: 2}
 --- !u!1 &6422741524498811210
 GameObject:
   m_ObjectHideFlags: 0

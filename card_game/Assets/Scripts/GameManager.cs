@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour
     public GameObject CardPrefab;
     public GameObject BasicTurretPrefab;
     public InputManager InputManager;
-    
+    public Grid MapGrid;
+    public GridController GridController;
+    public GameObject VisibleGrid;
     public GameManager Instance
     {
         get
@@ -40,9 +42,9 @@ public class GameManager : MonoBehaviour
         }
         HandSize = HandPositions.Count;
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Basic2"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Basic2"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
         for (var i = 0; i < HandSize; i++)
         {
@@ -76,16 +78,7 @@ public class GameManager : MonoBehaviour
 
     public void CardClick(int HandIndex)
     {
-        Debug.Log("Current Card: " + CurrentCardSelected.ToString() + " Hand index: " + HandIndex.ToString());
-        CardPlayingMode = CurrentCardSelected != HandIndex;
-        if (CardPlayingMode)
-        {
-            CurrentCardSelected = HandIndex;
-        }
-        else
-        {
-            CurrentCardSelected = -1;
-        }
+        SetCardPlayingMode(CurrentCardSelected != HandIndex, HandIndex);
     }
 
     private void OnTap(object sender, TapEventArgs args)
@@ -93,10 +86,23 @@ public class GameManager : MonoBehaviour
         if (CardPlayingMode)
         {
             var touchPosition = args.Position;
+            GridController.InstantiateObject(Hand[CurrentCardSelected].SpawnedObject, touchPosition);
+            SetCardPlayingMode(false);
+        }
+    }
 
-            Instantiate(Hand[CurrentCardSelected].SpawnedObject, touchPosition, new Quaternion());
-            CardPlayingMode = false;
+    private void SetCardPlayingMode(bool mode, int handIndex = -1)
+    {
+        CardPlayingMode = mode;
+        if (mode)
+        {
+            CurrentCardSelected = handIndex;
+            VisibleGrid.SetActive(true);
+        }
+        else
+        {
             CurrentCardSelected = -1;
+            VisibleGrid.SetActive(false);
         }
     }
 }

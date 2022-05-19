@@ -17,6 +17,6 @@ public class BasicTowerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Turret.transform.Rotate(new Vector3(0, 0, 1), 1);
+        //Turret.transform.Rotate(new Vector3(0, 0, 1), 1);
     }
 }
