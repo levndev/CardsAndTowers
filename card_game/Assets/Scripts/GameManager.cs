@@ -18,6 +18,14 @@ public class GameManager : MonoBehaviour
     public Grid MapGrid;
     public GridController GridController;
     public GameObject VisibleGrid;
+    public float CurrentEnergy;
+    public float MaxEnergy;
+    public float EnergyGenerationRate;
+    public TMPro.TextMeshProUGUI EnergyText;
+    public UnityEngine.UI.Slider EnergyBar;
+    public float DeckDrawCoolDown;
+    private bool deckDrawTimerEnabled;
+    private float deckDrawTimeRemaining;
     public GameManager Instance
     {
         get
@@ -55,13 +63,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         InputManager.TapRegistered += OnTap;
+        InvokeRepeating("GenerateEnergy", 0, 1);
     }
 
     void Update()
     {
         for (var i = 0; i < HandSize; i++)
         {
-            if (Deck.Count <= 0)
+            if (Deck.Count == 0 || deckDrawTimerEnabled)
                 break;
             if (Hand[i] == null)
             {
@@ -72,8 +81,23 @@ public class GameManager : MonoBehaviour
                 uiCardController.card = card;
                 uiCardController.GameManager = this;
                 uiCardController.HandIndex = i;
+                deckDrawTimerEnabled = true;
+                deckDrawTimeRemaining = DeckDrawCoolDown;
             }
         }
+        if (deckDrawTimerEnabled)
+        {
+            if (deckDrawTimeRemaining > 0)
+            {
+                deckDrawTimeRemaining -= Time.deltaTime;
+            }
+            else
+            {
+                deckDrawTimeRemaining = 0;
+                deckDrawTimerEnabled = false;
+            }
+        }
+        UpdateEnergyDisplay();
     }
 
     public void CardClick(int HandIndex)
@@ -85,8 +109,16 @@ public class GameManager : MonoBehaviour
     {
         if (CardPlayingMode)
         {
-            var touchPosition = args.Position;
-            GridController.InstantiateObject(Hand[CurrentCardSelected].SpawnedObject, touchPosition);
+            var card = Hand[CurrentCardSelected];
+            if (CurrentEnergy >= card.Cost)
+            {
+                CurrentEnergy -= card.Cost;
+                Hand[CurrentCardSelected] = null;
+                var touchPosition = args.Position;
+                GridController.InstantiateObject(card.SpawnedObject, touchPosition);
+                Deck.Enqueue(card);
+                Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
+            }
             SetCardPlayingMode(false);
         }
     }
@@ -104,5 +136,20 @@ public class GameManager : MonoBehaviour
             CurrentCardSelected = -1;
             VisibleGrid.SetActive(false);
         }
+    }
+
+    private void GenerateEnergy()
+    {
+        CurrentEnergy += EnergyGenerationRate;
+        if (CurrentEnergy >= MaxEnergy)
+        {
+            CurrentEnergy = MaxEnergy;
+        }
+    }
+
+    private void UpdateEnergyDisplay()
+    {
+        EnergyText.text = CurrentEnergy.ToString("N0");
+        EnergyBar.value = CurrentEnergy / MaxEnergy;
     }
 }

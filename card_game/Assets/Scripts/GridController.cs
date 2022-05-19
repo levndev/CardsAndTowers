@@ -8,7 +8,7 @@ public class GridController : MonoBehaviour
     public GameObject MapRoot;
     public GameObject[,] map;
     public Vector2Int mapHalfSize;
-    public float CellSize = 1.0f;
+    public float CellSize;
     void Start()
     {
         map = new GameObject[mapHalfSize.x * 2, mapHalfSize.y * 2];
@@ -25,7 +25,7 @@ public class GridController : MonoBehaviour
         //position += new Vector3(-0.5f, 0.5f, 0);
         var size = original.GetComponent<SizeData>().Size;
         var gridPosition = mapHalfSize + (Vector2Int)Grid.WorldToCell(position);
-        Debug.Log(gridPosition);
+        //Debug.Log(gridPosition);
         for (var x = gridPosition.x; x < gridPosition.x + size.x; x++)
         {
             for (var y = gridPosition.y; y < gridPosition.y + size.y; y++)
