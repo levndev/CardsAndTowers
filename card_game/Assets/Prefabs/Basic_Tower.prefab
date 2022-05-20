@@ -83,9 +83,9 @@ MonoBehaviour:
   AttackDamage: 5
   HealthPoints: 0
   FireRate: 1
+  RotationSpeed: 2
+  FireAngleThreshold: 10
   Projectile: {fileID: 8536479881935365702, guid: de56f76dfbdb71b4faf7dfdac89efa75, type: 3}
-  PrefireCoefficient: 1
-  enemiesInRange: []
 --- !u!114 &7033319787590762133
 MonoBehaviour:
   m_ObjectHideFlags: 0

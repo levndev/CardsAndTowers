@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,12 @@ public class BasicTowerController : MonoBehaviour
     public double AttackDamage;
     public double HealthPoints;
     public double FireRate;
+    public float RotationSpeed;
+    public float FireAngleThreshold = 10;
     public Projectile Projectile;
-    public float PrefireCoefficient;
 
     private GameObject turret;
-    public List<BasicEnemy> enemiesInRange = new List<BasicEnemy>();
+    private List<BasicEnemy> enemiesInRange = new List<BasicEnemy>();
     private BasicEnemy target;
     private double fireCooldown;
     private Transform bulletSpawnPoint;
@@ -28,10 +30,12 @@ public class BasicTowerController : MonoBehaviour
     {
         float distance;
         (target, distance) = FindClosestEnemy();
-        if (target != null)
+        if (target == null)
+            return;
+        var prefireDistance = distance * target.Speed / Projectile.Speed;
+        RotateTo(target.transform.position + target.transform.up * prefireDistance, out var canFire);
+        if (canFire)
         {
-            var prefireDistance = PrefireCoefficient * target.Speed * distance / Projectile.Speed;
-            RotateTo(target.transform.position + target.transform.up * prefireDistance);
             if (fireCooldown >= FireRate)
             {
                 LaunchProjectile();
@@ -42,13 +46,17 @@ public class BasicTowerController : MonoBehaviour
         }
     }
 
-    private void RotateTo(Vector3 target)
+    private void RotateTo(Vector3 target, out bool canFire)
     {
-        var offset = 90f;
-        var direction = target - transform.position;
-        direction.Normalize();
-        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(Vector3.forward * (angle - offset));
+        var directionToTraget = target - transform.position;
+        var angleToTarget = Vector3.SignedAngle(transform.up, directionToTraget, Vector3.forward);
+        canFire = Math.Abs(angleToTarget) < FireAngleThreshold;
+        float rotationAngle;
+        if (Math.Abs(angleToTarget) < RotationSpeed)
+            rotationAngle = angleToTarget;
+        else
+            rotationAngle = angleToTarget > 0 ? RotationSpeed : -RotationSpeed;
+        transform.Rotate(Vector3.forward, rotationAngle);
     }
 
     private void LaunchProjectile()
