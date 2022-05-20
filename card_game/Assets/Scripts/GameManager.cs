@@ -15,8 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject CardPrefab;
     public GameObject BasicTurretPrefab;
     public InputManager InputManager;
-    public Grid MapGrid;
-    public GridController GridController;
+    public MapManager MapManager;
     public GameObject VisibleGrid;
     public float CurrentEnergy;
     public float MaxEnergy;
@@ -136,7 +135,7 @@ public class GameManager : MonoBehaviour
                 CurrentEnergy -= card.Cost;
                 Hand[CurrentCardSelected] = null;
                 var touchPosition = args.Position;
-                GridController.InstantiateObject(card.SpawnedObject, touchPosition);
+                MapManager.InstantiateObject(card.SpawnedObject, touchPosition);
                 Deck.Enqueue(card);
                 Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
             }

@@ -48,8 +48,8 @@ public class BasicTowerController : MonoBehaviour
 
     private void RotateTo(Vector3 target, out bool canFire)
     {
-        var directionToTraget = target - transform.position;
-        var angleToTarget = Vector3.SignedAngle(transform.up, directionToTraget, Vector3.forward);
+        var directionToTarget = target - transform.position;
+        var angleToTarget = Vector3.SignedAngle(transform.up, directionToTarget, Vector3.forward);
         canFire = Math.Abs(angleToTarget) < FireAngleThreshold;
         float rotationAngle;
         if (Math.Abs(angleToTarget) < RotationSpeed)
