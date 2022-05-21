@@ -7,8 +7,17 @@
             "actions": [
                 {
                     "name": "Tap",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "33fdaacb-36ff-4043-b0df-9ab6921aeb95",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Camera Move",
+                    "type": "PassThrough",
+                    "id": "e0d6a2f3-70d6-478d-9df4-1ee518272889",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -19,11 +28,22 @@
                 {
                     "name": "",
                     "id": "42486d49-f297-41cf-866c-b1cfd794f86c",
-                    "path": "<Touchscreen>/primaryTouch/position",
+                    "path": "<Touchscreen>/primaryTouch/startPosition",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mobile",
                     "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d467a99-a79d-4f36-afab-7e6eccbb5ab4",
+                    "path": "<Touchscreen>/primaryTouch/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mobile",
+                    "action": "Camera Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

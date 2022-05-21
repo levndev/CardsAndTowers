@@ -7,19 +7,21 @@ public class InputManager : MonoBehaviour
     public GameObject UiCanvas;
 
     public event EventHandler<TapEventArgs> TapRegistered;
+    public event EventHandler<TapEventArgs> TouchMoved;
 
-    private void OnTapRegistered(TapEventArgs e)
-    {
-        TapRegistered?.Invoke(this, e);
-    }
-
-    void OnTap(InputValue value)
+    private void OnTap(InputValue value)
     {
         var position = value.Get<Vector2>();
         if (IsUiElementHit(position))
             return;
         var worldPosition = Camera.main.ScreenToWorldPoint(position);
-        OnTapRegistered(new TapEventArgs(worldPosition));
+        TapRegistered?.Invoke(this, new TapEventArgs { Position = worldPosition });
+    }
+
+    private void OnCameraMove(InputValue value)
+    {
+        var delta = value.Get<Vector2>();
+        TouchMoved?.Invoke(this, new TapEventArgs { Delta = delta });
     }
 
     private bool IsUiElementHit(Vector2 touchPosition)
@@ -37,10 +39,6 @@ public class InputManager : MonoBehaviour
 public class TapEventArgs : EventArgs
 {
     public Vector2 Position { get; set; }
-
-    public TapEventArgs(Vector2 position)
-    {
-        Position = position;
-    }
+    public Vector2 Delta { get; set; }
 }
 
