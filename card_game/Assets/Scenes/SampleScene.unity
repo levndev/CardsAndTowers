@@ -18762,7 +18762,7 @@ MonoBehaviour:
   MapRoot: {fileID: 1143315723}
   mapHalfSize: {x: 50, y: 50}
   CellSize: 1
-  BasePosition: {x: 50, y: 50}
+  BasePosition: {x: 0, y: 0}
 --- !u!1001 &1647789923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19390,6 +19390,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basic_Tower
       objectReference: {fileID: 0}
+    - target: {fileID: 6422741524440096503, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
 --- !u!1001 &913795115766226332
@@ -19421,7 +19425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4045027656832776448, guid: 23a10466ea6792d4abedc65a2924036a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.1651739
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4045027656832776448, guid: 23a10466ea6792d4abedc65a2924036a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19453,7 +19457,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8318288208138923607, guid: 23a10466ea6792d4abedc65a2924036a, type: 3}
       propertyPath: Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23a10466ea6792d4abedc65a2924036a, type: 3}

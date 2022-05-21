@@ -8,15 +8,15 @@ public class MapManager : MonoBehaviour
     public GameObject MapRoot;
     public Vector2Int mapHalfSize;
     public float CellSize;
-    private GameObject[,] map;
-    private Vector2Int?[,] paths;
+    private Map<GameObject> levelMap;
+    private Map<Vector2Int?> paths;
     private Vector2Int[] neighbours = { new Vector2Int(0, -1), new Vector2Int(0, 1), new Vector2Int(-1, 0), new Vector2Int(1, 0) };
     private Vector2Int[] neighboursReversed = { new Vector2Int(1, 0), new Vector2Int(-1, 0), new Vector2Int(0, 1), new Vector2Int(0, -1) };
     public Vector2Int BasePosition;
     void Start()
     {
-        map = new GameObject[mapHalfSize.x * 2, mapHalfSize.y * 2];
-        paths = new Vector2Int?[mapHalfSize.x * 2, mapHalfSize.y * 2];
+        levelMap = new Map<GameObject>(mapHalfSize);
+        paths = new Map<Vector2Int?>(mapHalfSize);
         GeneratePaths(BasePosition);
     }
 
@@ -36,7 +36,7 @@ public class MapManager : MonoBehaviour
         {
             for (var y = mapPosition.y; y < mapPosition.y + size.y; y++)
             {
-                if (map[x, y] != null)
+                if (levelMap.Get(x, y) != null)
                 {
                     return null;
                 }
@@ -49,7 +49,7 @@ public class MapManager : MonoBehaviour
         {
             for (var y = mapPosition.y; y < mapPosition.y + size.y; y++)
             {
-                map[x, y] = obj;
+                levelMap.Set(x, y, obj);
             }
         }
         GeneratePaths(BasePosition);
@@ -59,40 +59,38 @@ public class MapManager : MonoBehaviour
     public Vector3 GetPath(Vector3 start)
     {
         var mapStart = WorldToMap(start);
-        var mapGoal = paths[mapStart.x, mapStart.y];
+        var mapGoal = paths.Get(mapStart.x, mapStart.y);
         return mapGoal.HasValue ? MapToWorld(mapGoal.Value) : start;
     }
 
     public void GeneratePaths(Vector2Int goal)
     {
-        if (goal.x < 0 || goal.y < 0 || goal.x > map.GetLength(0) || goal.y > map.GetLength(1))
-            throw new System.IndexOutOfRangeException();
         var frontier = new Queue<Vector2Int>();
         frontier.Enqueue(goal);
-        var reached = new bool[mapHalfSize.x * 2, mapHalfSize.y * 2];
-        reached[goal.x, goal.y] = true;
+        var reached = new Map<bool>(mapHalfSize);
+        reached.Set(goal, true);
         while (frontier.Count > 0)
         {
             var current = frontier.Dequeue();
             var neighbours = GetNeighbours(current);
             foreach (var next in neighbours)
             {
-                if (!reached[next.x, next.y])
+                if (!reached.Get(next))
                 {
                     frontier.Enqueue(next);
-                    reached[next.x, next.y] = true;
-                    paths[next.x, next.y] = current;
+                    reached.Set(next, true);
+                    paths.Set(next, current);
                 }
             }
         }
-        for (var x = 0; x < mapHalfSize.x * 2; x++)
+        for (var x = -mapHalfSize.x; x < mapHalfSize.x; x++)
         {
-            for (var y = 0; y < mapHalfSize.y * 2; y++)
+            for (var y = -mapHalfSize.y; y < mapHalfSize.y; y++)
             {
-                if (paths[x, y].HasValue)
+                if (paths.Get(x, y).HasValue)
                 {
                     var start = MapToWorld(new Vector2Int(x, y));
-                    var target = MapToWorld(paths[x, y].Value);
+                    var target = MapToWorld(paths.Get(x, y).Value);
                     Debug.DrawLine(start, target, Color.red, 50f);
                 }
             }
@@ -114,11 +112,8 @@ public class MapManager : MonoBehaviour
             {
                 neighbour = position + neighboursReversed[i];
             }
-            if (neighbour.x >= 0 &&
-                neighbour.y >= 0 &&
-                neighbour.x < mapHalfSize.x * 2 &&
-                neighbour.y < mapHalfSize.y * 2 &&
-                map[neighbour.x, neighbour.y] == null)
+            if (levelMap.InBounds(neighbour.x, neighbour.y) &&
+                levelMap.Get(neighbour.x, neighbour.y, false) == null)
             {
                 result.Add(neighbour);
             }
@@ -128,11 +123,11 @@ public class MapManager : MonoBehaviour
 
     private Vector2Int WorldToMap(Vector3 position)
     {
-        return mapHalfSize + (Vector2Int)Grid.WorldToCell(position);
+        return (Vector2Int)Grid.WorldToCell(position);
     }
 
     private Vector3 MapToWorld(Vector2Int position)
     {
-        return Grid.GetCellCenterWorld((Vector3Int)(position - mapHalfSize));
+        return Grid.GetCellCenterWorld((Vector3Int)position);
     }
 }
