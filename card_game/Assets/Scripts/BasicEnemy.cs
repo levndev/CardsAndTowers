@@ -7,9 +7,15 @@ public class BasicEnemy : MonoBehaviour
     public float RotationSpeed;
     public float Speed;
     public float ApproachDistance;
+    public double MaxHealth;
+    public Health Health;
+    public float CurrentSpeed;
+
     private new Rigidbody2D rigidbody;
     private MapManager mapManager;
     private Vector3? goal = null;
+    private Vector3 oldPosition;
+
     private void Awake()
     {
         rigidbody = transform.GetComponent<Rigidbody2D>();
@@ -17,10 +23,15 @@ public class BasicEnemy : MonoBehaviour
 
     private void Start()
     {
+        Health = new Health(MaxHealth);
+        Health.Death += () => Destroy(transform.gameObject);
     }
 
     private void FixedUpdate()
     {
+        CurrentSpeed = (transform.position - oldPosition).magnitude;
+        oldPosition = transform.position;
+
         if (mapManager == null)
         {
             mapManager = GameManager.Instance.MapManager;

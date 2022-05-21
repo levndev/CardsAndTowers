@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class BasicTowerController : MonoBehaviour
 {
-    public double AttackDamage;
     public double HealthPoints;
     public double FireRate;
     public float RotationSpeed;
     public float FireAngleThreshold = 10;
+    public float PrefireCoefficient;
     public Projectile Projectile;
 
     private GameObject turret;
@@ -32,7 +32,7 @@ public class BasicTowerController : MonoBehaviour
         (target, distance) = FindClosestEnemy();
         if (target == null)
             return;
-        var prefireDistance = distance * target.Speed / Projectile.Speed;
+        var prefireDistance = PrefireCoefficient * distance * target.CurrentSpeed / Projectile.Speed;
         RotateTo(target.transform.position + target.transform.up * prefireDistance, out var canFire);
         if (canFire)
         {

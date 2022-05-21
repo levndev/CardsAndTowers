@@ -80,11 +80,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6868c7cc878f845b963285724a7e19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackDamage: 5
   HealthPoints: 0
   FireRate: 1
   RotationSpeed: 2
   FireAngleThreshold: 10
+  PrefireCoefficient: 50
   Projectile: {fileID: 8536479881935365702, guid: de56f76dfbdb71b4faf7dfdac89efa75, type: 3}
 --- !u!114 &7033319787590762133
 MonoBehaviour:
@@ -114,7 +114,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 15
+  m_Radius: 25
 --- !u!50 &1304590226
 Rigidbody2D:
   serializedVersion: 4
