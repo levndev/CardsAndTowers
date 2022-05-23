@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
     private float deckDrawTimeRemaining = 0;
     public UICardController DeckTop;
     public UnityEngine.UI.Slider DrawCooldownBar;
+    public UnityEngine.UI.Button ConfirmBuildingButton;
+    private List<GameObject> BuildingGhosts = new List<GameObject>();
+
     public static GameManager Instance
     {
         get
@@ -70,6 +73,7 @@ public class GameManager : MonoBehaviour
     {
         InputManager.TapRegistered += OnTap;
         InvokeRepeating("GenerateEnergy", 0, 1);
+        ConfirmBuildingButton.onClick.AddListener(OnConfirmBuildingButtonClick);
     }
 
     void Update()
@@ -125,21 +129,48 @@ public class GameManager : MonoBehaviour
         SetCardPlayingMode(CurrentCardSelected != HandIndex, HandIndex);
     }
 
+    //private void OnTap(object sender, TapEventArgs args)
+    //{
+    //    if (CardPlayingMode)
+    //    {
+    //        var card = Hand[CurrentCardSelected];
+
+    //        if (CurrentEnergy >= card.Cost)
+    //        {
+    //            CurrentEnergy -= card.Cost;
+    //            Hand[CurrentCardSelected] = null;
+    //            var touchPosition = args.Position;
+    //            MapManager.InstantiateObject(card.SpawnedObject, touchPosition);
+    //            Deck.Enqueue(card);
+    //            Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
+    //        }
+    //        SetCardPlayingMode(false);
+    //    }
+    //}
+
     private void OnTap(object sender, TapEventArgs args)
     {
         if (CardPlayingMode)
         {
-            var card = Hand[CurrentCardSelected];
-            if (CurrentEnergy >= card.Cost)
+            if(BuildingGhosts.Count > 0)
             {
-                CurrentEnergy -= card.Cost;
-                Hand[CurrentCardSelected] = null;
-                var touchPosition = args.Position;
-                MapManager.InstantiateObject(card.SpawnedObject, touchPosition);
-                Deck.Enqueue(card);
-                Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
+                foreach(var oldGhost in BuildingGhosts)
+                {
+                    Destroy(oldGhost);
+                }
+                BuildingGhosts.Clear();
             }
-            SetCardPlayingMode(false);
+            var card = Hand[CurrentCardSelected];
+            var touchPosition = args.Position;
+            var objectSize = card.SpawnedObject.GetComponent<SizeData>().Size;
+            var buildingPosition = MapManager.MapToWorld(MapManager.WorldToMap(touchPosition)) + new Vector3(objectSize.x / 2 - 0.5f, objectSize.y / 2 - 0.5f, 0);
+            if (MapManager.IsValidPlacement(touchPosition, objectSize))
+            {
+                var ghost = Instantiate(card.SpawnedObject, buildingPosition, new Quaternion());
+                ghost.GetComponent<GhostMode>().Enable();
+                BuildingGhosts.Add(ghost);
+                ConfirmBuildingButton.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -155,7 +186,33 @@ public class GameManager : MonoBehaviour
         {
             CurrentCardSelected = -1;
             VisibleGrid.SetActive(false);
+            ConfirmBuildingButton.gameObject.SetActive(false);
         }
+    }
+
+    private void OnConfirmBuildingButtonClick()
+    {
+        for (var i = BuildingGhosts.Count - 1; i >= 0; i--)
+        {
+            var ghost = BuildingGhosts[i];
+            var card = Hand[CurrentCardSelected];
+
+
+            if (CurrentEnergy >= card.Cost)
+            {
+                CurrentEnergy -= card.Cost;
+                Hand[CurrentCardSelected] = null;
+                // var touchPosition = args.Position;
+                var ghostSize = ghost.GetComponent<SizeData>().Size;
+                MapManager.InstantiateObject(card.SpawnedObject, ghost.transform.position - new Vector3(ghostSize.x / 2 - 0.5f, ghostSize.y / 2 - 0.5f, 0));
+                Deck.Enqueue(card);
+                Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
+                Destroy(ghost);
+                BuildingGhosts.RemoveAt(i);
+            }
+            SetCardPlayingMode(false);
+        }
+
     }
 
     private void GenerateEnergy()

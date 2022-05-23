@@ -17,7 +17,7 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         levelMap = new Map<GameObject>(mapHalfSize);
-        paths = new Map<Vector2Int?>(mapHalfSize);
+        
         for (var i = 0; i < MapRoot.transform.childCount; i++)
         {
             var child = MapRoot.transform.GetChild(i);
@@ -79,6 +79,7 @@ public class MapManager : MonoBehaviour
 
     public void GeneratePaths(Vector2Int goal)
     {
+        paths = new Map<Vector2Int?>(mapHalfSize);
         var frontier = new Queue<Vector2Int>();
         frontier.Enqueue(goal);
         var reached = new Map<bool>(mapHalfSize);
@@ -166,12 +167,28 @@ public class MapManager : MonoBehaviour
         return result;
     }
 
-    private Vector2Int WorldToMap(Vector3 position)
+    public bool IsValidPlacement(Vector3 position, Vector2Int size)
+    {
+        var mapPosition = WorldToMap(position);
+        for (var x = mapPosition.x; x < mapPosition.x + size.x; x++)
+        {
+            for (var y = mapPosition.y; y < mapPosition.y + size.y; y++)
+            {
+                if (levelMap.Get(x, y) != null)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public Vector2Int WorldToMap(Vector3 position)
     {
         return (Vector2Int)Grid.WorldToCell(position);
     }
 
-    private Vector3 MapToWorld(Vector2Int position)
+    public Vector3 MapToWorld(Vector2Int position)
     {
         return Grid.GetCellCenterWorld((Vector3Int)position);
     }

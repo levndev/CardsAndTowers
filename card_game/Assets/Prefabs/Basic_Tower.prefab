@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 7033319787590762133}
   - component: {fileID: 4859068919420126340}
   - component: {fileID: 1304590226}
+  - component: {fileID: -7952511115113213228}
   m_Layer: 0
   m_Name: Basic_Tower
   m_TagString: Untagged
@@ -136,6 +137,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-7952511115113213228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6422741524440096503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8762e1d46cfb2bf40b337108b4851aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderers:
+  - {fileID: 6422741524558562277}
+  - {fileID: 6422741524498811212}
+  disabledBehaviours:
+  - {fileID: 6422741524440096457}
+  - {fileID: 4859068919420126340}
 --- !u!1 &6422741524498811210
 GameObject:
   m_ObjectHideFlags: 0
