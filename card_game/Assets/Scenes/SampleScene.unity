@@ -880,7 +880,7 @@ MonoBehaviour:
   DrawCooldownBar: {fileID: 1648211557}
   ConfirmBuildingButton: {fileID: 1236059791}
   cameraTarget: {fileID: 943189375}
-  DragCoefficient: {x: 2, y: 2}
+  DragCoefficient: {x: 0, y: 0}
 --- !u!4 &848346995
 Transform:
   m_ObjectHideFlags: 0
@@ -9507,7 +9507,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7786666, y: 1}
+    m_SensorSize: {x: 2.1666667, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

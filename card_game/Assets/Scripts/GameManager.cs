@@ -135,19 +135,16 @@ public class GameManager : MonoBehaviour
 
     private void OnDrag(object sender, TapEventArgs args)
     {
-        Debug.Log(args.Delta);
         if (CardPlayingMode)
         {
             var delta = args.Delta;
             var resolution = Screen.currentResolution;
             var orthoSize = 10 * 2;
-            var aspectRatio = resolution.width / resolution.height;
+            var aspectRatio = resolution.width / (float)resolution.height;
             var horizontalOrthoSize = orthoSize * aspectRatio;
             delta = new Vector2(delta.x / resolution.width, delta.y / resolution.height);
             delta = new Vector2(delta.x * horizontalOrthoSize, delta.y * orthoSize);
             dragDeltaAcc += delta;
-            //dragDeltaAcc += new Vector2(args.Delta.x*10 /2340, args.Delta.y*10 /1080);
-            //Debug.Log(dragDeltaAcc);
             foreach (var ghost in BuildingGhosts)
             {
 
@@ -158,17 +155,14 @@ public class GameManager : MonoBehaviour
                     var anchor = ghost.transform.position + new Vector3(dragDeltaAcc.x - size.x / 2 + 0.5f, dragDeltaAcc.y - size.y / 2 + 0.5f, 0);
                     ghost.transform.position = MapManager.GetBuildingCenter(anchor, ghost.GetComponent<SizeData>().Size);
                     if (Math.Abs(ghost.transform.position.x - lastPosition.x) > 0)
-                        dragDeltaAcc.x = 0;
+                        dragDeltaAcc.x -= ghost.transform.position.x - lastPosition.x;
                     if (Math.Abs(ghost.transform.position.y - lastPosition.y) > 0)
-                        dragDeltaAcc.y = 0;
-
+                        dragDeltaAcc.y -= ghost.transform.position.y - lastPosition.y;
                     if (MapManager.IsValidPlacement(anchor, size))
                         ghost.GetComponent<GhostMode>().SetState(GhostMode.States.ViablePosition);
                     else
                         ghost.GetComponent<GhostMode>().SetState(GhostMode.States.WrongPosition);
                 }
-
-
             }
         }
     }
@@ -177,7 +171,6 @@ public class GameManager : MonoBehaviour
     private void OnTap(object sender, TapEventArgs args)
     {
         
-        //Debug.Log(args.Position);
         if (CardPlayingMode)
         {
             if (BuildingGhosts.Count > 0)
@@ -198,6 +191,7 @@ public class GameManager : MonoBehaviour
                 ghost.GetComponent<GhostMode>().Enable();
                 BuildingGhosts.Add(ghost);
                 ConfirmBuildingButton.gameObject.SetActive(true);
+                dragDeltaAcc = new Vector2();
             }
         }
     }
