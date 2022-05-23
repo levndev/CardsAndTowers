@@ -17,8 +17,7 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         levelMap = new Map<GameObject>(mapHalfSize);
-        
-        for (var i = 0; i < MapRoot.transform.childCount; i++)
+        paths = new Map<Vector2Int?>(mapHalfSize);        for (var i = 0; i < MapRoot.transform.childCount; i++)
         {
             var child = MapRoot.transform.GetChild(i);
             var size = child.GetComponent<SizeData>().Size;
@@ -44,7 +43,7 @@ public class MapManager : MonoBehaviour
     {
         //position += new Vector3(-0.5f, 0.5f, 0);
         var size = original.GetComponent<SizeData>().Size;
-        var mapPosition = WorldToMap(position);
+        var mapPosition = GetBuildingAnchor(position, size);
         //Debug.Log(gridPosition);
         for (var x = mapPosition.x; x < mapPosition.x + size.x; x++)
         {
@@ -108,7 +107,7 @@ public class MapManager : MonoBehaviour
                 {
                     var start = MapToWorld(new Vector2Int(x, y));
                     var target = MapToWorld(paths.Get(x, y).Value);
-                    Debug.DrawLine(start, target, Color.red, 50f);
+                    Debug.DrawLine(start, target, Color.red, 10f);
                 }
             }
         }
@@ -165,6 +164,16 @@ public class MapManager : MonoBehaviour
             }
         }
         return result;
+    }
+
+    public Vector2Int GetBuildingAnchor(Vector3 position, Vector2Int size)
+    {
+        return WorldToMap(position - new Vector3(size.x / 2 - 0.5f, size.y / 2 - 0.5f, 0));
+    }
+
+    public Vector3 GetBuildingCenter(Vector3 position, Vector2Int size)
+    {
+        return MapToWorld(WorldToMap(position)) + new Vector3(size.x / 2 - 0.5f, size.y / 2 - 0.5f, 0);
     }
 
     public bool IsValidPlacement(Vector3 position, Vector2Int size)

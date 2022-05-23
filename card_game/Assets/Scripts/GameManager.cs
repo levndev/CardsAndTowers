@@ -162,11 +162,11 @@ public class GameManager : MonoBehaviour
             }
             var card = Hand[CurrentCardSelected];
             var touchPosition = args.Position;
-            var objectSize = card.SpawnedObject.GetComponent<SizeData>().Size;
-            var buildingPosition = MapManager.MapToWorld(MapManager.WorldToMap(touchPosition)) + new Vector3(objectSize.x / 2 - 0.5f, objectSize.y / 2 - 0.5f, 0);
-            if (MapManager.IsValidPlacement(touchPosition, objectSize))
+            var buildingSize = card.SpawnedObject.GetComponent<SizeData>().Size;
+            if (MapManager.IsValidPlacement(touchPosition, buildingSize))
             {
-                var ghost = Instantiate(card.SpawnedObject, buildingPosition, new Quaternion());
+                var ghostPosition = MapManager.GetBuildingCenter(touchPosition, buildingSize);
+                var ghost = Instantiate(card.SpawnedObject, ghostPosition, new Quaternion());
                 ghost.GetComponent<GhostMode>().Enable();
                 BuildingGhosts.Add(ghost);
                 ConfirmBuildingButton.gameObject.SetActive(true);
@@ -196,15 +196,11 @@ public class GameManager : MonoBehaviour
         {
             var ghost = BuildingGhosts[i];
             var card = Hand[CurrentCardSelected];
-
-
             if (CurrentEnergy >= card.Cost)
             {
                 CurrentEnergy -= card.Cost;
                 Hand[CurrentCardSelected] = null;
-                // var touchPosition = args.Position;
-                var ghostSize = ghost.GetComponent<SizeData>().Size;
-                MapManager.InstantiateObject(card.SpawnedObject, ghost.transform.position - new Vector3(ghostSize.x / 2 - 0.5f, ghostSize.y / 2 - 0.5f, 0));
+                MapManager.InstantiateObject(card.SpawnedObject, ghost.transform.position);
                 Deck.Enqueue(card);
                 Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
                 Destroy(ghost);
@@ -212,7 +208,6 @@ public class GameManager : MonoBehaviour
             }
             SetCardPlayingMode(false);
         }
-
     }
 
     private void GenerateEnergy()
