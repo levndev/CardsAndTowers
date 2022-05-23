@@ -7,16 +7,30 @@ public class MapManager : MonoBehaviour
     public Grid Grid;
     public GameObject MapRoot;
     public Vector2Int mapHalfSize;
-    public float CellSize;
     private Map<GameObject> levelMap;
     private Map<Vector2Int?> paths;
-    private Vector2Int[] neighbours = { new Vector2Int(0, -1), new Vector2Int(0, 1), new Vector2Int(-1, 0), new Vector2Int(1, 0) };
-    private Vector2Int[] neighboursReversed = { new Vector2Int(1, 0), new Vector2Int(-1, 0), new Vector2Int(0, 1), new Vector2Int(0, -1) };
+    private Vector2Int[] neighbours = { new Vector2Int(0, -1), new Vector2Int(0, 1), new Vector2Int(-1, 0), new Vector2Int(1, 0),
+                                        new Vector2Int(1, -1), new Vector2Int(-1, -1), new Vector2Int(-1, 1), new Vector2Int(1, 1) };
+    private Vector2Int[] neighboursReversed = { new Vector2Int(1, 0), new Vector2Int(-1, 0), new Vector2Int(0, 1), new Vector2Int(0, -1),
+                                                new Vector2Int(1, 1), new Vector2Int(-1, 1), new Vector2Int(-1, -1), new Vector2Int(1, -1) };
     public Vector2Int BasePosition;
     void Start()
     {
         levelMap = new Map<GameObject>(mapHalfSize);
         paths = new Map<Vector2Int?>(mapHalfSize);
+        for (var i = 0; i < MapRoot.transform.childCount; i++)
+        {
+            var child = MapRoot.transform.GetChild(i);
+            var size = child.GetComponent<SizeData>().Size;
+            var mapPosition = WorldToMap(child.transform.position - new Vector3(size.x / 2.0f - 0.5f, size.y / 2.0f - 0.5f, 0));
+            for (var x = mapPosition.x; x < mapPosition.x + size.x; x++)
+            {
+                for (var y = mapPosition.y; y < mapPosition.y + size.y; y++)
+                {
+                    levelMap.Set(x, y, child.gameObject);
+                }
+            }
+        }
         GeneratePaths(BasePosition);
     }
 
@@ -69,6 +83,7 @@ public class MapManager : MonoBehaviour
         frontier.Enqueue(goal);
         var reached = new Map<bool>(mapHalfSize);
         reached.Set(goal, true);
+        paths.Set(goal, null);
         while (frontier.Count > 0)
         {
             var current = frontier.Dequeue();
@@ -83,6 +98,7 @@ public class MapManager : MonoBehaviour
                 }
             }
         }
+        //SmoothePaths(goal);
         for (var x = -mapHalfSize.x; x < mapHalfSize.x; x++)
         {
             for (var y = -mapHalfSize.y; y < mapHalfSize.y; y++)
@@ -97,21 +113,50 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    private void SmoothePaths(Vector2Int goal)
+    {
+        var goalWorld = MapToWorld(goal);
+        for (var x = -mapHalfSize.x; x < mapHalfSize.x; x++)
+        {
+            for (var y = -mapHalfSize.y; y < mapHalfSize.y; y++)
+            {
+                var node = new Vector2Int(x, y);
+                var nodeWorld = MapToWorld(node);
+                if (levelMap.Get(node, false) == null)
+                {
+                    var heading = goalWorld - nodeWorld;
+                    var distance = heading.magnitude;
+                    var direction = heading / distance;
+                    var hit = Physics2D.Raycast(node, direction, distance, LayerMask.GetMask("Towers", "Walls"));
+                    if (hit.collider != null)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        paths.Set(node, goal);
+                    }
+                }
+            }
+        }
+    }
+
     private List<Vector2Int> GetNeighbours(Vector2Int position)
     {
         var result = new List<Vector2Int>();
         var id = (position.x + position.y) % 2;
-        for(var i = 0; i < 4; i++)
+        for(var i = 0; i < neighbours.Length; i++)
         {
             Vector2Int neighbour;
-            if (id == 0)
-            {
-                neighbour = position + neighbours[i];
-            }
-            else
-            {
-                neighbour = position + neighboursReversed[i];
-            }
+            neighbour = position + neighbours[i];
+            //if (id == 0)
+            //{
+            //    neighbour = position + neighbours[i];
+            //}
+            //else
+            //{
+            //    neighbour = position + neighboursReversed[i];
+            //}
             if (levelMap.InBounds(neighbour.x, neighbour.y) &&
                 levelMap.Get(neighbour.x, neighbour.y, false) == null)
             {
