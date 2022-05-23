@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
     public UnityEngine.UI.Slider DrawCooldownBar;
     public UnityEngine.UI.Button ConfirmBuildingButton;
     private List<GameObject> BuildingGhosts = new List<GameObject>();
+    public CameraTarget cameraTarget;
+    private Vector2 dragDeltaAcc;
+    public Vector2 DragCoefficient;
 
     public static GameManager Instance
     {
@@ -72,6 +75,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         InputManager.TapRegistered += OnTap;
+        InputManager.TouchMoved += OnDrag;
         InvokeRepeating("GenerateEnergy", 0, 1);
         ConfirmBuildingButton.onClick.AddListener(OnConfirmBuildingButtonClick);
     }
@@ -129,32 +133,56 @@ public class GameManager : MonoBehaviour
         SetCardPlayingMode(CurrentCardSelected != HandIndex, HandIndex);
     }
 
-    //private void OnTap(object sender, TapEventArgs args)
-    //{
-    //    if (CardPlayingMode)
-    //    {
-    //        var card = Hand[CurrentCardSelected];
+    private void OnDrag(object sender, TapEventArgs args)
+    {
+        Debug.Log(args.Delta);
+        if (CardPlayingMode)
+        {
+            var delta = args.Delta;
+            var resolution = Screen.currentResolution;
+            var orthoSize = 10 * 2;
+            var aspectRatio = resolution.width / resolution.height;
+            var horizontalOrthoSize = orthoSize * aspectRatio;
+            delta = new Vector2(delta.x / resolution.width, delta.y / resolution.height);
+            delta = new Vector2(delta.x * horizontalOrthoSize, delta.y * orthoSize);
+            dragDeltaAcc += delta;
+            //dragDeltaAcc += new Vector2(args.Delta.x*10 /2340, args.Delta.y*10 /1080);
+            //Debug.Log(dragDeltaAcc);
+            foreach (var ghost in BuildingGhosts)
+            {
 
-    //        if (CurrentEnergy >= card.Cost)
-    //        {
-    //            CurrentEnergy -= card.Cost;
-    //            Hand[CurrentCardSelected] = null;
-    //            var touchPosition = args.Position;
-    //            MapManager.InstantiateObject(card.SpawnedObject, touchPosition);
-    //            Deck.Enqueue(card);
-    //            Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
-    //        }
-    //        SetCardPlayingMode(false);
-    //    }
-    //}
+                if (dragDeltaAcc.magnitude > 1f)
+                {
+                    var lastPosition = ghost.transform.position;
+                    var size = ghost.GetComponent<SizeData>().Size;
+                    var anchor = ghost.transform.position + new Vector3(dragDeltaAcc.x - size.x / 2 + 0.5f, dragDeltaAcc.y - size.y / 2 + 0.5f, 0);
+                    ghost.transform.position = MapManager.GetBuildingCenter(anchor, ghost.GetComponent<SizeData>().Size);
+                    if (Math.Abs(ghost.transform.position.x - lastPosition.x) > 0)
+                        dragDeltaAcc.x = 0;
+                    if (Math.Abs(ghost.transform.position.y - lastPosition.y) > 0)
+                        dragDeltaAcc.y = 0;
+
+                    if (MapManager.IsValidPlacement(anchor, size))
+                        ghost.GetComponent<GhostMode>().SetState(GhostMode.States.ViablePosition);
+                    else
+                        ghost.GetComponent<GhostMode>().SetState(GhostMode.States.WrongPosition);
+                }
+
+
+            }
+        }
+    }
+
 
     private void OnTap(object sender, TapEventArgs args)
     {
+        
+        //Debug.Log(args.Position);
         if (CardPlayingMode)
         {
-            if(BuildingGhosts.Count > 0)
+            if (BuildingGhosts.Count > 0)
             {
-                foreach(var oldGhost in BuildingGhosts)
+                foreach (var oldGhost in BuildingGhosts)
                 {
                     Destroy(oldGhost);
                 }
@@ -177,6 +205,7 @@ public class GameManager : MonoBehaviour
     private void SetCardPlayingMode(bool mode, int handIndex = -1)
     {
         CardPlayingMode = mode;
+        cameraTarget.Enabled = !mode;
         if (mode)
         {
             CurrentCardSelected = handIndex;
@@ -187,6 +216,11 @@ public class GameManager : MonoBehaviour
             CurrentCardSelected = -1;
             VisibleGrid.SetActive(false);
             ConfirmBuildingButton.gameObject.SetActive(false);
+            foreach (var ghost in BuildingGhosts)
+            {
+                Destroy(ghost);
+            }
+            BuildingGhosts.Clear();
         }
     }
 
@@ -224,4 +258,6 @@ public class GameManager : MonoBehaviour
         EnergyText.text = CurrentEnergy.ToString("N0");
         EnergyBar.value = CurrentEnergy / MaxEnergy;
     }
+
+
 }
