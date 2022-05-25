@@ -12,6 +12,7 @@ public class UICardController : MonoBehaviour
     public int HandIndex;
     public Button Button;
     public GameManager GameManager;
+    public bool InHand;
     void Awake()
     {
         //costText = transform.Find("CostText").GetComponent<TextMeshProUGUI>();
@@ -21,17 +22,22 @@ public class UICardController : MonoBehaviour
 
     void Start()
     {
-        if (GameManager == null)
-        {
-            GameManager = GameManager.Instance;
-        }
+        
         Button.onClick.AddListener(OnClick);
         SetFromCard(card);
     }
 
     public void OnClick()
     {
-        GameManager.CardClick(HandIndex);
+        if(InHand)
+        {
+            if (GameManager == null)
+            {
+                GameManager = GameManager.Instance;
+            }
+            GameManager.CardClick(HandIndex);
+
+        }
     }
 
     public void SetFromCard(Card card)

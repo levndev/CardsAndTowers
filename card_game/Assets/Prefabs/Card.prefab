@@ -144,6 +144,7 @@ MonoBehaviour:
   HandIndex: 0
   Button: {fileID: 7804967601000818021}
   GameManager: {fileID: 0}
+  InHand: 1
 --- !u!1 &485424553953543629
 GameObject:
   m_ObjectHideFlags: 0
