@@ -7,49 +7,58 @@ using UnityEngine.UIElements;
 public class CollectionScreen : MenuScreen
 {
     public UnityEngine.UI.Button TestButton;
-    public GameObject CardSlotPrefab;
     public Card[] AllCards;
-    //public ScrollView CardsScrollView;
-    public GameObject ScrollViewContent;
+    public Deck CurrentDeck;
+
+    public GameObject CardsViewport;
+    public GameObject CardsScrollViewContent;
+
+    public GameObject DeckViewport;
+    public GameObject DeckScrollViewContent;
+
     public List<GameObject> CardSlots = new List<GameObject>();
-    public GameObject CardPrefab;
-    public GameObject ContentLayout;
+    public GameObject CollectionCardPrefab;
+    public GameObject CollectionCardSlotPrefab;
+
+    public List<GameObject> DeckCardSlots = new List<GameObject>();
+    public GameObject DeckCardPrefab;
+    public GameObject DeckCardSlotPrefab;
     private int CardsInRow = 5;
+    private int verticalSpacing = 100;
 
     void Start()
     {
         TestButton.onClick.AddListener(onTestButtonClick);
         AllCards = Resources.LoadAll<Card>("Cards");
 
+        CurrentDeck = new Deck();
+
         for (var i = 0; i < AllCards.Length / CardsInRow + 1; i++)
         {
             for(var j = 0; j < CardsInRow+1; j++)
             {
-                var cardSlot = Instantiate(CardSlotPrefab);
-                //cardSlot.transform.SetParent((Transform)CardsScrollView.contentContainer.transform);
-                cardSlot.transform.SetParent(ScrollViewContent.transform);
+                var cardSlot = Instantiate(CollectionCardSlotPrefab);
+                cardSlot.transform.SetParent(CardsScrollViewContent.transform);
                 CardSlots.Add(cardSlot);
                 cardSlot.transform.localScale = Vector2.one;
-                //float d = 10;//длина промежутка между картами в горизонтали
-                //float j = 10; //длина промежутка между слотами в вертикали
-                //var cardSize = cardSlot.GetComponent<RectTransform>();
-                //cardSlot.transform.localPosition.Set()
-                //cardSlot.transform
-
             }
-
         }
-        var gridLayout = ContentLayout.GetComponent<GridLayoutGroup>();
+        var viewportRectTransform = CardsViewport.GetComponent<RectTransform>();
+        var viewportHeight = viewportRectTransform.rect.height;
+        var viewportWidth = viewportRectTransform.rect.width;
 
-        gridLayout.spacing.Set((2000 - 5 * 291) / 6, (2000 - 5 * 239) / 5); // 5 карт по 291 по x = 6 spaces ,  РАНДОМНОЕ число по y 
+        var gridLayout = CardsScrollViewContent.GetComponent<GridLayoutGroup>();
+        gridLayout.spacing.Set((viewportHeight - 5 * 291) / 6, verticalSpacing); // 5 cards with 291 width  x = 6 spaces ,  РАНДОМНОЕ число по y 
 
         for (var i = 0; i < AllCards.Length; i++)
         {
             var card = AllCards[i];
 
-            var uiCard = Instantiate(CardPrefab, CardSlots[i].transform);
+            var uiCard = Instantiate(CollectionCardPrefab, CardSlots[i].transform);
             var uiCardController = uiCard.GetComponent<UICardController>();
-            uiCardController.InHand = false;
+            uiCardController.CurrentCardState = UICardController.CardState.inCollection;
+            uiCardController.collectionScreen = this;
+            uiCardController.deck = CurrentDeck;
             uiCardController.SetFromCard(card);
         }
 
@@ -66,5 +75,17 @@ public class CollectionScreen : MenuScreen
         Debug.Log("Nice Test!");
     }
 
+    public void onCardAddedToDeck(Card card)
+    {
+        var deckCardSlot = Instantiate(DeckCardSlotPrefab);
+        deckCardSlot.transform.SetParent(DeckScrollViewContent.transform);
+        DeckCardSlots.Add(deckCardSlot);
+        deckCardSlot.transform.localScale = Vector2.one;
 
+        var uiDeckCard = Instantiate(DeckCardPrefab, deckCardSlot.transform);
+        var uiCardController = uiDeckCard.GetComponent<UICardController>();
+        uiCardController.CurrentCardState = UICardController.CardState.inDeck;
+        uiCardController.deck = CurrentDeck;
+        uiCardController.SetFromCard(card);
+    }
 }

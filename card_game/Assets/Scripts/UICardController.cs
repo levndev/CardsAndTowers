@@ -12,7 +12,16 @@ public class UICardController : MonoBehaviour
     public int HandIndex;
     public Button Button;
     public GameManager GameManager;
-    public bool InHand;
+    public Deck deck;
+    public CardState CurrentCardState;
+    public CollectionScreen collectionScreen;
+    public enum CardState
+    {
+        inHand = 0,
+        inCollection = 1,
+        inDeck = 2,
+    };
+
     void Awake()
     {
         //costText = transform.Find("CostText").GetComponent<TextMeshProUGUI>();
@@ -24,20 +33,39 @@ public class UICardController : MonoBehaviour
     {
         
         Button.onClick.AddListener(OnClick);
-        SetFromCard(card);
+        //SetFromCard(card);
     }
 
     public void OnClick()
     {
-        if(InHand)
+        if (CurrentCardState == CardState.inHand)
         {
             if (GameManager == null)
             {
                 GameManager = GameManager.Instance;
             }
             GameManager.CardClick(HandIndex);
-
         }
+        if(CurrentCardState == CardState.inCollection)
+        {
+            if(deck == null)
+            {
+                Debug.Log("no deck attached to card");
+            }
+            else
+            {
+                if (deck.CanAddToDeck(card))
+                {
+                    deck.AddToList(card);
+                    collectionScreen.onCardAddedToDeck(card);
+                }
+            }
+        }
+    }
+
+    public void onHold()
+    {
+
     }
 
     public void SetFromCard(Card card)
