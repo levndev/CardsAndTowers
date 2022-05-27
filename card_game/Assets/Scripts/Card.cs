@@ -9,11 +9,18 @@ public class Card : ScriptableObject
     public string Name;
     public Sprite Art;
     public GameObject SpawnedObject;
+    
 
     public Card(int Cost, string Name, Sprite Art)
     {
         this.Cost = Cost;
         this.Name = Name;
         this.Art = Art;
+    }
+
+    public static Card LoadfromFile(string filename)
+    {
+        var card = Resources.Load<Card>("Cards/" + filename);
+        return card;
     }
 }

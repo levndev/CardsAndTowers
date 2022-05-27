@@ -46,21 +46,28 @@ public class UICardController : MonoBehaviour
             }
             GameManager.CardClick(HandIndex);
         }
-        if(CurrentCardState == CardState.inCollection)
+        if(CurrentCardState == CardState.inCollection || CurrentCardState == CardState.inDeck)
         {
-            if(deck == null)
-            {
-                Debug.Log("no deck attached to card");
-            }
-            else
-            {
-                if (deck.CanAddToDeck(card))
-                {
-                    deck.AddToList(card);
-                    collectionScreen.onCardAddedToDeck(card);
-                }
-            }
+            //if(deck == null)
+            //{
+            //    Debug.Log("no deck attached to card");
+            //}
+            //else
+            //{
+            //    if (deck.CanAddToDeck(card))
+            //    {
+            //        deck.AddToList(card);
+            //        collectionScreen.onCardAddedToDeck(card);
+            //    }
+            //}
+            collectionScreen.onCardClick(this);
         }
+        //if(CurrentCardState == CardState.inDeck)
+        //{
+        //    deck.RemoveFromDeck(card);
+
+
+        //}
     }
 
     public void onHold()

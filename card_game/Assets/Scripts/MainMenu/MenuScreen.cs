@@ -25,8 +25,8 @@ public class MenuScreen : MonoBehaviour
         {
             BackButton.gameObject.SetActive(false);
         }
-        gameObject.SetActive(false);
         onScreenLeave();
+        gameObject.SetActive(false);
     }
 
     public virtual void onScreenEnter()

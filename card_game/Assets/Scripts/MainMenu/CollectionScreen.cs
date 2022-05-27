@@ -9,6 +9,7 @@ public class CollectionScreen : MenuScreen
     public UnityEngine.UI.Button TestButton;
     public Card[] AllCards;
     public Deck CurrentDeck;
+    public List<UICardController> DeckUICards = new List<UICardController>();
 
     public GameObject CardsViewport;
     public GameObject CardsScrollViewContent;
@@ -31,11 +32,14 @@ public class CollectionScreen : MenuScreen
         TestButton.onClick.AddListener(onTestButtonClick);
         AllCards = Resources.LoadAll<Card>("Cards");
 
-        CurrentDeck = new Deck();
+        if(CurrentDeck== null)
+        {
+            CurrentDeck = new Deck();
+        } 
 
         for (var i = 0; i < AllCards.Length / CardsInRow + 1; i++)
         {
-            for(var j = 0; j < CardsInRow+1; j++)
+            for (var j = 0; j < CardsInRow + 1; j++)
             {
                 var cardSlot = Instantiate(CollectionCardSlotPrefab);
                 cardSlot.transform.SetParent(CardsScrollViewContent.transform);
@@ -75,7 +79,7 @@ public class CollectionScreen : MenuScreen
         Debug.Log("Nice Test!");
     }
 
-    public void onCardAddedToDeck(Card card)
+    public void AddCardToDeckUI(Card card)
     {
         var deckCardSlot = Instantiate(DeckCardSlotPrefab);
         deckCardSlot.transform.SetParent(DeckScrollViewContent.transform);
@@ -84,8 +88,57 @@ public class CollectionScreen : MenuScreen
 
         var uiDeckCard = Instantiate(DeckCardPrefab, deckCardSlot.transform);
         var uiCardController = uiDeckCard.GetComponent<UICardController>();
+        DeckUICards.Add(uiCardController);
         uiCardController.CurrentCardState = UICardController.CardState.inDeck;
         uiCardController.deck = CurrentDeck;
+        uiCardController.collectionScreen = this;
         uiCardController.SetFromCard(card);
+    }
+
+    public void onCardClick(UICardController sender)
+    {
+        if (sender.CurrentCardState == UICardController.CardState.inCollection)
+        {
+            if (CurrentDeck.CanAddToDeck(sender.card))
+            {
+                CurrentDeck.AddToList(sender.card);
+                AddCardToDeckUI(sender.card);
+            }
+        }
+        if (sender.CurrentCardState == UICardController.CardState.inDeck)
+        {
+            CurrentDeck.RemoveFromDeck(sender.card);
+            RemoveCardFromDeckUI(sender);
+        }
+    }
+
+    public void RemoveCardFromDeckUI(UICardController card)
+    {
+        DeckUICards.Remove(card);
+        Destroy(card.transform.parent.gameObject);
+    }
+
+    public override void onScreenEnter()
+    {
+        var deck = Deck.LoadFromFile("deck1");
+        if (deck != null)
+        {
+            for(var i = DeckUICards.Count-1; i >= 0; i--)
+            {
+                RemoveCardFromDeckUI(DeckUICards[i]);
+            }
+
+            CurrentDeck = deck;
+            foreach (var card in CurrentDeck.GetDeckList())
+            {
+                AddCardToDeckUI(card);
+            }
+        }
+    }
+
+    public override void onScreenLeave()
+    {
+        CurrentDeck.Name = "deck1";
+        Deck.SaveDeck(CurrentDeck);
     }
 }
