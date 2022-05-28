@@ -9,12 +9,11 @@ public class BasicEnemy : MonoBehaviour
     public float ApproachDistance;
     public double MaxHealth;
     public Health Health;
-    public float CurrentSpeed;
+    public Vector2 Movement;
 
     private new Rigidbody2D rigidbody;
     private MapManager mapManager;
     private Vector3? goal = null;
-    private Vector3 oldPosition;
 
     private void Awake()
     {
@@ -29,9 +28,6 @@ public class BasicEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CurrentSpeed = (transform.position - oldPosition).magnitude;
-        oldPosition = transform.position;
-
         if (mapManager == null)
         {
             mapManager = GameManager.Instance.MapManager;
@@ -43,9 +39,12 @@ public class BasicEnemy : MonoBehaviour
             var direction = heading / distance;
             if (distance < ApproachDistance)
             {
-                goal = null;
+                goal = mapManager.GetPath(transform.position);
+                if (((Vector3)goal - transform.position).magnitude < 0.01f)
+                    Movement = Vector2.zero;
                 return;
             }
+            Movement = Speed * Time.fixedDeltaTime * direction;
             var angleToTarget = Vector3.SignedAngle(transform.up, direction, Vector3.forward);
             float rotationAngle;
             if (Mathf.Abs(angleToTarget) < RotationSpeed)

@@ -10,7 +10,6 @@ public class BasicTowerController : MonoBehaviour
     public double HealthPoints;
     public double FireRate;
     public float RotationSpeed;
-    public float FireAngleThreshold = 10;
     public float PrefireCoefficient;
     public Projectile Projectile;
 
@@ -19,6 +18,7 @@ public class BasicTowerController : MonoBehaviour
     private BasicEnemy target;
     private double fireCooldown;
     private Transform bulletSpawnPoint;
+    private float fireAngleThreshold = 10;
 
     private void Awake()
     {
@@ -28,12 +28,16 @@ public class BasicTowerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float distance;
-        (target, distance) = FindClosestEnemy();
         if (target == null)
-            return;
-        var prefireDistance = PrefireCoefficient * distance * target.CurrentSpeed / Projectile.Speed;
-        RotateTo(target.transform.position + target.transform.up * prefireDistance, out var canFire);
+        {
+            target = FindClosestEnemy();
+            if (target == null)
+                return;
+        }
+        var distance = Vector2.Distance(turret.transform.position, target.transform.position);
+        var prefireVector = PrefireCoefficient * distance * target.Movement / Projectile.Speed;
+        var fireTarget = (Vector2)target.transform.position + prefireVector;
+        RotateTo(fireTarget, out var canFire);
         if (canFire)
         {
             if (fireCooldown >= FireRate)
@@ -46,11 +50,11 @@ public class BasicTowerController : MonoBehaviour
         }
     }
 
-    private void RotateTo(Vector3 target, out bool canFire)
+    private void RotateTo(Vector2 fireTarget, out bool canFire)
     {
-        var directionToTarget = target - turret.transform.position;
-        var angleToTarget = Vector3.SignedAngle(turret.transform.up, directionToTarget, Vector3.forward);
-        canFire = Math.Abs(angleToTarget) < FireAngleThreshold;
+        var directionToTarget = fireTarget - (Vector2)turret.transform.position;
+        var angleToTarget = Vector2.SignedAngle(turret.transform.up, directionToTarget);
+        canFire = Math.Abs(angleToTarget) < fireAngleThreshold;
         float rotationAngle;
         if (Math.Abs(angleToTarget) < RotationSpeed)
             rotationAngle = angleToTarget;
@@ -64,10 +68,10 @@ public class BasicTowerController : MonoBehaviour
         Instantiate(Projectile.transform.gameObject, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
     }
 
-    private (BasicEnemy Enemy, float Distance) FindClosestEnemy()
+    private BasicEnemy FindClosestEnemy()
     {
         if (enemiesInRange.Count == 0)
-            return (null, 0);
+            return null;
         var minDistance = float.MaxValue;
         BasicEnemy closestEnemy = null;
         foreach (var enemy in enemiesInRange)
@@ -79,7 +83,7 @@ public class BasicTowerController : MonoBehaviour
                 closestEnemy = enemy;
             }
         }
-        return (closestEnemy, minDistance);
+        return closestEnemy;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
