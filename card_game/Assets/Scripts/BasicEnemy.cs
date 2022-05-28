@@ -22,7 +22,7 @@ public class BasicEnemy : MonoBehaviour
 
     private void Start()
     {
-        Health = new Health(MaxHealth);
+        Health = new Health(MaxHealth, transform.Find("Healthbar").gameObject);
         Health.Death += () => Destroy(transform.gameObject);
     }
 
