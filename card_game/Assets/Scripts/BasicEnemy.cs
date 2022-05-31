@@ -14,7 +14,8 @@ public class BasicEnemy : MonoBehaviour
     private new Rigidbody2D rigidbody;
     private MapManager mapManager;
     private Vector3? goal = null;
-
+    private bool aggroedOnTower = false;
+    private Stack<Vector3> currentPath;
     private void Awake()
     {
         rigidbody = transform.GetComponent<Rigidbody2D>();
@@ -39,7 +40,7 @@ public class BasicEnemy : MonoBehaviour
             var direction = heading / distance;
             if (distance < ApproachDistance)
             {
-                goal = mapManager.GetPath(transform.position);
+                goal = GetNextNode();
                 if (((Vector3)goal - transform.position).magnitude < 0.01f)
                     Movement = Vector2.zero;
                 return;
@@ -56,7 +57,37 @@ public class BasicEnemy : MonoBehaviour
         }
         else
         {
-            goal = mapManager.GetPath(transform.position);
+            goal = GetNextNode();
         }
+    }
+
+    private Vector3 GetNextNode()
+    {
+        Vector3 next;
+        if (aggroedOnTower)
+        {
+            if (currentPath != null && currentPath.Count > 0)
+                next = currentPath.Pop();
+            else
+                return transform.position;
+        }
+        else
+        {
+            next = mapManager.GetPathToBase(transform.position);
+        }
+        return next;
+    }
+
+    public void OnTowerRangeEnter(BasicTowerController tower)
+    {
+        if (aggroedOnTower)
+            return;
+        if (mapManager == null)
+        {
+            mapManager = GameManager.Instance.MapManager;
+        }
+        aggroedOnTower = true;
+        currentPath = mapManager.GetPath(transform.position, tower.transform.position);
+        goal = null;
     }
 }

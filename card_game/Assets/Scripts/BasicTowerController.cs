@@ -90,7 +90,10 @@ public class BasicTowerController : MonoBehaviour
     {
         var enemy = other.transform.GetComponent<BasicEnemy>();
         if (enemy != null)
+        {
             enemiesInRange.Add(enemy);
+            enemy.OnTowerRangeEnter(this);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)

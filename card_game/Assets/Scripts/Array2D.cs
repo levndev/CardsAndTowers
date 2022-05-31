@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Map<T>
+//2D array with negative indexing - 0 is the center
+public class Array2D<T>
 {
     private Vector2Int halfSize;
     private readonly T[,] map;
-    public Map(Vector2Int HalfSize)
+    public Array2D(Vector2Int HalfSize)
     {
         halfSize = HalfSize;
         map = new T[halfSize.x * 2, halfSize.y * 2];
