@@ -29,14 +29,10 @@ public class Deck
 
     public static void SaveDeck(Deck deck)
     {
-        
-
         using (StreamWriter sw = File.CreateText(Application.persistentDataPath + "/" + deck.Name + ".txt"))
         {
-            Debug.Log("lol");
             foreach (var card in deck.deckList)
             {
-                Debug.Log(card.name);
                 sw.WriteLine(card.name);
             }
         }

@@ -15,11 +15,14 @@ public class UICardController : MonoBehaviour
     public Deck deck;
     public CardState CurrentCardState;
     public CollectionScreen collectionScreen;
+    public PacksScreen packsScreen;
+
     public enum CardState
     {
         inHand = 0,
         inCollection = 1,
         inDeck = 2,
+        inPack = 3,
     };
 
     void Awake()
@@ -31,9 +34,8 @@ public class UICardController : MonoBehaviour
 
     void Start()
     {
-        
         Button.onClick.AddListener(OnClick);
-        //SetFromCard(card);
+        SetFromCard(card);
     }
 
     public void OnClick()
@@ -48,26 +50,12 @@ public class UICardController : MonoBehaviour
         }
         if(CurrentCardState == CardState.inCollection || CurrentCardState == CardState.inDeck)
         {
-            //if(deck == null)
-            //{
-            //    Debug.Log("no deck attached to card");
-            //}
-            //else
-            //{
-            //    if (deck.CanAddToDeck(card))
-            //    {
-            //        deck.AddToList(card);
-            //        collectionScreen.onCardAddedToDeck(card);
-            //    }
-            //}
             collectionScreen.onCardClick(this);
         }
-        //if(CurrentCardState == CardState.inDeck)
-        //{
-        //    deck.RemoveFromDeck(card);
-
-
-        //}
+        if(CurrentCardState == CardState.inPack)
+        {
+            packsScreen.onCardClick(this);
+        }
     }
 
     public void onHold()

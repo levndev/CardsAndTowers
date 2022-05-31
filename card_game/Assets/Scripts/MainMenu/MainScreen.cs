@@ -9,6 +9,7 @@ public class MainScreen : MenuScreen
     public Button ExitButton;
     public Button CollectionButton;
     public Button PlayButton;
+    public Button PacksScreenButton;
     
 
     void Start()
@@ -16,11 +17,17 @@ public class MainScreen : MenuScreen
         PlayButton.onClick.AddListener(OnPlayButtonClick);
         ExitButton.onClick.AddListener(OnExitButtonClick);
         CollectionButton.onClick.AddListener(OnCollectionButtonClick);
+        PacksScreenButton.onClick.AddListener(OnPacksScreenButtonClick);
     }
 
     void Update()
     {
         
+    }
+
+    public void OnPacksScreenButtonClick()
+    {
+        menuManager.ChangeScreens(menuManager.PacksScreen);
     }
 
     public void OnPlayButtonClick()
