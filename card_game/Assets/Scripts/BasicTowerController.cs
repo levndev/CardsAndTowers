@@ -40,7 +40,7 @@ public class BasicTowerController : MonoBehaviour
         RotateTo(fireTarget, out var canFire);
         if (canFire)
         {
-            if (fireCooldown >= FireRate)
+            if (fireCooldown >= 1/FireRate)
             {
                 LaunchProjectile();
                 fireCooldown = 0;
@@ -60,7 +60,7 @@ public class BasicTowerController : MonoBehaviour
             rotationAngle = angleToTarget;
         else
             rotationAngle = angleToTarget > 0 ? RotationSpeed : -RotationSpeed;
-        turret.transform.Rotate(Vector3.forward, rotationAngle);
+        turret.transform.RotateAround(transform.position, Vector3.forward, rotationAngle);
     }
 
     private void LaunchProjectile()
