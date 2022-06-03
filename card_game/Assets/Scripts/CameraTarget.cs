@@ -10,7 +10,7 @@ public class CameraTarget : MonoBehaviour
 
     private void Start()
     {
-        InputManager.TouchMoved += (sender, args) => Move(args.Delta);
+        InputManager.Touched += (args) => Move(args.Delta);
         Enabled = true;
     }
 

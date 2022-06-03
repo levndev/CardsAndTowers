@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public List<Card> Hand = new List<Card>();
     public Queue<Card> Deck = new Queue<Card>();
     private int HandSize;
-    public bool CardPlayingMode;
+    public GameState GameState = GameState.None;
     private int CurrentCardSelected = -1;
     public GameObject CardPrefab;
     public GameObject BasicTurretPrefab;
@@ -29,10 +29,12 @@ public class GameManager : MonoBehaviour
     public UICardController DeckTop;
     public UnityEngine.UI.Slider DrawCooldownBar;
     public UnityEngine.UI.Button ConfirmBuildingButton;
+    public UnityEngine.UI.Button BuildWallButton;
     private List<GameObject> BuildingGhosts = new List<GameObject>();
     public CameraTarget cameraTarget;
     private Vector2 dragDeltaAcc;
     public Vector2 DragCoefficient;
+    private GameObject wallPrefab;
 
     public static GameManager Instance
     {
@@ -71,14 +73,16 @@ public class GameManager : MonoBehaviour
         {
             Hand.Add(null);
         }
+        wallPrefab = Resources.Load<GameObject>("Wall");
     }
 
     void Start()
     {
-        InputManager.TapRegistered += OnTap;
-        InputManager.TouchMoved += OnDrag;
+        InputManager.Touched += OnTap;
+        //InputManager.Touched += OnDrag;
         InvokeRepeating("GenerateEnergy", 0, 1);
         ConfirmBuildingButton.onClick.AddListener(OnConfirmBuildingButtonClick);
+        BuildWallButton.onClick.AddListener(OnWallBuildingButtonClick);
     }
 
     void Update()
@@ -134,45 +138,44 @@ public class GameManager : MonoBehaviour
         SetCardPlayingMode(CurrentCardSelected != HandIndex, HandIndex);
     }
 
-    private void OnDrag(object sender, TapEventArgs args)
+    //private void OnDrag(TapEventArgs args)
+    //{
+    //    if (GameState)
+    //    {
+    //        var delta = args.Delta;
+    //        var resolution = Screen.currentResolution;
+    //        var orthoSize = 10 * 2;
+    //        var aspectRatio = resolution.width / (float)resolution.height;
+    //        var horizontalOrthoSize = orthoSize * aspectRatio;
+    //        delta = new Vector2(delta.x / resolution.width, delta.y / resolution.height);
+    //        delta = new Vector2(delta.x * horizontalOrthoSize, delta.y * orthoSize);
+    //        dragDeltaAcc += delta;
+    //        foreach (var ghost in BuildingGhosts)
+    //        {
+
+    //            if (dragDeltaAcc.magnitude > 1f)
+    //            {
+    //                var lastPosition = ghost.transform.position;
+    //                var size = ghost.GetComponent<SizeData>().Size;
+    //                var anchor = ghost.transform.position + new Vector3(dragDeltaAcc.x - size.x / 2 + 0.5f, dragDeltaAcc.y - size.y / 2 + 0.5f, 0);
+    //                ghost.transform.position = MapManager.GetBuildingCenter(anchor, ghost.GetComponent<SizeData>().Size);
+    //                if (Math.Abs(ghost.transform.position.x - lastPosition.x) > 0)
+    //                    dragDeltaAcc.x -= ghost.transform.position.x - lastPosition.x;
+    //                if (Math.Abs(ghost.transform.position.y - lastPosition.y) > 0)
+    //                    dragDeltaAcc.y -= ghost.transform.position.y - lastPosition.y;
+    //                if (MapManager.IsValidPlacement(anchor, size))
+    //                    ghost.GetComponent<GhostMode>().SetState(GhostMode.States.ViablePosition);
+    //                else
+    //                    ghost.GetComponent<GhostMode>().SetState(GhostMode.States.WrongPosition);
+    //            }
+    //        }
+    //    }
+    //}
+
+
+    private void OnTap(TapEventArgs touch)
     {
-        if (CardPlayingMode)
-        {
-            var delta = args.Delta;
-            var resolution = Screen.currentResolution;
-            var orthoSize = 10 * 2;
-            var aspectRatio = resolution.width / (float)resolution.height;
-            var horizontalOrthoSize = orthoSize * aspectRatio;
-            delta = new Vector2(delta.x / resolution.width, delta.y / resolution.height);
-            delta = new Vector2(delta.x * horizontalOrthoSize, delta.y * orthoSize);
-            dragDeltaAcc += delta;
-            foreach (var ghost in BuildingGhosts)
-            {
-
-                if (dragDeltaAcc.magnitude > 1f)
-                {
-                    var lastPosition = ghost.transform.position;
-                    var size = ghost.GetComponent<SizeData>().Size;
-                    var anchor = ghost.transform.position + new Vector3(dragDeltaAcc.x - size.x / 2 + 0.5f, dragDeltaAcc.y - size.y / 2 + 0.5f, 0);
-                    ghost.transform.position = MapManager.GetBuildingCenter(anchor, ghost.GetComponent<SizeData>().Size);
-                    if (Math.Abs(ghost.transform.position.x - lastPosition.x) > 0)
-                        dragDeltaAcc.x -= ghost.transform.position.x - lastPosition.x;
-                    if (Math.Abs(ghost.transform.position.y - lastPosition.y) > 0)
-                        dragDeltaAcc.y -= ghost.transform.position.y - lastPosition.y;
-                    if (MapManager.IsValidPlacement(anchor, size))
-                        ghost.GetComponent<GhostMode>().SetState(GhostMode.States.ViablePosition);
-                    else
-                        ghost.GetComponent<GhostMode>().SetState(GhostMode.States.WrongPosition);
-                }
-            }
-        }
-    }
-
-
-    private void OnTap(object sender, TapEventArgs args)
-    {
-        
-        if (CardPlayingMode)
+        if (GameState == GameState.CardPlaying)
         {
             if (BuildingGhosts.Count > 0)
             {
@@ -183,31 +186,66 @@ public class GameManager : MonoBehaviour
                 BuildingGhosts.Clear();
             }
             var card = Hand[CurrentCardSelected];
-            var touchPosition = args.Position;
             var buildingSize = card.SpawnedObject.GetComponent<SizeData>().Size;
-            if (MapManager.IsValidPlacement(touchPosition, buildingSize))
+
+            var ghostPosition = MapManager.GetBuildingCenter(touch.Position, buildingSize);
+            var ghost = Instantiate(card.SpawnedObject, ghostPosition, new Quaternion());
+            var ghostMode = ghost.GetComponent<GhostMode>();
+            ghostMode.Enable();
+            var ghostState = MapManager.IsValidPlacement(touch.Position, buildingSize)
+                ? GhostMode.States.ViablePosition
+                : GhostMode.States.WrongPosition;
+            ghostMode.SetState(ghostState);
+            BuildingGhosts.Add(ghost);
+            ConfirmBuildingButton.gameObject.SetActive(true);
+            dragDeltaAcc = new Vector2();
+        }
+        else if (GameState == GameState.WallBuilding)
+        {
+            if (BuildingGhosts.Count > 0)
             {
-                var ghostPosition = MapManager.GetBuildingCenter(touchPosition, buildingSize);
-                var ghost = Instantiate(card.SpawnedObject, ghostPosition, new Quaternion());
-                ghost.GetComponent<GhostMode>().Enable();
-                BuildingGhosts.Add(ghost);
-                ConfirmBuildingButton.gameObject.SetActive(true);
-                dragDeltaAcc = new Vector2();
+                foreach (var oldGhost in BuildingGhosts)
+                {
+                    Destroy(oldGhost);
+                }
+                BuildingGhosts.Clear();
             }
+            var buildingSize = wallPrefab.GetComponent<SizeData>().Size;
+            List<Vector2> positions = new List<Vector2>();
+            for (var t = 0f; t < 1f; t += 0.01f) 
+                positions.Add(Vector3.Lerp(touch.StartPosition, touch.Position, t));
+            var oldGhostPosition = Vector3.forward;
+            foreach (var position in positions)
+            {
+                var ghostPosition = MapManager.GetBuildingCenter(position, buildingSize);
+                if (ghostPosition == oldGhostPosition)
+                    continue;
+                oldGhostPosition = ghostPosition;
+                var ghost = Instantiate(wallPrefab, ghostPosition, new Quaternion());
+                var ghostMode = ghost.GetComponent<GhostMode>();
+                ghostMode.Enable();
+                var ghostState = MapManager.IsValidPlacement(position, buildingSize)
+                    ? GhostMode.States.ViablePosition
+                    : GhostMode.States.WrongPosition;
+                ghostMode.SetState(ghostState);
+                BuildingGhosts.Add(ghost);
+            }
+            ConfirmBuildingButton.gameObject.SetActive(true);
         }
     }
 
     private void SetCardPlayingMode(bool mode, int handIndex = -1)
     {
-        CardPlayingMode = mode;
         cameraTarget.Enabled = !mode;
         if (mode)
         {
+            GameState = GameState.CardPlaying;
             CurrentCardSelected = handIndex;
             VisibleGrid.SetActive(true);
         }
         else
         {
+            GameState = GameState.None;
             CurrentCardSelected = -1;
             VisibleGrid.SetActive(false);
             ConfirmBuildingButton.gameObject.SetActive(false);
@@ -221,21 +259,48 @@ public class GameManager : MonoBehaviour
 
     private void OnConfirmBuildingButtonClick()
     {
-        for (var i = BuildingGhosts.Count - 1; i >= 0; i--)
+        if (GameState == GameState.CardPlaying)
         {
-            var ghost = BuildingGhosts[i];
-            var card = Hand[CurrentCardSelected];
-            if (CurrentEnergy >= card.Cost)
+            for (var i = BuildingGhosts.Count - 1; i >= 0; i--)
             {
-                CurrentEnergy -= card.Cost;
-                Hand[CurrentCardSelected] = null;
-                MapManager.InstantiateObject(card.SpawnedObject, ghost.transform.position);
-                Deck.Enqueue(card);
-                Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
+                var ghost = BuildingGhosts[i];
+                var card = Hand[CurrentCardSelected];
+                if (CurrentEnergy >= card.Cost)
+                {
+                    CurrentEnergy -= card.Cost;
+                    Hand[CurrentCardSelected] = null;
+                    MapManager.InstantiateObject(card.SpawnedObject, ghost.transform.position);
+                    Deck.Enqueue(card);
+                    Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
+                    Destroy(ghost);
+                    BuildingGhosts.RemoveAt(i);
+                }
+            }
+        }
+        else if (GameState == GameState.WallBuilding)
+        {
+            for (var i = BuildingGhosts.Count - 1; i >= 0; i--)
+            {
+                var ghost = BuildingGhosts[i];
+                MapManager.InstantiateObject(wallPrefab, ghost.transform.position);
                 Destroy(ghost);
                 BuildingGhosts.RemoveAt(i);
             }
-            SetCardPlayingMode(false);
+        }
+        SetCardPlayingMode(false);
+    }
+
+    private void OnWallBuildingButtonClick()
+    {
+        if (GameState == GameState.WallBuilding)
+        {
+            GameState = GameState.None;
+            cameraTarget.Enabled = true;
+        }
+        else
+        {
+            GameState = GameState.WallBuilding;
+            cameraTarget.Enabled = false;
         }
     }
 
@@ -255,4 +320,11 @@ public class GameManager : MonoBehaviour
     }
 
 
+}
+
+public enum GameState : int
+{
+    None = 0,
+    CardPlaying = 1,
+    WallBuilding = 2,
 }

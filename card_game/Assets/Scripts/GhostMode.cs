@@ -13,14 +13,10 @@ public class GhostMode : MonoBehaviour
         ViablePosition = 1,
     }
 
-    private void Start()
+    public void Enable()
     {
         colors[0] = new Color(255, 0, 0);
         colors[1] = new Color(255, 255, 255);
-    }
-
-    public void Enable()
-    {
         foreach (var renderer in spriteRenderers)
         {
             renderer.color = new Color(255, 255, 255, 0.5f);

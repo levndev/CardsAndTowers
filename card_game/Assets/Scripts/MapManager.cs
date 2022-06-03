@@ -240,12 +240,12 @@ public class MapManager : MonoBehaviour
 
     public Vector2Int GetBuildingAnchor(Vector3 position, Vector2Int size)
     {
-        return WorldToMap(position - new Vector3(size.x / 2 - 0.5f, size.y / 2 - 0.5f, 0));
+        return WorldToMap(position - new Vector3(size.x / 2f - 0.5f, size.y / 2f - 0.5f, 0));
     }
 
     public Vector3 GetBuildingCenter(Vector3 position, Vector2Int size)
     {
-        return MapToWorld(WorldToMap(position)) + new Vector3(size.x / 2 - 0.5f, size.y / 2 - 0.5f, 0);
+        return MapToWorld(WorldToMap(position)) + new Vector3(size.x / 2f - 0.5f, size.y / 2f - 0.5f, 0);
     }
 
     public bool IsValidPlacement(Vector3 position, Vector2Int size)
