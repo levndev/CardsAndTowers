@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: Damage
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1460461544189906292, guid: 9879d2558711c1a449f594721ceb1ef8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.20673522
+      objectReference: {fileID: 0}
     - target: {fileID: 4386698398368513750, guid: 9879d2558711c1a449f594721ceb1ef8, type: 3}
       propertyPath: m_Size.x
       value: 0.3
