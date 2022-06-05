@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class BasicTowerController : MonoBehaviour
 {
-    public double HealthPoints;
     public double FireRate;
     public float RotationSpeed;
     public float PrefireCoefficient;
@@ -76,6 +75,8 @@ public class BasicTowerController : MonoBehaviour
         BasicEnemy closestEnemy = null;
         foreach (var enemy in enemiesInRange)
         {
+            if (enemy == null)
+                continue;
             var distance = Vector3.Distance(transform.position, enemy.transform.position);
             if (distance < minDistance)
             {
