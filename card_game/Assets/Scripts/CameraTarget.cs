@@ -7,6 +7,7 @@ public class CameraTarget : MonoBehaviour
     public InputManager InputManager;
     public float PanSpeed;
     public bool Enabled;
+    public Collider2D MapBoundary;
 
     private void Start()
     {
@@ -18,7 +19,13 @@ public class CameraTarget : MonoBehaviour
     {
         if (Enabled)
         {
-            transform.position += new Vector3(-direction.x, -direction.y, 0) * PanSpeed;
+            var newPosition = transform.position + new Vector3(-direction.x, -direction.y, 0) * PanSpeed;
+            var bounds = MapBoundary.bounds;
+            bounds.center = new Vector3(bounds.center.x, bounds.center.y, newPosition.z);
+            if (bounds.Contains(newPosition))
+                transform.position = newPosition;
+            else
+                transform.position = bounds.ClosestPoint(newPosition);
         }
     }
 }
