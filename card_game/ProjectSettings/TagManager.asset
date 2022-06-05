@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Destructible
+  - Indestructible
   layers:
   - Default
   - TransparentFX
@@ -49,4 +51,7 @@ TagManager:
     locked: 0
   - name: Entity
     uniqueID: 2727737313
+    locked: 0
+  - name: Flying
+    uniqueID: 411553129
     locked: 0

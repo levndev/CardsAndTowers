@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
@@ -32,10 +32,9 @@ public class GameManager : MonoBehaviour
     public UnityEngine.UI.Button BuildWallButton;
     private List<GameObject> BuildingGhosts = new List<GameObject>();
     public CameraTarget cameraTarget;
-    private Vector2 dragDeltaAcc;
     public Vector2 DragCoefficient;
     private GameObject wallPrefab;
-
+    public GameObject Base;
     public static GameManager Instance
     {
         get
@@ -60,15 +59,15 @@ public class GameManager : MonoBehaviour
         }
         HandSize = HandPositions.Count;
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Machinegun"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Machinegun"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Machinegun"));
         for (var i = 0; i < HandSize; i++)
         {
             Hand.Add(null);
@@ -83,6 +82,12 @@ public class GameManager : MonoBehaviour
         InvokeRepeating("GenerateEnergy", 0, 1);
         ConfirmBuildingButton.onClick.AddListener(OnConfirmBuildingButtonClick);
         BuildWallButton.onClick.AddListener(OnWallBuildingButtonClick);
+        Base.GetComponent<Health>().Death += BaseDestroyed;
+    }
+
+    private void BaseDestroyed()
+    {
+        SceneManager.LoadScene(0);
     }
 
     void Update()
@@ -198,7 +203,6 @@ public class GameManager : MonoBehaviour
             ghostMode.SetState(ghostState);
             BuildingGhosts.Add(ghost);
             ConfirmBuildingButton.gameObject.SetActive(true);
-            dragDeltaAcc = new Vector2();
         }
         else if (GameState == GameState.WallBuilding)
         {
@@ -282,10 +286,11 @@ public class GameManager : MonoBehaviour
             for (var i = BuildingGhosts.Count - 1; i >= 0; i--)
             {
                 var ghost = BuildingGhosts[i];
-                MapManager.InstantiateObject(wallPrefab, ghost.transform.position);
+                MapManager.InstantiateObject(wallPrefab, ghost.transform.position, false);
                 Destroy(ghost);
                 BuildingGhosts.RemoveAt(i);
             }
+            MapManager.RegeneratePaths();
         }
         SetCardPlayingMode(false);
     }

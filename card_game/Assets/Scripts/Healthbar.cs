@@ -10,13 +10,17 @@ public class Healthbar : MonoBehaviour
     private void Awake()
     {
         rotationConstraint = transform.GetComponent<RotationConstraint>();
-        stationaryObject = GameObject.Find("/StationaryObject");
-        if (stationaryObject == null)
-            stationaryObject = new GameObject("StationaryObject");
     }
 
     private void Start()
     {
+        stationaryObject = GameManager.Instance.gameObject;
+        if (stationaryObject == null)
+        {
+            stationaryObject = GameObject.Find("/StationaryObject");
+            if (stationaryObject == null)
+                stationaryObject = new GameObject("StationaryObject");
+        }
         originalY = transform.localPosition.y;
         var constraintSource = new ConstraintSource();
         constraintSource.sourceTransform = stationaryObject.transform;

@@ -36,7 +36,7 @@ public class MapManager : MonoBehaviour
         GeneratePaths(BasePosition);
     }
 
-    public GameObject InstantiateObject(GameObject original, Vector3 position)
+    public GameObject InstantiateObject(GameObject original, Vector3 position, bool regeneratePaths = true)
     {
         //position += new Vector3(-0.5f, 0.5f, 0);
         var size = original.GetComponent<SizeData>().Size;
@@ -62,8 +62,14 @@ public class MapManager : MonoBehaviour
                 levelMap.Set(x, y, obj);
             }
         }
-        GeneratePaths(BasePosition);
+        if (regeneratePaths)
+            RegeneratePaths();
         return obj;
+    }
+
+    public void RegeneratePaths()
+    {
+        GeneratePaths(BasePosition);
     }
 
     public Stack<Vector3> GetPath(Vector3 start, Vector3 goal)
@@ -231,7 +237,15 @@ public class MapManager : MonoBehaviour
             neighbour = position + neighbours[i];
             if (levelMap.InBounds(neighbour))
             {
-                var cost = levelMap.Get(neighbour) == null ? 1 : 10;
+                var obj = levelMap.Get(neighbour);
+                var cost = obj == null ? 1 : 10;
+                if (obj != null)
+                {
+                    if (obj.tag == "Indestructible")
+                    {
+                        continue;
+                    }
+                }
                 result.Add((neighbour, cost));
             }
         }
