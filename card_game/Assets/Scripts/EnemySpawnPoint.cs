@@ -4,9 +4,10 @@ public class EnemySpawnPoint : MonoBehaviour
 {
     public double SpawnRate;
     public bool Enabled;
-    public GameObject Enemy;
+    public GameObject[] Enemies;
 
     private double spawnCooldown;
+    private int nextEnemyIndex;
 
     private void FixedUpdate()
     {
@@ -23,6 +24,7 @@ public class EnemySpawnPoint : MonoBehaviour
 
     private void Spawn()
     {
-        Instantiate(Enemy, transform.position, transform.rotation);
+        Instantiate(Enemies[nextEnemyIndex], transform.position, transform.rotation);
+        nextEnemyIndex = (nextEnemyIndex + 1) % Enemies.Length;
     }
 }
