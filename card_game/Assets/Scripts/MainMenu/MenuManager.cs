@@ -11,7 +11,7 @@ public class MenuManager : MonoBehaviour
     public MenuScreen CollectionScreen;
     public MenuScreen PacksScreen;
     public MenuScreen CurrentScreen;
-
+    public MenuScreen LevelScreen;
     public Button BackButton;
     private List<MenuScreen> visitedScreens = new List<MenuScreen>();
 

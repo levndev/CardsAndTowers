@@ -10,7 +10,6 @@ public class MainScreen : MenuScreen
     public Button CollectionButton;
     public Button PlayButton;
     public Button PacksScreenButton;
-    
 
     void Start()
     {
@@ -32,7 +31,7 @@ public class MainScreen : MenuScreen
 
     public void OnPlayButtonClick()
     {
-        SceneManager.LoadScene(1);
+        menuManager.ChangeScreens(menuManager.LevelScreen);
     }
 
     public void OnExitButtonClick()

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21eebf48902c5624a8e0ec40fc16f2e3, type: 3}
   m_Name: Classic
   m_EditorClassIdentifier: 
-  Art: {fileID: 0}
+  Art: {fileID: 21300000, guid: f170e2743482cbc45b6bf045e6909c80, type: 3}
   Name: Classic

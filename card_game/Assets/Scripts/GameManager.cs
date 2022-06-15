@@ -64,17 +64,11 @@ public class GameManager : MonoBehaviour
             throw new System.Exception("GameManager already exists");
         }
         HandSize = HandPositions.Count;
-        Deck.Enqueue(Resources.Load<Card>("Cards/AcidBomb"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Machinegun"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Flame"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/AcidBomb"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Machinegun"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Flame"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Fireball"));
+        var deckList = global::Deck.LoadFromFile("deck1").GetDeckList();
+        foreach(var card in deckList)
+        {
+            Deck.Enqueue(card);
+        }
         for (var i = 0; i < HandSize; i++)
         {
             Hand.Add(null);

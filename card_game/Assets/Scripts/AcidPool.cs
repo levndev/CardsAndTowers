@@ -22,8 +22,8 @@ public class AcidPool : MonoBehaviour
         // Deal damage to all enemies inside.
         if (damageCooldown >= 1 / DamageTickrate)
         {
-            foreach (var enemy in enemies)
-                enemy.Health.TakeDamage(Damage);
+            for (var i = enemies.Count - 1; i >= 0; i--)
+                enemies[i].Health.TakeDamage(Damage);
         }
         else
             damageCooldown += Time.fixedDeltaTime;
