@@ -35,6 +35,11 @@ public class GameManager : MonoBehaviour
     public Vector2 DragCoefficient;
     private GameObject wallPrefab;
     public GameObject Base;
+    public float TimeToWin;
+    private float TimeToWinLeft;
+    public TMPro.TextMeshProUGUI WinTimerText;
+    public GameObject WinPanel;
+    public GameObject LosePanel;
     public static GameManager Instance
     {
         get
@@ -49,6 +54,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        Time.timeScale = 1;
         if (_instance == null)
         {
             _instance = this;
@@ -78,20 +84,59 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         InputManager.Touched += OnTap;
-        //InputManager.Touched += OnDrag;
         InvokeRepeating("GenerateEnergy", 0, 1);
         ConfirmBuildingButton.onClick.AddListener(OnConfirmBuildingButtonClick);
         BuildWallButton.onClick.AddListener(OnWallBuildingButtonClick);
         Base.GetComponent<Health>().Death += BaseDestroyed;
+        TimeToWinLeft = TimeToWin;
     }
 
     private void BaseDestroyed()
     {
+        SetPause(true);
+        LosePanel.SetActive(true);
+    }
+
+    public void Continue()
+    {
         SceneManager.LoadScene(0);
+    }
+
+    public void Quit()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void Pause()
+    {
+        SetPause(GameState != GameState.Paused);
+    }
+
+    private void SetPause(bool pause)
+    {
+        GameState = pause ? GameState.Paused : GameState.None;
+        Time.timeScale = pause ? 0 : 1;
     }
 
     void Update()
     {
+        if (GameState == GameState.Paused)
+            return;
+        if (TimeToWinLeft > 0)
+        {
+            TimeToWinLeft -= Time.deltaTime;
+            WinTimerText.text = TimeToWinLeft.ToString("N0");
+        }
+        else
+        {
+            SetPause(true);
+            WinPanel.SetActive(true);
+        }
         for (var i = 0; i < HandSize; i++)
         {
             if (Deck.Count == 0 || deckDrawTimerEnabled)
@@ -140,7 +185,8 @@ public class GameManager : MonoBehaviour
 
     public void CardClick(int HandIndex)
     {
-        SetCardPlayingMode(CurrentCardSelected != HandIndex, HandIndex);
+        if (GameState != GameState.Paused)
+            SetCardPlayingMode(CurrentCardSelected != HandIndex, HandIndex);
     }
 
     //private void OnDrag(TapEventArgs args)
@@ -297,6 +343,8 @@ public class GameManager : MonoBehaviour
 
     private void OnWallBuildingButtonClick()
     {
+        if (GameState == GameState.Paused)
+            return;
         if (GameState == GameState.WallBuilding)
         {
             GameState = GameState.None;
@@ -332,4 +380,5 @@ public enum GameState : int
     None = 0,
     CardPlaying = 1,
     WallBuilding = 2,
+    Paused = 3
 }

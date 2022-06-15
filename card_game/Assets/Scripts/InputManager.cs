@@ -36,7 +36,7 @@ public class InputManager : MonoBehaviour
         foreach (Transform uiElement in UiCanvas.transform)
         {
             var uiElementRectTransform = uiElement.GetComponent<RectTransform>();
-            if (RectTransformUtility.RectangleContainsScreenPoint(uiElementRectTransform, touchPosition))
+            if (RectTransformUtility.RectangleContainsScreenPoint(uiElementRectTransform, touchPosition) && uiElement.gameObject.activeInHierarchy)
                 return true;
         }
         return false;

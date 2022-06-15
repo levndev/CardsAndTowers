@@ -16,6 +16,7 @@ public class MapManager : MonoBehaviour
     private Vector2Int[] neighboursReversed = { new Vector2Int(1, 0), new Vector2Int(-1, 0), new Vector2Int(0, 1), new Vector2Int(0, -1),
                                                 new Vector2Int(1, 1), new Vector2Int(-1, 1), new Vector2Int(-1, -1), new Vector2Int(1, -1) };
     public Vector2Int BasePosition;
+    
     void Start()
     {
         levelMap = new Array2D<GameObject>(mapHalfSize);
