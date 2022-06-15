@@ -66,14 +66,14 @@ public class GameManager : MonoBehaviour
         HandSize = HandPositions.Count;
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Machinegun"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Flame"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/AcidBomb"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Machinegun"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
-        Deck.Enqueue(Resources.Load<Card>("Cards/Machinegun"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Flame"));
+        Deck.Enqueue(Resources.Load<Card>("Cards/Fireball"));
         for (var i = 0; i < HandSize; i++)
         {
             Hand.Add(null);

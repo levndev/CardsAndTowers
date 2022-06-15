@@ -18,8 +18,6 @@ public class UIPackController : MonoBehaviour
     void Start()
     {
         PackButton.onClick.AddListener(onButtonClick);
-
-
     }
 
     public Card[] GenerateCards()

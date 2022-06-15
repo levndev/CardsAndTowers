@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6422741524440096457, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
       propertyPath: FireRate
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6422741524440096457, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
       propertyPath: Projectile

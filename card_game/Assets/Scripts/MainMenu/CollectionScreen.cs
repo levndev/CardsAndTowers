@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 
 public class CollectionScreen : MenuScreen
 {
-    public UnityEngine.UI.Button TestButton;
     public Card[] AllCards;
     public Deck CurrentDeck;
     public List<UICardController> DeckUICards = new List<UICardController>();
@@ -29,7 +28,6 @@ public class CollectionScreen : MenuScreen
 
     void Start()
     {
-        TestButton.onClick.AddListener(onTestButtonClick);
         AllCards = Resources.LoadAll<Card>("Cards");
 
         if(CurrentDeck== null)
@@ -65,7 +63,6 @@ public class CollectionScreen : MenuScreen
             uiCardController.deck = CurrentDeck;
             uiCardController.SetFromCard(card);
         }
-
     }
 
     // Update is called once per frame

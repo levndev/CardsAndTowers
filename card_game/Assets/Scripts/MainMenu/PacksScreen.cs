@@ -81,7 +81,16 @@ public class PacksScreen : MenuScreen
         var packs = new List<Pack>();
         try
         {
-            var lines = File.ReadAllLines(Application.persistentDataPath + "/" + availablePacksFileName);
+            var path = Application.persistentDataPath + "/" + availablePacksFileName;
+            if (!File.Exists(path))
+            {
+                string[] text =
+                {
+                    "Classic 2"
+                };
+                File.WriteAllLines(path, text);
+            }
+            var lines = File.ReadAllLines(path);
             foreach (var line in lines.Select(str => str.Split(' ')))
             {
                 for(var i = 0; i < int.Parse(line[1]); i++)
