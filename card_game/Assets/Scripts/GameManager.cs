@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
             throw new System.Exception("GameManager already exists");
         }
         HandSize = HandPositions.Count;
+        Deck.Enqueue(Resources.Load<Card>("Cards/AcidBomb"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Machinegun"));
         Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
@@ -237,6 +238,19 @@ public class GameManager : MonoBehaviour
                 BuildingGhosts.Clear();
             }
             var card = Hand[CurrentCardSelected];
+            if (card.type == Card.Type.Spell)
+            {
+                if (CurrentEnergy >= card.Cost)
+                {
+                    CurrentEnergy -= card.Cost;
+                    Instantiate(card.SpawnedObject, touch.Position, new Quaternion());
+                    Hand[CurrentCardSelected] = null;
+                    Deck.Enqueue(card);
+                    Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
+                    SetCardPlayingMode(false);
+                }
+                return;
+            }
             var buildingSize = card.SpawnedObject.GetComponent<SizeData>().Size;
 
             var ghostPosition = MapManager.GetBuildingCenter(touch.Position, buildingSize);

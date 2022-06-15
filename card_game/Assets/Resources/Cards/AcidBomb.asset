@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e404fb969624a4aaacb536f6ddd5dc, type: 3}
   m_Name: AcidBomb
   m_EditorClassIdentifier: 
-  Cost: 0
+  Cost: 10
   Name: 'Acid '
-  Art: {fileID: 0}
-  SpawnedObject: {fileID: 0}
-  type: 0
+  Art: {fileID: 21300000, guid: 19acf77ed0a2a3f4da72f2ed6fb81586, type: 3}
+  SpawnedObject: {fileID: 3814449681544479569, guid: de0751d13b32f22459bfd871b40e3f24, type: 3}
+  type: 1
