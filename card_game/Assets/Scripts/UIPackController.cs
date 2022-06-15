@@ -24,7 +24,13 @@ public class UIPackController : MonoBehaviour
 
     public Card[] GenerateCards()
     {
-        return null;
+        var cards = new Card[6];
+        for(var i = 0; i < 5; i += 2)
+        {
+            cards[i] = Card.LoadfromFile("Basic");
+            cards[i + 1] = Card.LoadfromFile("Sniper");
+        }
+        return cards;
     }
 
     public void onButtonClick()

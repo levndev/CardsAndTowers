@@ -14,6 +14,7 @@ public class PacksScreen : MenuScreen
     public GameObject PacksScrollViewContent;
 
     public GameObject OpenedCardsPanel;
+    public GameObject OpenedCardsScrollView;
     public UnityEngine.UI.Button OpenedCardsPanelButton;
 
     public GameObject PackSlotPrefab;
@@ -29,35 +30,10 @@ public class PacksScreen : MenuScreen
 
     void Start()
     {
-        OpenedCardsPanelButton = OpenedCardsPanel.GetComponent<UnityEngine.UI.Button>();
+        OpenedCardsPanelButton = OpenedCardsScrollView.GetComponent<UnityEngine.UI.Button>();
         OpenedCardsPanelButton.onClick.AddListener(onOpenedCardsPanelClick);
 
-        var loadedPacks = LoadPacks();
-        foreach(var loadedPack in loadedPacks)
-        {
-            if (!AllPacks.Keys.Contains(loadedPack))//нет такого типа пакетов 
-            {
-                AllPacks.Add(loadedPack, 1);
-
-                var packSlot = Instantiate(PackSlotPrefab, PacksScrollViewContent.transform);
-                var uiPackSlot = packSlot.GetComponent<PackSlot>();
-                uiPackSlot.IncreaseAmount();
-                uiPackSlot.pack = loadedPack;
-
-                var pack = Instantiate(PackPrefab, packSlot.transform);
-                var uiPack = pack.GetComponent<UIPackController>();
-                uiPack.packsScreen = this;
-                uiPack.SetFromPack(loadedPack);
-                uiPack.packSlot = uiPackSlot;
-                UIPackList.Add(uiPack);
-            }
-            else // уже есть такой вид пакета
-            {
-                AllPacks[loadedPack] += 1;
-                var uiPack = UIPackList.Where(uiPack => uiPack.pack == loadedPack).ElementAt(0);
-                uiPack.packSlot.IncreaseAmount();
-            }
-        }
+        
     }
 
     public void onPackClick(UIPackController sender)
@@ -71,7 +47,7 @@ public class PacksScreen : MenuScreen
                 var uiCard = Instantiate(CardPrefab, uiCardSlot.transform);
 
                 var uiCardController = uiCard.GetComponent<UICardController>();
-                uiCardController.CurrentCardState = UICardController.CardState.inCollection;
+                uiCardController.CurrentCardState = UICardController.CardState.inPack;
                 uiCardController.packsScreen = this;
                 uiCardController.SetFromCard(card);
             }
@@ -80,12 +56,10 @@ public class PacksScreen : MenuScreen
         sender.packSlot.DecreseAmount();
         if(sender.packSlot.Amount <= 0)
         {
-            Destroy(sender.gameObject.transform.parent);
+            AllPacks.Remove(sender.pack);
+            Destroy(sender.gameObject.transform.parent.gameObject);
         }
-        ///сгенерировать карты
-        ///отрисовать карты
-        ///добавить карты в коллекцию
-        ///удалить отрисованные карты
+        
     }
 
     public void onCardClick(UICardController sender)
@@ -97,7 +71,7 @@ public class PacksScreen : MenuScreen
     {
         foreach (Transform child in OpenedCardsPanel.transform)
         {
-            Destroy(child);
+            Destroy(child.gameObject);
         }
     }
 
@@ -135,8 +109,39 @@ public class PacksScreen : MenuScreen
         }
     }
 
+    public override void onScreenEnter()
+    {
+        var loadedPacks = LoadPacks();
+        foreach (var loadedPack in loadedPacks)
+        {
+            if (!AllPacks.Keys.Contains(loadedPack))
+            {
+                AllPacks.Add(loadedPack, 1);
+
+                var packSlot = Instantiate(PackSlotPrefab, PacksScrollViewContent.transform);
+                var uiPackSlot = packSlot.GetComponent<PackSlot>();
+                uiPackSlot.IncreaseAmount();
+                uiPackSlot.pack = loadedPack;
+
+                var pack = Instantiate(PackPrefab, packSlot.transform);
+                var uiPack = pack.GetComponent<UIPackController>();
+                uiPack.packsScreen = this;
+                uiPack.SetFromPack(loadedPack);
+                uiPack.packSlot = uiPackSlot;
+                UIPackList.Add(uiPack);
+            }
+            else
+            {
+                AllPacks[loadedPack] += 1;
+                var uiPack = UIPackList.Where(uiPack => uiPack.pack == loadedPack).ElementAt(0);
+                uiPack.packSlot.IncreaseAmount();
+            }
+        }
+    }
+
     public override void onScreenLeave()
     {
         SaveUnusedPacks();
+        onOpenedCardsPanelClick();
     }
 }
