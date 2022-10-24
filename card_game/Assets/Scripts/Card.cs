@@ -8,7 +8,7 @@ public class Card : ScriptableObject
     public int Cost;
     public string Name;
     public Sprite Art;
-    public GameObject SpawnedObject;
+    public TowerSO Tower;
     public Type type;
     public Card(int Cost, string Name, Sprite Art, Type type)
     {

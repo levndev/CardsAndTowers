@@ -37,11 +37,12 @@ public class MapManager : MonoBehaviour
         GeneratePaths(BasePosition);
     }
 
-    public GameObject InstantiateObject(GameObject original, Vector3 position, bool regeneratePaths = true)
+    public GameObject AddObject(GameObject obj, Vector3 position, bool regeneratePaths = true)
     {
         //position += new Vector3(-0.5f, 0.5f, 0);
-        var size = original.GetComponent<SizeData>().Size;
+        var size = obj.GetComponent<SizeData>().Size;
         var mapPosition = GetBuildingAnchor(position, size);
+        
         //Debug.Log(gridPosition);
         for (var x = mapPosition.x; x < mapPosition.x + size.x; x++)
         {
@@ -55,7 +56,8 @@ public class MapManager : MonoBehaviour
         }
         var worldPosition = MapToWorld(mapPosition);
         worldPosition += new Vector3(size.x / 2.0f - 0.5f, size.y / 2.0f - 0.5f, 0);
-        var obj = Instantiate(original, worldPosition, new Quaternion(), MapRoot.transform);
+        obj.transform.position = worldPosition;
+        obj.transform.parent = MapRoot.transform;
         for (var x = mapPosition.x; x < mapPosition.x + size.x; x++)
         {
             for (var y = mapPosition.y; y < mapPosition.y + size.y; y++)

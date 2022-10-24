@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     public TMPro.TextMeshProUGUI WinTimerText;
     public GameObject WinPanel;
     public GameObject LosePanel;
+    public GameObject TowerPrefab;
     public static GameManager Instance
     {
         get
@@ -249,7 +250,8 @@ public class GameManager : MonoBehaviour
                 if (CurrentEnergy >= card.Cost)
                 {
                     CurrentEnergy -= card.Cost;
-                    Instantiate(card.SpawnedObject, touch.Position, new Quaternion());
+                    
+                    //Instantiate(Tower, touch.Position, new Quaternion());
                     Hand[CurrentCardSelected] = null;
                     Deck.Enqueue(card);
                     Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
@@ -257,10 +259,11 @@ public class GameManager : MonoBehaviour
                 }
                 return;
             }
-            var buildingSize = card.SpawnedObject.GetComponent<SizeData>().Size;
+            var buildingSize = TowerPrefab.GetComponent<SizeData>().Size;
 
             var ghostPosition = MapManager.GetBuildingCenter(touch.Position, buildingSize);
-            var ghost = Instantiate(card.SpawnedObject, ghostPosition, new Quaternion());
+            var ghost = Instantiate(TowerPrefab, ghostPosition, new Quaternion());
+            ghost.GetComponent<TowerController>().SetTower(card.Tower);
             var ghostMode = ghost.GetComponent<GhostMode>();
             ghostMode.Enable();
             var ghostState = MapManager.IsValidPlacement(touch.Position, buildingSize)
@@ -339,10 +342,10 @@ public class GameManager : MonoBehaviour
                 {
                     CurrentEnergy -= card.Cost;
                     Hand[CurrentCardSelected] = null;
-                    MapManager.InstantiateObject(card.SpawnedObject, ghost.transform.position);
+                    MapManager.AddObject(ghost, ghost.transform.position);
                     Deck.Enqueue(card);
                     Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
-                    Destroy(ghost);
+                    ghost.GetComponent<GhostMode>().enabled = false;
                     BuildingGhosts.RemoveAt(i);
                 }
             }
@@ -352,7 +355,8 @@ public class GameManager : MonoBehaviour
             for (var i = BuildingGhosts.Count - 1; i >= 0; i--)
             {
                 var ghost = BuildingGhosts[i];
-                MapManager.InstantiateObject(wallPrefab, ghost.transform.position, false);
+                var wall = Instantiate(wallPrefab);
+                MapManager.AddObject(wall, ghost.transform.position, false);
                 Destroy(ghost);
                 BuildingGhosts.RemoveAt(i);
             }

@@ -15,4 +15,5 @@ MonoBehaviour:
   Cost: 5
   Name: Basic
   Art: {fileID: 21300000, guid: 55ddcf84b85e72b45b51ebec1c791b46, type: 3}
-  SpawnedObject: {fileID: 6422741524440096503, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
+  Tower: {fileID: 11400000, guid: 96e6955b88c6eb34a903ef6f065e2006, type: 2}
+  type: 0
