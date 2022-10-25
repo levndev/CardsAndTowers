@@ -15,4 +15,5 @@ MonoBehaviour:
   Cost: 10
   Name: Sniper
   Art: {fileID: 21300000, guid: f940016bbc53b4a49a408674016e6202, type: 3}
-  SpawnedObject: {fileID: 4546008724435497988, guid: fe716a165fdbf684b94bc2ddeb273436, type: 3}
+  Tower: {fileID: 11400000, guid: c66ccb7adfb811445864d7073f65a16a, type: 2}
+  type: 0

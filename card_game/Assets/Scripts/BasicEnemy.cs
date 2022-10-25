@@ -9,6 +9,7 @@ public class BasicEnemy : MonoBehaviour
     public float ApproachDistance;
     public Health Health;
     public Vector2 Movement;
+    public GameObject AttackEffect;
 
     private new Rigidbody2D rigidbody;
     private MapManager mapManager;
@@ -46,6 +47,12 @@ public class BasicEnemy : MonoBehaviour
                 }
                 else
                 {
+                    if (AttackEffect != null)
+                    {
+                        var attackPoint = (targets[0].gameObject.transform.position + transform.position) / 2;
+                        Instantiate(AttackEffect, attackPoint, new Quaternion());
+                    }
+
                     if (targets[0].TakeDamage(AttackDamage) <= 0)
                     {
                         targets.RemoveAt(0);

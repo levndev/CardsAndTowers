@@ -161,6 +161,7 @@ MonoBehaviour:
   ApproachDistance: 0.25
   Health: {fileID: 8165566812606379228}
   Movement: {x: 0, y: 0}
+  AttackEffect: {fileID: 89014879917456225, guid: e9d658c0cf4d04c43a0112cf4689773d, type: 3}
   AttackCooldown: 1
   AttackDamage: 5
 --- !u!114 &8165566812606379228
