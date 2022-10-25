@@ -51,12 +51,16 @@ public class BasicTowerSO : TowerSO
         var state = (BasicTowerState)sender.State;
         if (state.Target == null)
         {
-            state.Target = state.Tracker.GetClosestEntity().GetComponent<BasicEnemy>();
+            var targetObject = state.Tracker.GetClosestEntity();
+            if (targetObject == null)
+                return;
+            state.Target = targetObject.GetComponent<BasicEnemy>();
             if (state.Target == null)
                 return;
         }
         var distance = Vector2.Distance(state.Turret.transform.position, state.Target.transform.position);
-        var prefireVector = prefireCoefficient * distance * state.Target.Movement / projectile.GetComponent<Projectile>().Speed;
+        var prefireVector = prefireCoefficient * distance
+            * state.Target.Movement / projectile.GetComponent<Projectile>().Speed;
         var fireTarget = (Vector2)state.Target.transform.position + prefireVector;
         RotateTo(fireTarget, out var canFire);
         if (canFire)

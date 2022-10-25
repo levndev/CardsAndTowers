@@ -342,10 +342,12 @@ public class GameManager : MonoBehaviour
                 {
                     CurrentEnergy -= card.Cost;
                     Hand[CurrentCardSelected] = null;
-                    MapManager.AddObject(ghost, ghost.transform.position);
+                    var tower = Instantiate(TowerPrefab, ghost.transform.position, new Quaternion());
+                    tower.GetComponent<TowerController>().SetTower(card.Tower);
+                    MapManager.AddObject(tower, ghost.transform.position);
                     Deck.Enqueue(card);
                     Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
-                    ghost.GetComponent<GhostMode>().enabled = false;
+                    Destroy(ghost);
                     BuildingGhosts.RemoveAt(i);
                 }
             }
