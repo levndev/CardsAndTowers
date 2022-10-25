@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68f56101b23c4f74480e7ef0185c3134, type: 3}
-  m_Name: DefaultTower
+  m_Name: Plasma
   m_EditorClassIdentifier: 
   towerBase: {fileID: 11400000, guid: ee80b87e8cf705d47af213bb98319be4, type: 2}
   fireRate: 1
