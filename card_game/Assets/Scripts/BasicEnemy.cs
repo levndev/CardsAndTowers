@@ -10,6 +10,7 @@ public class BasicEnemy : MonoBehaviour
     public Health Health;
     public Vector2 Movement;
     public GameObject AttackEffect;
+    public GameObject DeathEffect;
 
     private new Rigidbody2D rigidbody;
     private MapManager mapManager;
@@ -32,7 +33,7 @@ public class BasicEnemy : MonoBehaviour
 
     private void Start()
     {
-        //Health.Death += () => Destroy(transform.gameObject);
+        Health.Death += () => Instantiate(DeathEffect, transform.position, new Quaternion());
     }
 
     private void Update()

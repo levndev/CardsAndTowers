@@ -23,6 +23,8 @@ public class BasicTowerSO : TowerSO
     [SerializeField] private float fireAngleThreshold;
     [SerializeField] private float rangeRadius;
     [SerializeField] private Sprite TurretSprite;
+    [SerializeField] private GameObject shootEffect;
+    [SerializeField] private GameObject deathEffect;
 
     public override void Init(TowerController sender)
     {
@@ -40,6 +42,11 @@ public class BasicTowerSO : TowerSO
         state.Tracker.TypeFilter = EntityTracker.TargetType.Enemy;
         state.Turret.GetComponent<SpriteRenderer>().sprite = TurretSprite;
         sender.State = state;
+
+        if (sender.TryGetComponent<Health>(out var health))
+        {
+            health.Death += () => Instantiate(deathEffect, state.Turret.transform.position, new Quaternion());
+        }
     }
 
     public override void OnUpdate(TowerController sender)
@@ -92,6 +99,7 @@ public class BasicTowerSO : TowerSO
         void LaunchProjectile()
         {
             Instantiate(projectile, state.BulletSpawnPoint.position, state.BulletSpawnPoint.rotation);
+            Instantiate(shootEffect, state.BulletSpawnPoint.position, state.BulletSpawnPoint.rotation);
         }
     }
 }
