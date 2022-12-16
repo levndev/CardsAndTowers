@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f56101b23c4f74480e7ef0185c3134, type: 3}
+  m_Name: Machinegun
+  m_EditorClassIdentifier: 
+  towerBase: {fileID: 11400000, guid: ee80b87e8cf705d47af213bb98319be4, type: 2}
+  fireRate: 1.5
+  rotationSpeed: 2
+  prefireCoefficient: 50
+  projectile: {fileID: 4515274949052558438, guid: 3d0ce53228a4cbf48b365b1a4f9c6032, type: 3}
+  fireAngleThreshold: 10
+  rangeRadius: 25
+  TurretSprite: {fileID: 21300000, guid: d37a7fd15ea019d4a9c5a2133d734e28, type: 3}
+  shootEffect: {fileID: 2338906543606726676, guid: ea0dbfb4a6782974780bd73ec414c32e, type: 3}
+  deathEffect: {fileID: 1839823062534221149, guid: 9700bf37e72339a4f968b822da1b2a2f, type: 3}

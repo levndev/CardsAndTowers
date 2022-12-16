@@ -15,4 +15,5 @@ MonoBehaviour:
   Cost: 10
   Name: Fireball
   Art: {fileID: 21300000, guid: 2acfa8527e6272947aba23bb3a13e466, type: 3}
-  SpawnedObject: {fileID: 840289438190191722, guid: 211cfca93c5b3ab4db5fb87106078738, type: 3}
+  Tower: {fileID: 11400000, guid: ae95ff162bc5377449a379fbe68ae919, type: 2}
+  type: 0

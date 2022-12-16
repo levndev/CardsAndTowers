@@ -11,6 +11,7 @@ public class BasicEnemy : MonoBehaviour
     public Vector2 Movement;
     public GameObject AttackEffect;
     public GameObject DeathEffect;
+    public GameObject HitEffect;
 
     private new Rigidbody2D rigidbody;
     private MapManager mapManager;
@@ -24,6 +25,7 @@ public class BasicEnemy : MonoBehaviour
     private float AttackCooldownTimeLeft;
     private bool CanAttack = true;
     private bool Stopped = false;
+
     private void Awake()
     {
         targets = new List<Health>();
@@ -34,6 +36,8 @@ public class BasicEnemy : MonoBehaviour
     private void Start()
     {
         Health.Death += () => Instantiate(DeathEffect, transform.position, new Quaternion());
+        Health.Damaged += () => Instantiate(HitEffect, transform.position, new Quaternion());
+
     }
 
     private void Update()

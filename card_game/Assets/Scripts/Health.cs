@@ -24,6 +24,7 @@ public class Health : MonoBehaviour
     }
 
     public event Action Death;
+    public event Action Damaged;
 
     void Start()
     {
@@ -39,6 +40,10 @@ public class Health : MonoBehaviour
         {
             Death?.Invoke();
             Destroy(gameObject);
+        }
+        else
+        {
+            Damaged?.Invoke();
         }
         return Current;
     }

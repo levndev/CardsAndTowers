@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
+
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
@@ -41,6 +43,7 @@ public class GameManager : MonoBehaviour
     public GameObject WinPanel;
     public GameObject LosePanel;
     public GameObject TowerPrefab;
+    public GameObject TowerPlacementEffect;
     public static GameManager Instance
     {
         get
@@ -344,6 +347,7 @@ public class GameManager : MonoBehaviour
                     Hand[CurrentCardSelected] = null;
                     var tower = Instantiate(TowerPrefab, ghost.transform.position, new Quaternion());
                     tower.GetComponent<TowerController>().SetTower(card.Tower);
+                    Instantiate(TowerPlacementEffect, tower.transform.position, new Quaternion());
                     MapManager.AddObject(tower, ghost.transform.position);
                     Deck.Enqueue(card);
                     Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);

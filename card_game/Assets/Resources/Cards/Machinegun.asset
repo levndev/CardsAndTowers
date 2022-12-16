@@ -15,4 +15,5 @@ MonoBehaviour:
   Cost: 7
   Name: Machine Gun
   Art: {fileID: 21300000, guid: d37a7fd15ea019d4a9c5a2133d734e28, type: 3}
-  SpawnedObject: {fileID: 5298638271316210841, guid: 59bb32278984da240a3af0959622fff5, type: 3}
+  Tower: {fileID: 11400000, guid: 740174710eb06a546a17ec33463e5c5f, type: 2}
+  type: 0

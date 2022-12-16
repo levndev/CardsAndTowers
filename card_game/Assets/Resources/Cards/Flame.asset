@@ -15,4 +15,5 @@ MonoBehaviour:
   Cost: 10
   Name: Flame
   Art: {fileID: 21300000, guid: ad7fc49e0236a9944ab345ffe2a08d42, type: 3}
-  SpawnedObject: {fileID: 2274293476420542784, guid: cde6d206f4aa46b4ebebf203530d794f, type: 3}
+  Tower: {fileID: 11400000, guid: 71715b0759c0c6d4c80a7270be6a4426, type: 2}
+  type: 0
