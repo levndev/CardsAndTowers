@@ -12,6 +12,8 @@ public class BasicEnemy : MonoBehaviour
     public GameObject AttackEffect;
     public GameObject DeathEffect;
     public GameObject HitEffect;
+    [Tooltip("Used for calculating enemy spawns.")]
+    public float Difficulty;
 
     private new Rigidbody2D rigidbody;
     private MapManager mapManager;
