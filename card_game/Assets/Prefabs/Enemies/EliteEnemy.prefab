@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 949486357, guid: dc7a07f8a1251d94caa602c61eb6d51f, type: 3}
       propertyPath: Difficulty
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 949486357, guid: dc7a07f8a1251d94caa602c61eb6d51f, type: 3}
       propertyPath: AttackDamage
