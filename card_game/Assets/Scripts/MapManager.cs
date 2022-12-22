@@ -231,7 +231,6 @@ public class MapManager : MonoBehaviour
 
     private List<(Vector2Int, int)> GetNeighbours(Vector2Int position)
     {
-
         var result = new List<(Vector2Int, int)>();
         var id = (position.x + position.y) % 2;
         for (var i = 0; i < neighbours.Length; i++)

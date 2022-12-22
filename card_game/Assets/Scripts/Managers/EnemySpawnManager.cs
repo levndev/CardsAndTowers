@@ -31,8 +31,11 @@ public class EnemySpawnManager : MonoBehaviour
         var difficultyPointsLeft = currentDifficulty;
         while(difficultyPointsLeft > 0)
         {
-            var enemy = possibleEnemies.Where(spawn => spawn.Enemy.Difficulty < difficultyPointsLeft)
-                .ChooseRandom(spawn => spawn.Modifier / spawn.Enemy.Difficulty).Enemy;
+            var randomSpawn = possibleEnemies.Where(spawn => spawn.Enemy.Difficulty < difficultyPointsLeft)
+                .ChooseRandom(spawn => spawn.Modifier / spawn.Enemy.Difficulty);
+            if (randomSpawn == null)
+                return;
+            var enemy = randomSpawn.Enemy;
             var spawnPoint = spawnPoints.ChooseRandom(spawnPoint => spawnPoint.Weight);
             Instantiate(enemy, spawnPoint.transform.position, new Quaternion());
             difficultyPointsLeft -= enemy.Difficulty;
@@ -40,7 +43,7 @@ public class EnemySpawnManager : MonoBehaviour
     }
 
     [Serializable]
-    private struct Spawn
+    private class Spawn
     {
         [Tooltip("0 - never spawns, 1 - spawns normally."), Range(0f, 1f)]
         public float Modifier;

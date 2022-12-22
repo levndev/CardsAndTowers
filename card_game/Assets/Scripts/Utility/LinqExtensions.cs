@@ -27,6 +27,9 @@ public static class LinqExtensions
             }
             totalProbability += probability;
         }
-        return source.Last();
+        if (source.Any())
+            return source.Last();
+        else
+            return default;
     }
 }
