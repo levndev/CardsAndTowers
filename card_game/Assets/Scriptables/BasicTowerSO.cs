@@ -25,6 +25,7 @@ public class BasicTowerSO : TowerSO
     [SerializeField] private Sprite TurretSprite;
     [SerializeField] private GameObject shootEffect;
     [SerializeField] private GameObject deathEffect;
+    [SerializeField] private float bulletSpawnPointHeight;
 
     public override void Init(TowerController sender)
     {
@@ -35,6 +36,7 @@ public class BasicTowerSO : TowerSO
             Base = sender.transform.Find("Base").gameObject,
         };
         state.BulletSpawnPoint = state.Turret.transform.Find("BulletSpawnPoint");
+        state.BulletSpawnPoint.localPosition = new Vector3(0, bulletSpawnPointHeight, 0);
         var collider = sender.gameObject.AddComponent<CircleCollider2D>();
         collider.radius = rangeRadius;
         collider.isTrigger = true;

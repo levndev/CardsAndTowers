@@ -49,6 +49,9 @@ TagManager:
   - name: Shadow
     uniqueID: 4234847077
     locked: 0
+  - name: ShootingEffect
+    uniqueID: 415164781
+    locked: 0
   - name: Entity
     uniqueID: 2727737313
     locked: 0
