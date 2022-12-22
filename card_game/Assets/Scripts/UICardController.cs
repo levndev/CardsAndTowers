@@ -14,8 +14,8 @@ public class UICardController : MonoBehaviour
     public GameManager GameManager;
     public Deck deck;
     public CardState CurrentCardState;
-    public CollectionScreen collectionScreen;
-    public PacksScreen packsScreen;
+    public CollectionMenu collectionScreen;
+    public PacksMenu packsScreen;
 
     public enum CardState
     {

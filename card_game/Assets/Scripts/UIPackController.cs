@@ -11,7 +11,7 @@ public class UIPackController : MonoBehaviour
     public TextMeshProUGUI Name;
     public Image ArtImage;
     public Button PackButton;
-    public PacksScreen packsScreen;
+    public PacksMenu packsScreen;
     //public GameObject PackPrefab;
     //public GameObject PackSlotPrefab;
 
