@@ -46,11 +46,14 @@ TagManager:
   - name: Background
     uniqueID: 1161129555
     locked: 0
+  - name: Ground
+    uniqueID: 4039219593
+    locked: 0
   - name: Shadow
     uniqueID: 4234847077
     locked: 0
-  - name: ShootingEffect
-    uniqueID: 415164781
+  - name: Wall
+    uniqueID: 3141450983
     locked: 0
   - name: Entity
     uniqueID: 2727737313

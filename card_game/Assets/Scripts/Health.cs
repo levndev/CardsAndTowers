@@ -7,6 +7,8 @@ public class Health : MonoBehaviour
     public GameObject healthbar;
     private float healthbarWidth;
     public double Max;
+    private bool alive = true;
+    public bool DestroyAutomatically = true;
     public double Current
     {
         get => current;
@@ -35,11 +37,15 @@ public class Health : MonoBehaviour
 
     public double TakeDamage(double damage)
     {
+        if (!alive)
+            return Current;
         Current -= damage;
         if (Current <= 0)
         {
+            alive = false;
             Death?.Invoke();
-            Destroy(gameObject);
+            if (DestroyAutomatically)
+                Destroy(gameObject);
         }
         else
         {

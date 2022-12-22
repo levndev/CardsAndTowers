@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     private List<GameObject> BuildingGhosts = new List<GameObject>();
     public CameraTarget cameraTarget;
     public Vector2 DragCoefficient;
-    private GameObject wallPrefab;
     public GameObject Base;
     public float TimeToWin;
     public float TimeToWinLeft;
@@ -43,6 +42,7 @@ public class GameManager : MonoBehaviour
     public GameObject WinPanel;
     public GameObject LosePanel;
     public GameObject TowerPrefab;
+    public GameObject WallPrefab;
     public GameObject TowerPlacementEffect;
     public static GameManager Instance
     {
@@ -89,7 +89,6 @@ public class GameManager : MonoBehaviour
         {
             Hand.Add(null);
         }
-        wallPrefab = Resources.Load<GameObject>("Wall");
     }
 
     void Start()
@@ -286,7 +285,7 @@ public class GameManager : MonoBehaviour
                 }
                 BuildingGhosts.Clear();
             }
-            var buildingSize = wallPrefab.GetComponent<SizeData>().Size;
+            var buildingSize = WallPrefab.GetComponent<SizeData>().Size;
             List<Vector2> positions = new List<Vector2>();
             for (var t = 0f; t < 1f; t += 0.01f) 
                 positions.Add(Vector3.Lerp(touch.StartPosition, touch.Position, t));
@@ -297,7 +296,7 @@ public class GameManager : MonoBehaviour
                 if (ghostPosition == oldGhostPosition)
                     continue;
                 oldGhostPosition = ghostPosition;
-                var ghost = Instantiate(wallPrefab, ghostPosition, new Quaternion());
+                var ghost = Instantiate(WallPrefab, ghostPosition, new Quaternion());
                 var ghostMode = ghost.GetComponent<GhostMode>();
                 ghostMode.Enable();
                 var ghostState = MapManager.IsValidPlacement(position, buildingSize)
@@ -361,7 +360,7 @@ public class GameManager : MonoBehaviour
             for (var i = BuildingGhosts.Count - 1; i >= 0; i--)
             {
                 var ghost = BuildingGhosts[i];
-                var wall = Instantiate(wallPrefab);
+                var wall = Instantiate(WallPrefab);
                 MapManager.AddObject(wall, ghost.transform.position, false);
                 Destroy(ghost);
                 BuildingGhosts.RemoveAt(i);
