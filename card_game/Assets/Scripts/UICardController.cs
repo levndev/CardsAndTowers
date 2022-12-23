@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 public class UICardController : MonoBehaviour
 {
-    public Card card;
+    public CardSO card;
     public TextMeshProUGUI costText;
     public TextMeshProUGUI nameText;
     public Image artImage;
@@ -63,7 +63,7 @@ public class UICardController : MonoBehaviour
 
     }
 
-    public void SetFromCard(Card card)
+    public void SetFromCard(CardSO card)
     {
         this.card = card;
         costText.text = card.Cost.ToString();

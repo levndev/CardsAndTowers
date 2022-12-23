@@ -28,7 +28,7 @@ public class PacksMenu : MonoBehaviour
     public TextMeshProUGUI HelpMessage;
 
     public List<UIPackController> UIPackList = new List<UIPackController>();
-    public Dictionary<Pack, int> AllPacks = new Dictionary<Pack, int>();
+    public Dictionary<PackSO, int> AllPacks = new Dictionary<PackSO, int>();
 
     private string availablePacksFileName = "packs.txt";
 
@@ -76,9 +76,9 @@ public class PacksMenu : MonoBehaviour
     }
 
 
-    public List<Pack> LoadPacks()
+    public List<PackSO> LoadPacks()
     {
-        var packs = new List<Pack>();
+        var packs = new List<PackSO>();
         try
         {
             var path = Application.persistentDataPath + "/" + availablePacksFileName;
@@ -95,7 +95,7 @@ public class PacksMenu : MonoBehaviour
             {
                 for (var i = 0; i < int.Parse(line[1]); i++)
                 {
-                    packs.Add(Pack.LoadFromFile(line[0]));
+                    packs.Add(PackSO.LoadFromFile(line[0]));
                 }
             }
         }

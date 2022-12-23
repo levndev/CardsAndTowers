@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class CollectionMenu : MonoBehaviour
 {
-    public Card[] AllCards;
+    public CardSO[] AllCards;
     public Deck CurrentDeck;
     public TextMeshProUGUI CurrentDackName;
     public List<UICardController> DeckUICards = new List<UICardController>();
@@ -30,7 +30,7 @@ public class CollectionMenu : MonoBehaviour
 
     void Start()
     {
-        AllCards = Resources.LoadAll<Card>("Cards");
+        AllCards = Resources.LoadAll<CardSO>("Cards");
 
         if (CurrentDeck == null)
         {
@@ -70,12 +70,7 @@ public class CollectionMenu : MonoBehaviour
 
     }
 
-    public void onTestButtonClick()
-    {
-        Debug.Log("Nice Test!");
-    }
-
-    public void AddCardToDeckUI(Card card)
+    public void AddCardToDeckUI(CardSO card)
     {
         var deckCardSlot = Instantiate(DeckCardSlotPrefab);
         deckCardSlot.transform.SetParent(DeckScrollViewContent.transform);

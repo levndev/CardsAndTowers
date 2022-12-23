@@ -6,7 +6,7 @@ using UnityEngine;
 public class Deck
 {
     public string Name;
-    private List<Card> deckList = new List<Card>();
+    private List<CardSO> deckList = new List<CardSO>();
 
     public static Deck LoadFromFile(string name)
     {
@@ -17,7 +17,7 @@ public class Deck
             deck.Name = name;
             foreach (var line in lines)
             {
-                deck.AddToList(Card.LoadfromFile(line));
+                deck.AddToList(CardSO.LoadfromFile(line));
             }
         }
         catch
@@ -39,10 +39,10 @@ public class Deck
         }
     }
 
-    public Queue<Card> GetDeckQueue()
+    public Queue<CardSO> GetDeckQueue()
     {
         //var random = new System.Random();
-        var generatedQueue = new Queue<Card>();
+        var generatedQueue = new Queue<CardSO>();
         foreach (var card in deckList)
         {
             generatedQueue.Enqueue(card);
@@ -50,12 +50,12 @@ public class Deck
         return generatedQueue;
     }
 
-    public List<Card> GetDeckList()
+    public List<CardSO> GetDeckList()
     {
         return deckList;
     }
 
-    public void AddToList(Card card)
+    public void AddToList(CardSO card)
     {
         if (CanAddToDeck(card))
         {
@@ -63,12 +63,12 @@ public class Deck
         }
     }
 
-    public bool CanAddToDeck(Card card)
+    public bool CanAddToDeck(CardSO card)
     {
         return !deckList.Contains(card);
     }
 
-    public void RemoveFromDeck(Card card)
+    public void RemoveFromDeck(CardSO card)
     {
         deckList.Remove(card);
     }

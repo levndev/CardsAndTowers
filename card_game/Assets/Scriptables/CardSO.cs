@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Card", menuName = "ScriptableObjects/Card", order = 1)]
-public class Card : ScriptableObject
+public class CardSO : ResourceSO
 {
     public int Cost;
     public string Name;
     public Sprite Art;
     public TowerSO Tower;
     public Type type;
-    public Card(int Cost, string Name, Sprite Art, Type type)
+    public CardSO(int Cost, string Name, Sprite Art, Type type)
     {
         this.Cost = Cost;
         this.Name = Name;
@@ -18,9 +18,9 @@ public class Card : ScriptableObject
         this.type = type;
     }
 
-    public static Card LoadfromFile(string filename)
+    public static CardSO LoadfromFile(string filename)
     {
-        var card = Resources.Load<Card>("Cards/" + filename);
+        var card = Resources.Load<CardSO>("Cards/" + filename);
         return card;
     }
 

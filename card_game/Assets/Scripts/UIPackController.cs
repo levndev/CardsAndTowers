@@ -6,7 +6,7 @@ using TMPro;
 
 public class UIPackController : MonoBehaviour
 {
-    public Pack pack;
+    public PackSO pack;
     public PackSlot packSlot;
     public TextMeshProUGUI Name;
     public Image ArtImage;
@@ -20,13 +20,13 @@ public class UIPackController : MonoBehaviour
         PackButton.onClick.AddListener(onButtonClick);
     }
 
-    public Card[] GenerateCards()
+    public CardSO[] GenerateCards()
     {
-        var cards = new Card[6];
+        var cards = new CardSO[6];
         for(var i = 0; i < 5; i += 2)
         {
-            cards[i] = Card.LoadfromFile("Basic");
-            cards[i + 1] = Card.LoadfromFile("Sniper");
+            cards[i] = CardSO.LoadfromFile("Basic");
+            cards[i + 1] = CardSO.LoadfromFile("Sniper");
         }
         return cards;
     }
@@ -36,7 +36,7 @@ public class UIPackController : MonoBehaviour
         packsScreen.onPackClick(this);
     }
 
-    public void SetFromPack(Pack pack)
+    public void SetFromPack(PackSO pack)
     {
         this.ArtImage.sprite = pack.Art;
         this.pack = pack;

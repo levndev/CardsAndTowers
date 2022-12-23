@@ -7,7 +7,7 @@ public class PackSlot : MonoBehaviour
 {
     public int Amount;
     public TextMeshProUGUI AmountText;
-    public Pack pack;
+    public PackSO pack;
 
     void Start()
     {

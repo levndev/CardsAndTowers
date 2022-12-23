@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Pack", menuName = "ScriptableObjects/Pack", order = 2)]
-public class Pack : ScriptableObject
+public class PackSO : ResourceSO
 {
     public Sprite Art;
     public string Name;
 
-    public Pack(string Name, Sprite Art)
+    public PackSO(string Name, Sprite Art)
     {
         this.Name = Name;
         this.Art = Art;
     }
 
-    public static Pack LoadFromFile(string fileName)
+    public static PackSO LoadFromFile(string fileName)
     {
-        var pack = Resources.Load<Pack>("Packs/" + fileName);
+        var pack = Resources.Load<PackSO>("Packs/" + fileName);
         return pack;
     }
 }

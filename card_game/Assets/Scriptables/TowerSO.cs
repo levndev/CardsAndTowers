@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TowerSO : ScriptableObject
+public abstract class TowerSO : ResourceSO
 {
     [SerializeField] protected TowerBaseSO towerBase;
 

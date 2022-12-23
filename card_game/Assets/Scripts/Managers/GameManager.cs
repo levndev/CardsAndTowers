@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public List<GameObject> HandPositions;
-    public List<Card> Hand = new List<Card>();
-    public Queue<Card> Deck = new Queue<Card>();
+    public List<CardSO> Hand = new List<CardSO>();
+    public Queue<CardSO> Deck = new Queue<CardSO>();
     private int HandSize;
     public GameState GameState = GameState.None;
     private int CurrentCardSelected = -1;
@@ -78,12 +78,12 @@ public class GameManager : MonoBehaviour
         }
         catch
         {
-            Deck.Enqueue(Resources.Load<Card>("Cards/Basic"));
-            Deck.Enqueue(Resources.Load<Card>("Cards/Machinegun"));
-            Deck.Enqueue(Resources.Load<Card>("Cards/Sniper"));
-            Deck.Enqueue(Resources.Load<Card>("Cards/Flame"));
-            Deck.Enqueue(Resources.Load<Card>("Cards/Fireball"));
-            Deck.Enqueue(Resources.Load<Card>("Cards/AcidBomb"));
+            Deck.Enqueue(Resources.Load<CardSO>("Cards/Basic"));
+            Deck.Enqueue(Resources.Load<CardSO>("Cards/Machinegun"));
+            Deck.Enqueue(Resources.Load<CardSO>("Cards/Sniper"));
+            Deck.Enqueue(Resources.Load<CardSO>("Cards/Flame"));
+            Deck.Enqueue(Resources.Load<CardSO>("Cards/Fireball"));
+            Deck.Enqueue(Resources.Load<CardSO>("Cards/AcidBomb"));
         }
         for (var i = 0; i < HandSize; i++)
         {
@@ -255,7 +255,7 @@ public class GameManager : MonoBehaviour
                 BuildingGhosts.Clear();
             }
             var card = Hand[CurrentCardSelected];
-            if (card.type == Card.Type.Spell)
+            if (card.type == CardSO.Type.Spell)
             {
                 if (CurrentEnergy >= card.Cost)
                 {
