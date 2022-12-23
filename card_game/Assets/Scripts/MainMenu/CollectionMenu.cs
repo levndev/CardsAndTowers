@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using YG;
 
 public class CollectionMenu : MonoBehaviour
 {
-    public CardSO[] AllCards;
+    public Dictionary<string, CardSO> AllCards;
     public Deck CurrentDeck;
     public TextMeshProUGUI CurrentDackName;
     public List<UICardController> DeckUICards = new List<UICardController>();
@@ -30,14 +32,14 @@ public class CollectionMenu : MonoBehaviour
 
     void Start()
     {
-        AllCards = Resources.LoadAll<CardSO>("Cards");
-
+        AllCards = Resources.LoadAll<CardSO>("Cards").ToDictionary(i => i.UID);
+        
         if (CurrentDeck == null)
         {
             CurrentDeck = new Deck();
         }
-
-        for (var i = 0; i < AllCards.Length; i++)
+        var cards = AllCards.Values.ToArray();
+        for (var i = 0; i < cards.Length; i++)
         {
             var cardSlot = Instantiate(CollectionCardSlotPrefab);
             cardSlot.transform.SetParent(CardsScrollViewContent.transform);
@@ -51,10 +53,9 @@ public class CollectionMenu : MonoBehaviour
         //var gridLayout = CardsScrollViewContent.GetComponent<GridLayoutGroup>();
         //gridLayout.spacing.Set((viewportHeight - 5 * 291) / 6, verticalSpacing); // 5 cards with 291 width  x = 6 spaces ,  ÐÀÍÄÎÌÍÎÅ ÷èñëî ïî y 
 
-        for (var i = 0; i < AllCards.Length; i++)
+        for (var i = 0; i < cards.Length; i++)
         {
-            var card = AllCards[i];
-
+            var card = cards[i];
             var uiCard = Instantiate(CollectionCardPrefab, CardSlots[i].transform);
             var uiCardController = uiCard.GetComponent<UICardController>();
             uiCardController.CurrentCardState = UICardController.CardState.inCollection;

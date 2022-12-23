@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f56101b23c4f74480e7ef0185c3134, type: 3}
   m_Name: Machinegun
   m_EditorClassIdentifier: 
+  UID: 86c24567-fc5f-4150-a8dd-652d8c254a09
   towerBase: {fileID: 11400000, guid: ee80b87e8cf705d47af213bb98319be4, type: 2}
   fireRate: 1.5
   rotationSpeed: 2

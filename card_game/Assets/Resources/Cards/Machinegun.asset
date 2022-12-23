@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e404fb969624a4aaacb536f6ddd5dc, type: 3}
   m_Name: Machinegun
   m_EditorClassIdentifier: 
+  UID: 44b4fab2-5d0c-482c-95d8-a7c60536473b
   Cost: 7
   Name: Machine Gun
   Art: {fileID: 21300000, guid: d37a7fd15ea019d4a9c5a2133d734e28, type: 3}

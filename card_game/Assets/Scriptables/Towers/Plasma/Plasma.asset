@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f56101b23c4f74480e7ef0185c3134, type: 3}
   m_Name: Plasma
   m_EditorClassIdentifier: 
+  UID: 40e8b3d7-3cf9-4de7-bfe8-b242a8809e27
   towerBase: {fileID: 11400000, guid: ee80b87e8cf705d47af213bb98319be4, type: 2}
   fireRate: 1
   rotationSpeed: 2

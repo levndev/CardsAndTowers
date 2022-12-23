@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e404fb969624a4aaacb536f6ddd5dc, type: 3}
   m_Name: Sniper
   m_EditorClassIdentifier: 
+  UID: 8c80678d-e84c-43e8-9d49-4b5e8537ed38
   Cost: 10
   Name: Sniper
   Art: {fileID: 21300000, guid: f940016bbc53b4a49a408674016e6202, type: 3}

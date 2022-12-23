@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d419755382e6b6a4686fd3f6431fd100, type: 3}
   m_Name: Flame
   m_EditorClassIdentifier: 
+  UID: b3cafae8-d435-4dfb-bf3e-8b2cb67e3e5b
   towerBase: {fileID: 11400000, guid: ee80b87e8cf705d47af213bb98319be4, type: 2}
   fireRate: 15
   rotationSpeed: 2
