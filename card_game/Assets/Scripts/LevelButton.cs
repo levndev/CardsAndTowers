@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class LevelButton : MonoBehaviour
 {
-    public delegate void LevelButtonClickHandler(int scene);
-    public LevelButtonClickHandler ClickHandler;
-    public int scene;
-    public void ButtonClick()
+    public int SceneIndex;
+
+    private void Start()
     {
-        ClickHandler?.Invoke(scene);
+        gameObject.GetComponent<Button>().onClick.AddListener(OnClick);
+    }
+
+    private void OnClick()
+    {
+        SceneManager.LoadScene(SceneIndex);
     }
 }

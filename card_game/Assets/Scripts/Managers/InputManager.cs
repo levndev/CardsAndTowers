@@ -17,6 +17,26 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_WEBGL
+        var mouse = Mouse.current;
+        if (mouse.leftButton.isPressed || mouse.rightButton.isPressed)
+        {
+            var pos = mouse.position.ReadValue();
+            var delta = mouse.delta.ReadValue();
+            var oldPos = pos - delta;
+            if (IsUiElementHit(pos))
+                return;
+            Touched?.Invoke(new TapEventArgs
+            {
+                Position = Camera.main.ScreenToWorldPoint(pos),
+                StartPosition = Camera.main.ScreenToWorldPoint(oldPos),
+                Delta = delta,
+                LeftButton = mouse.leftButton.isPressed,
+                RightButton = mouse.rightButton.isPressed,
+            });
+        }
+#endif
+#if UNITY_ANDROID
         if (Touch.activeTouches.Count > 0)
         {
             var activeTouch = Touch.activeTouches[0];
@@ -29,6 +49,7 @@ public class InputManager : MonoBehaviour
                 Delta = activeTouch.delta
             });
         }
+#endif
     }
 
     private bool IsUiElementHit(Vector2 touchPosition)
@@ -51,5 +72,7 @@ public class TapEventArgs : EventArgs
     public Vector2 Position { get; set; }
     public Vector2 StartPosition { get; set; }
     public Vector2 Delta { get; set; }
+    public bool LeftButton { get; set; }
+    public bool RightButton { get; set; }
 }
 

@@ -236,8 +236,16 @@ public class GameManager : MonoBehaviour
 
     private void OnTap(TapEventArgs touch)
     {
+
         if (GameState == GameState.CardPlaying)
         {
+#if UNITY_WEBGL
+            if (touch.RightButton)
+            {
+                SetCardPlayingMode(false);
+                return;
+            }
+#endif
             if (BuildingGhosts.Count > 0)
             {
                 foreach (var oldGhost in BuildingGhosts)
@@ -277,6 +285,38 @@ public class GameManager : MonoBehaviour
         }
         else if (GameState == GameState.WallBuilding)
         {
+#if UNITY_WEBGL
+            if (touch.RightButton)
+            {
+                SetCardPlayingMode(false);
+                return;
+            }
+            var buildingSize = WallPrefab.GetComponent<SizeData>().Size;
+            List<Vector2> positions = new List<Vector2>();
+            for (var t = 0f; t < 1f; t += 0.01f) 
+                positions.Add(Vector3.Lerp(touch.StartPosition, touch.Position, t));
+            var oldGhostPosition = Vector3.forward;
+            foreach (var position in positions)
+            {
+                if (MapManager.GetGhost(position))
+                    continue;
+                var ghostPosition = MapManager.GetBuildingCenter(position, buildingSize);
+                if (ghostPosition == oldGhostPosition)
+                    continue;
+                oldGhostPosition = ghostPosition;
+                var ghost = Instantiate(WallPrefab, ghostPosition, new Quaternion());
+                var ghostMode = ghost.GetComponent<GhostMode>();
+                ghostMode.Enable();
+                var ghostState = MapManager.IsValidPlacement(position, buildingSize)
+                    ? GhostMode.States.ViablePosition
+                    : GhostMode.States.WrongPosition;
+                ghostMode.SetState(ghostState);
+                BuildingGhosts.Add(ghost);
+                MapManager.SetGhost(position, true);
+            }
+            ConfirmBuildingButton.gameObject.SetActive(true);
+#endif
+#if UNITY_ANDROID
             if (BuildingGhosts.Count > 0)
             {
                 foreach (var oldGhost in BuildingGhosts)
@@ -287,7 +327,7 @@ public class GameManager : MonoBehaviour
             }
             var buildingSize = WallPrefab.GetComponent<SizeData>().Size;
             List<Vector2> positions = new List<Vector2>();
-            for (var t = 0f; t < 1f; t += 0.01f) 
+            for (var t = 0f; t < 1f; t += 0.01f)
                 positions.Add(Vector3.Lerp(touch.StartPosition, touch.Position, t));
             var oldGhostPosition = Vector3.forward;
             foreach (var position in positions)
@@ -306,6 +346,7 @@ public class GameManager : MonoBehaviour
                 BuildingGhosts.Add(ghost);
             }
             ConfirmBuildingButton.gameObject.SetActive(true);
+#endif
         }
     }
 
@@ -326,6 +367,9 @@ public class GameManager : MonoBehaviour
             ConfirmBuildingButton.gameObject.SetActive(false);
             foreach (var ghost in BuildingGhosts)
             {
+#if UNITY_WEBGL
+                MapManager.SetGhost(ghost.transform.position, false);
+#endif
                 Destroy(ghost);
             }
             BuildingGhosts.Clear();
@@ -339,11 +383,18 @@ public class GameManager : MonoBehaviour
             for (var i = BuildingGhosts.Count - 1; i >= 0; i--)
             {
                 var ghost = BuildingGhosts[i];
+                if (ghost.GetComponent<GhostMode>().GetState() != GhostMode.States.ViablePosition)
+                {
+                    Destroy(ghost);
+                    BuildingGhosts.RemoveAt(i);
+                    continue;
+                }
                 var card = Hand[CurrentCardSelected];
                 if (CurrentEnergy >= card.Cost)
                 {
                     CurrentEnergy -= card.Cost;
                     Hand[CurrentCardSelected] = null;
+                    
                     var tower = Instantiate(TowerPrefab, ghost.transform.position, new Quaternion());
                     tower.GetComponent<TowerController>().SetTower(card.Tower);
                     Instantiate(TowerPlacementEffect, tower.transform.position, new Quaternion());
@@ -360,12 +411,18 @@ public class GameManager : MonoBehaviour
             for (var i = BuildingGhosts.Count - 1; i >= 0; i--)
             {
                 var ghost = BuildingGhosts[i];
-                var wall = Instantiate(WallPrefab);
-                MapManager.AddObject(wall, ghost.transform.position, false);
+                if (ghost.GetComponent<GhostMode>().GetState() == GhostMode.States.ViablePosition)
+                {
+                    var wall = Instantiate(WallPrefab);
+                    MapManager.AddObject(wall, ghost.transform.position, false);
+                    MapManager.RegeneratePaths();
+                }
+#if UNITY_WEBGL
+                MapManager.SetGhost(ghost.transform.position, false);
+#endif
                 Destroy(ghost);
                 BuildingGhosts.RemoveAt(i);
             }
-            MapManager.RegeneratePaths();
         }
         SetCardPlayingMode(false);
     }
@@ -378,11 +435,13 @@ public class GameManager : MonoBehaviour
         {
             GameState = GameState.None;
             cameraTarget.Enabled = true;
+            VisibleGrid.SetActive(false);
         }
         else
         {
             GameState = GameState.WallBuilding;
             cameraTarget.Enabled = false;
+            VisibleGrid.SetActive(true);
         }
     }
 
@@ -400,8 +459,6 @@ public class GameManager : MonoBehaviour
         EnergyText.text = CurrentEnergy.ToString("N0");
         EnergyBar.value = CurrentEnergy / MaxEnergy;
     }
-
-
 }
 
 public enum GameState : int
