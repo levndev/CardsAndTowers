@@ -1,3 +1,4 @@
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -23,16 +24,25 @@ public class Projectile : MonoBehaviour
     {
         timeElapsed += Time.deltaTime;
         if (timeElapsed > Lifetime)
-            Destroy(transform.gameObject);
+        {
+            Explode(null);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var enemy = other.transform.GetComponent<BasicEnemy>();
+        if (other.TryGetComponent<BasicEnemy>(out var enemy))
+        {
+            Explode(enemy);
+        }
+    }
+
+    protected virtual void Explode(BasicEnemy enemy)
+    {
         if (enemy != null)
         {
             enemy.Health.TakeDamage(Damage);
-            Destroy(transform.gameObject);
         }
+        Destroy(transform.gameObject);
     }
 }

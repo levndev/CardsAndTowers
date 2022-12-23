@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: b4d3cc1cee73ce94e928a95636377acc, type: 3}
     - target: {fileID: 2399740037284357406, guid: de56f76dfbdb71b4faf7dfdac89efa75, type: 3}
       propertyPath: m_Name
-      value: Fireball
+      value: FireballProjectile
       objectReference: {fileID: 0}
     - target: {fileID: 4009069975121173138, guid: de56f76dfbdb71b4faf7dfdac89efa75, type: 3}
       propertyPath: m_RootOrder

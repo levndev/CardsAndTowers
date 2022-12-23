@@ -32,7 +32,7 @@ public class HitscanProjectile : MonoBehaviour
             transform.right *= -1f;
         }
 
-        var scale = new Vector3(Vector3.Distance(initialPosition, finalPosition), 1, 1);
+        var scale = new Vector3(Vector3.Distance(initialPosition, finalPosition) / 5.12f, 1, 1);
         transform.localScale = scale;
     }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e404fb969624a4aaacb536f6ddd5dc, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  Cost: 10
+  Cost: 1
   Name: Fireball
   Art: {fileID: 21300000, guid: 2acfa8527e6272947aba23bb3a13e466, type: 3}
   Tower: {fileID: 11400000, guid: ae95ff162bc5377449a379fbe68ae919, type: 2}

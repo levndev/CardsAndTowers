@@ -16,10 +16,10 @@ MonoBehaviour:
   fireRate: 0.4
   rotationSpeed: 2
   prefireCoefficient: 50
-  projectile: {fileID: 5201380934438235957, guid: 1b130c35a9d94f44899969714d460fe4, type: 3}
+  projectile: {fileID: 9002176655159081737, guid: 430d3c61f92abda4f893ef1c2491a180, type: 3}
   fireAngleThreshold: 10
   rangeRadius: 25
   TurretSprite: {fileID: 21300000, guid: 2acfa8527e6272947aba23bb3a13e466, type: 3}
-  shootEffect: {fileID: 2338906543606726676, guid: b63a6f75b80e1e0468aad429e8a6bf14, type: 3}
+  shootEffect: {fileID: 2338906543606726676, guid: d22e0e59edbf3e542b6ba35ae7449fa2, type: 3}
   deathEffect: {fileID: 1839823062534221149, guid: 9700bf37e72339a4f968b822da1b2a2f, type: 3}
-  bulletSpawnPointHeight: 1.2
+  bulletSpawnPointHeight: 1.5
