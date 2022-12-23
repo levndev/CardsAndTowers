@@ -7,6 +7,7 @@ public class GhostMode : MonoBehaviour
     public List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
     public List<Behaviour> disabledBehaviours = new List<Behaviour>();
     private Color[] colors = new Color[2];
+    private States State;
     public enum States : int
     {
         WrongPosition = 0,
@@ -27,8 +28,14 @@ public class GhostMode : MonoBehaviour
         }
     }
 
+    public States GetState()
+    {
+        return State;
+    }
+
     public void SetState(States state)
     {
+        State = state;
         foreach (var renderer in spriteRenderers)
         {
             renderer.color = new Color(colors[(int)state].r, colors[(int)state].g, colors[(int)state].b, renderer.color.a);

@@ -12,6 +12,7 @@ public class MapManager : MonoBehaviour
     public Grid Grid;
     public Tilemap Entities;
     public Vector2Int mapHalfSize;
+    private Array2D<bool> Ghosts;
     private Array2D<GameObject> levelMap;
     private Array2D<Vector2Int?> paths;
     private Vector2Int[] neighbours = { new Vector2Int(0, -1), new Vector2Int(0, 1), new Vector2Int(-1, 0), new Vector2Int(1, 0),
@@ -22,6 +23,7 @@ public class MapManager : MonoBehaviour
     
     void Start()
     {
+        Ghosts = new Array2D<bool>(mapHalfSize);
         levelMap = new Array2D<GameObject>(mapHalfSize);
         paths = new Array2D<Vector2Int?>(mapHalfSize);
         for (var i = 0; i < Walls.transform.childCount; i++)
@@ -295,6 +297,17 @@ public class MapManager : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public bool GetGhost(Vector3 position)
+    {
+        var mapPosition = WorldToMap(position);
+        return Ghosts.Get(mapPosition);
+    }
+    public void SetGhost(Vector3 position, bool value)
+    {
+        var mapPosition = WorldToMap(position);
+        Ghosts.Set(mapPosition, value);
     }
 
     public Vector2Int WorldToMap(Vector3 position)
