@@ -22,6 +22,7 @@ public class Deck
         }
         catch
         {
+            Debug.Log($"Can not load deck \"{name}\" from file");
             return null;
         }
         return deck;

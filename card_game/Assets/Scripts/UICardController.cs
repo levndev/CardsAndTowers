@@ -58,7 +58,7 @@ public class UICardController : MonoBehaviour
         }
     }
 
-    public void onHold()
+    public void OnHold()
     {
 
     }

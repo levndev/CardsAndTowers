@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using System.IO;
 using System.Linq;
+using TMPro;
+using Unity.Mathematics;
 
 public class PacksMenu : MonoBehaviour
 {
@@ -23,8 +25,10 @@ public class PacksMenu : MonoBehaviour
     public GameObject CardPrefab;
     public GameObject CardSlotPrefab;
 
+    public TextMeshProUGUI HelpMessage;
+
     public List<UIPackController> UIPackList = new List<UIPackController>();
-    public Dictionary<Pack,int> AllPacks = new Dictionary<Pack, int>();
+    public Dictionary<Pack, int> AllPacks = new Dictionary<Pack, int>();
 
     private string availablePacksFileName = "packs.txt";
 
@@ -32,8 +36,38 @@ public class PacksMenu : MonoBehaviour
     {
         OpenedCardsPanelButton = OpenedCardsScrollView.GetComponent<UnityEngine.UI.Button>();
         OpenedCardsPanelButton.onClick.AddListener(onOpenedCardsPanelClick);
+        //if (HelpMessage != null)
+        //{
+        //    StartCoroutine(FadeUnfade());
+        //}
+    }
 
-        
+    IEnumerator FadeUnfade()
+    {
+        var time = 0f;
+        while (true)
+        {
+
+            time += Time.deltaTime;
+            float alpha = 127.5f + 127.5f * Mathf.Cos(time);
+            float r = HelpMessage.color.r;
+            float g = HelpMessage.color.g;
+            float b = HelpMessage.color.b;
+            HelpMessage.color = new Color(r, g, b, alpha);
+            yield return new WaitForSeconds(0.1f);
+
+        }
+    }
+
+    private void Update()
+    {
+        float alpha = HelpMessage.color.a;
+        float r = HelpMessage.color.r;
+        float g = HelpMessage.color.g;
+        float b = HelpMessage.color.b;
+        //HelpMessage.color = new Color(r, g, b, alpha);
+        HelpMessage.color = Color.Lerp(new Color(r,g,b,0), new Color(r,g,b,255), Mathf.Abs(Mathf.Sin(Time.deltaTime *5)));
+
     }
 
     public void onPackClick(UIPackController sender)
@@ -54,12 +88,12 @@ public class PacksMenu : MonoBehaviour
         }
         AllPacks[sender.pack] -= 1;
         sender.packSlot.DecreseAmount();
-        if(sender.packSlot.Amount <= 0)
+        if (sender.packSlot.Amount <= 0)
         {
             AllPacks.Remove(sender.pack);
             Destroy(sender.gameObject.transform.parent.gameObject);
         }
-        
+
     }
 
     public void onCardClick(UICardController sender)
@@ -93,16 +127,16 @@ public class PacksMenu : MonoBehaviour
             var lines = File.ReadAllLines(path);
             foreach (var line in lines.Select(str => str.Split(' ')))
             {
-                for(var i = 0; i < int.Parse(line[1]); i++)
+                for (var i = 0; i < int.Parse(line[1]); i++)
                 {
                     packs.Add(Pack.LoadFromFile(line[0]));
                 }
             }
         }
-        catch(System.Exception e)
+        catch (System.Exception e)
         {
-            Debug.Log("Something wrong with file. SUSSY");
-            Debug.Log(e.Message); 
+            Debug.Log("Something wrong loading packs. SUSSY");
+            Debug.Log(e.Message);
         }
         return packs;
     }
@@ -111,6 +145,7 @@ public class PacksMenu : MonoBehaviour
     {
         using (StreamWriter sw = File.CreateText(Application.persistentDataPath + "/" + availablePacksFileName))
         {
+            sw.Flush();
             foreach (var (pack, amount) in AllPacks)
             {
                 sw.WriteLine(pack.Name + " " + amount);
