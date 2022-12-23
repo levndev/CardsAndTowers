@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "CardsAndTowers/Basic Tower")]
-public class BasicTowerSO : TowerSO
+[CreateAssetMenu(menuName = "CardsAndTowers/Spray Tower")]
+public class SprayTowerSO : TowerSO
 {
     private class BasicTowerState : TowerState
     {
@@ -26,6 +25,7 @@ public class BasicTowerSO : TowerSO
     [SerializeField] private GameObject shootEffect;
     [SerializeField] private GameObject deathEffect;
     [SerializeField] private float bulletSpawnPointHeight;
+    [SerializeField, Tooltip("In degrees.")] private float spread;
 
     public override void Init(TowerController sender)
     {
@@ -101,7 +101,9 @@ public class BasicTowerSO : TowerSO
 
         void LaunchProjectile()
         {
-            Instantiate(projectile, state.BulletSpawnPoint.position, state.BulletSpawnPoint.rotation);
+            var randomRotation = Quaternion.Euler(0, 0, UnityEngine.Random.value * spread - spread / 2);
+            var rotation = state.BulletSpawnPoint.rotation * randomRotation;
+            Instantiate(projectile, state.BulletSpawnPoint.position, rotation);
             Instantiate(shootEffect, state.BulletSpawnPoint.position, state.BulletSpawnPoint.rotation);
         }
     }

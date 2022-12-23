@@ -9,17 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68f56101b23c4f74480e7ef0185c3134, type: 3}
-  m_Name: Flame
+  m_Script: {fileID: 11500000, guid: 675d1263b176b404583ef58e41b16888, type: 3}
+  m_Name: PlasmaHoming
   m_EditorClassIdentifier: 
   towerBase: {fileID: 11400000, guid: ee80b87e8cf705d47af213bb98319be4, type: 2}
-  fireRate: 10
-  rotationSpeed: 2
-  prefireCoefficient: 50
-  projectile: {fileID: 413306209130687319, guid: 6caaf1fe9a6c11e42ad614e749cdad9c, type: 3}
-  fireAngleThreshold: 10
+  fireRate: 1
+  projectile: {fileID: -6475257150910739255, guid: d4583fb69bba9a04b9787ef066f52db5, type: 3}
   rangeRadius: 25
-  TurretSprite: {fileID: 21300000, guid: ad7fc49e0236a9944ab345ffe2a08d42, type: 3}
-  shootEffect: {fileID: 2338906543606726676, guid: b63a6f75b80e1e0468aad429e8a6bf14, type: 3}
+  TurretSprite: {fileID: 21300000, guid: 9ec6bcfe1353f1346833c43f2a887076, type: 3}
+  shootEffect: {fileID: 2338906543606726676, guid: ea0dbfb4a6782974780bd73ec414c32e, type: 3}
   deathEffect: {fileID: 1839823062534221149, guid: 9700bf37e72339a4f968b822da1b2a2f, type: 3}
-  bulletSpawnPointHeight: 1.2
+  bulletSpawnPointHeight: 0.9
