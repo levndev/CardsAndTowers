@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class HitscanProjectile : MonoBehaviour
+public class BasicHitscanProjectile : HitscanProjectile
 {
     public double Damage;
     public double Lifetime;
 
     private double timeElapsed;
 
-    public void Activate(Transform tower, BasicEnemy enemy)
+    public override void Activate(Vector3 start, BasicEnemy enemy)
     {
-        Strech(tower.position, enemy.transform.position, false);
+        Strech(start, enemy.transform.position, false);
         enemy.Health.TakeDamage(Damage);
     }
 
@@ -19,6 +19,11 @@ public class HitscanProjectile : MonoBehaviour
         if (timeElapsed > Lifetime)
             Destroy(transform.gameObject);
     }
+}
+
+public abstract class HitscanProjectile : MonoBehaviour
+{
+    public abstract void Activate(Vector3 start, BasicEnemy enemy);
 
     public void Strech(Vector3 initialPosition, Vector3 finalPosition, bool mirrorZ)
     {

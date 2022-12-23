@@ -83,7 +83,7 @@ public class HitscanTowerSO : TowerSO
         void Shoot()
         {
             var hit = Instantiate(projectile, state.BulletSpawnPoint.position, state.BulletSpawnPoint.rotation);
-            hit.Activate(state.BulletSpawnPoint.transform, state.Target);
+            hit.Activate(state.BulletSpawnPoint.transform.position, state.Target);
             Instantiate(shootEffect, state.BulletSpawnPoint.position, state.BulletSpawnPoint.rotation);
         }
     }

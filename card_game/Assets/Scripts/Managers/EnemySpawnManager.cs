@@ -37,7 +37,8 @@ public class EnemySpawnManager : MonoBehaviour
                 return;
             var enemy = randomSpawn.Enemy;
             var spawnPoint = spawnPoints.ChooseRandom(spawnPoint => spawnPoint.Weight);
-            Instantiate(enemy, spawnPoint.transform.position, new Quaternion());
+            var randomSpawnPoint = UnityEngine.Random.insideUnitCircle + (Vector2)spawnPoint.transform.position;
+            Instantiate(enemy, randomSpawnPoint, new Quaternion());
             difficultyPointsLeft -= enemy.Difficulty;
         }
     }
