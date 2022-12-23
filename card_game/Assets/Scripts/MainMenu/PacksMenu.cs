@@ -10,13 +10,13 @@ using Unity.Mathematics;
 
 public class PacksMenu : MonoBehaviour
 {
-    public ScrollView AvailablePacks;
+    //public ScrollView AvailablePacks;
 
-    public GameObject PacksScrollView;
+    //public GameObject PacksScrollView;
     public GameObject PacksScrollViewContent;
 
     public GameObject OpenedCardsPanel;
-    public GameObject OpenedCardsScrollView;
+    //public GameObject OpenedCardsScrollView;
     public UnityEngine.UI.Button OpenedCardsPanelButton;
 
     public GameObject PackSlotPrefab;
@@ -32,43 +32,6 @@ public class PacksMenu : MonoBehaviour
 
     private string availablePacksFileName = "packs.txt";
 
-    void Start()
-    {
-        OpenedCardsPanelButton = OpenedCardsScrollView.GetComponent<UnityEngine.UI.Button>();
-        OpenedCardsPanelButton.onClick.AddListener(onOpenedCardsPanelClick);
-        //if (HelpMessage != null)
-        //{
-        //    StartCoroutine(FadeUnfade());
-        //}
-    }
-
-    IEnumerator FadeUnfade()
-    {
-        var time = 0f;
-        while (true)
-        {
-
-            time += Time.deltaTime;
-            float alpha = 127.5f + 127.5f * Mathf.Cos(time);
-            float r = HelpMessage.color.r;
-            float g = HelpMessage.color.g;
-            float b = HelpMessage.color.b;
-            HelpMessage.color = new Color(r, g, b, alpha);
-            yield return new WaitForSeconds(0.1f);
-
-        }
-    }
-
-    private void Update()
-    {
-        float alpha = HelpMessage.color.a;
-        float r = HelpMessage.color.r;
-        float g = HelpMessage.color.g;
-        float b = HelpMessage.color.b;
-        //HelpMessage.color = new Color(r, g, b, alpha);
-        HelpMessage.color = Color.Lerp(new Color(r,g,b,0), new Color(r,g,b,255), Mathf.Abs(Mathf.Sin(Time.deltaTime *5)));
-
-    }
 
     public void onPackClick(UIPackController sender)
     {
@@ -84,6 +47,7 @@ public class PacksMenu : MonoBehaviour
                 uiCardController.CurrentCardState = UICardController.CardState.inPack;
                 uiCardController.packsScreen = this;
                 uiCardController.SetFromCard(card);
+                //uiCardController.transform.SetSiblingIndex(0);
             }
         }
         AllPacks[sender.pack] -= 1;
@@ -93,7 +57,8 @@ public class PacksMenu : MonoBehaviour
             AllPacks.Remove(sender.pack);
             Destroy(sender.gameObject.transform.parent.gameObject);
         }
-
+        SaveUnusedPacks();
+        HelpMessage.gameObject.SetActive(false);
     }
 
     public void onCardClick(UICardController sender)
@@ -101,12 +66,13 @@ public class PacksMenu : MonoBehaviour
 
     }
 
-    public void onOpenedCardsPanelClick()
+    public void OnOpenedCardsPanelClick()
     {
         foreach (Transform child in OpenedCardsPanel.transform)
         {
             Destroy(child.gameObject);
         }
+        HelpMessage.gameObject.SetActive(true);
     }
 
 
@@ -145,7 +111,6 @@ public class PacksMenu : MonoBehaviour
     {
         using (StreamWriter sw = File.CreateText(Application.persistentDataPath + "/" + availablePacksFileName))
         {
-            sw.Flush();
             foreach (var (pack, amount) in AllPacks)
             {
                 sw.WriteLine(pack.Name + " " + amount);
@@ -172,7 +137,9 @@ public class PacksMenu : MonoBehaviour
                 uiPack.packsScreen = this;
                 uiPack.SetFromPack(loadedPack);
                 uiPack.packSlot = uiPackSlot;
+                uiPack.transform.SetSiblingIndex(0);
                 UIPackList.Add(uiPack);
+
             }
             else
             {
@@ -186,6 +153,17 @@ public class PacksMenu : MonoBehaviour
     private void OnDisable()
     {
         SaveUnusedPacks();
-        onOpenedCardsPanelClick();
+        OnOpenedCardsPanelClick();
+        ResetPacks();
+    }
+
+    private void ResetPacks()
+    {
+        AllPacks.Clear();
+        UIPackList.Clear();
+        foreach (Transform child in PacksScrollViewContent.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
     }
 }
