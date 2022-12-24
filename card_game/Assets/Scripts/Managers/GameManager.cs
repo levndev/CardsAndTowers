@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
@@ -191,6 +192,21 @@ public class GameManager : MonoBehaviour
             DrawCooldownBar.value = 1;
         }
         UpdateEnergyDisplay();
+        UpdateCardsOutlines();
+    }
+
+    public void UpdateCardsOutlines()
+    {
+        foreach(var handPosition in HandPositions)
+        {
+            foreach(Transform cardUI in handPosition.transform)
+            {
+                if(cardUI.gameObject.TryGetComponent<Outline>(out var outline))
+                {
+                    outline.enabled = false;
+                }
+            }
+        }
     }
 
     public void CardClick(int HandIndex)
