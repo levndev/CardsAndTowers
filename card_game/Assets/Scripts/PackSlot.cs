@@ -30,4 +30,10 @@ public class PackSlot : MonoBehaviour
     {
         AmountText.text = Amount.ToString();
     }
+
+    public void SetAmount(int value)
+    {
+        Amount = value;
+        UpdateDisplayedAmount();
+    }
 }

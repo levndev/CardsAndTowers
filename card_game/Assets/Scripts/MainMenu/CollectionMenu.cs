@@ -29,11 +29,12 @@ public class CollectionMenu : MonoBehaviour
     public GameObject DeckCardSlotPrefab;
     //private int CardsInRow = 5;
     //private int verticalSpacing = 100;
+    private List<Deck> UserDecks;
 
     void Start()
     {
         AllCards = Resources.LoadAll<CardSO>("Cards").ToDictionary(i => i.UID);
-        
+
         if (CurrentDeck == null)
         {
             CurrentDeck = new Deck();
@@ -46,12 +47,8 @@ public class CollectionMenu : MonoBehaviour
             CardSlots.Add(cardSlot);
             cardSlot.transform.localScale = Vector2.one;
         }
-        //var viewportRectTransform = CardsViewport.GetComponent<RectTransform>();
-        //var viewportHeight = viewportRectTransform.rect.height;
-        //var viewportWidth = viewportRectTransform.rect.width;
+        
 
-        //var gridLayout = CardsScrollViewContent.GetComponent<GridLayoutGroup>();
-        //gridLayout.spacing.Set((viewportHeight - 5 * 291) / 6, verticalSpacing); // 5 cards with 291 width  x = 6 spaces ,  ÐÀÍÄÎÌÍÎÅ ÷èñëî ïî y 
 
         for (var i = 0; i < cards.Length; i++)
         {
@@ -104,16 +101,18 @@ public class CollectionMenu : MonoBehaviour
         }
     }
 
+
     public void RemoveCardFromDeckUI(UICardController card)
     {
         DeckUICards.Remove(card);
         Destroy(card.transform.parent.gameObject);
     }
 
+
     private void OnEnable()
     {
         var deck = Deck.LoadFromFile("deck1");
-        
+
         if (deck != null)
         {
             for (var i = DeckUICards.Count - 1; i >= 0; i--)
@@ -130,9 +129,21 @@ public class CollectionMenu : MonoBehaviour
         }
     }
 
+
     private void OnDisable()
     {
-        //CurrentDeck.Name = "deck1";
         Deck.SaveDeck(CurrentDeck);
+    }
+
+
+    public void OnDeckSelectionValueChange(int id)
+    {
+
+    }
+
+
+    public void SaveDecks()
+    {
+
     }
 }

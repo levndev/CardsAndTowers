@@ -39,5 +39,14 @@ namespace YG
                 },
             },
         };
+        public List<PackSaveData> Packs = new()
+        {
+            new PackSaveData
+            {
+                Name = "Classic",
+                Amount = 1000
+            }
+        };
+        public string LastUsedDeck;
     }
 }
