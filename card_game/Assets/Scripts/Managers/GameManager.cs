@@ -197,13 +197,16 @@ public class GameManager : MonoBehaviour
 
     public void UpdateCardsOutlines()
     {
-        foreach(var handPosition in HandPositions)
+        for (var i = 0; i < HandPositions.Count; i++)
         {
-            foreach(Transform cardUI in handPosition.transform)
+            foreach (Transform cardUI in HandPositions[i].transform)
             {
-                if(cardUI.gameObject.TryGetComponent<Outline>(out var outline))
+                if (cardUI.gameObject.TryGetComponent<Outline>(out var outline))
                 {
-                    outline.enabled = false;
+                    if (CurrentEnergy >= Hand[i].Cost)
+                        outline.enabled = true;
+                    else
+                        outline.enabled = false;
                 }
             }
         }
@@ -276,7 +279,7 @@ public class GameManager : MonoBehaviour
                 if (CurrentEnergy >= card.Cost)
                 {
                     CurrentEnergy -= card.Cost;
-                    
+
                     //Instantiate(Tower, touch.Position, new Quaternion());
                     Hand[CurrentCardSelected] = null;
                     Deck.Enqueue(card);
@@ -309,7 +312,7 @@ public class GameManager : MonoBehaviour
             }
             var buildingSize = WallPrefab.GetComponent<SizeData>().Size;
             List<Vector2> positions = new List<Vector2>();
-            for (var t = 0f; t < 1f; t += 0.01f) 
+            for (var t = 0f; t < 1f; t += 0.01f)
                 positions.Add(Vector3.Lerp(touch.StartPosition, touch.Position, t));
             var oldGhostPosition = Vector3.forward;
             foreach (var position in positions)
@@ -410,7 +413,7 @@ public class GameManager : MonoBehaviour
                 {
                     CurrentEnergy -= card.Cost;
                     Hand[CurrentCardSelected] = null;
-                    
+
                     var tower = Instantiate(TowerPrefab, ghost.transform.position, new Quaternion());
                     tower.GetComponent<TowerController>().SetTower(card.Tower);
                     Instantiate(TowerPlacementEffect, tower.transform.position, new Quaternion());
