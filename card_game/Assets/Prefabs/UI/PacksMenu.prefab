@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 4430735406836765877}
   - component: {fileID: 4430735406836765876}
   m_Layer: 5
-  m_Name: PacksScreen
+  m_Name: PacksMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

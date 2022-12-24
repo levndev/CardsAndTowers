@@ -151,7 +151,7 @@ GameObject:
   - component: {fileID: 4948968707424316948}
   - component: {fileID: 6458786722064981575}
   m_Layer: 0
-  m_Name: SelectLevelScreen
+  m_Name: SelectLevelMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
