@@ -16,13 +16,13 @@ namespace YG
         {
             new CardSaveData
             {
-                UID = "40e8b3d7-3cf9-4de7-bfe8-b242a8809e27",
+                UID = "b60fd3e1-67d3-4e3e-bd76-e9d922d992c9",
                 Amount = 1,
                 Level = 1,
             },
             new CardSaveData
             {
-                UID = "86c24567-fc5f-4150-a8dd-652d8c254a09",
+                UID = "b5025eb8-1d44-44cc-8f80-002014ab15fc",
                 Amount = 1,
                 Level = 1,
             },
@@ -34,8 +34,8 @@ namespace YG
                 Name = "Default",
                 Cards = new List<string>
                 {
-                    "40e8b3d7-3cf9-4de7-bfe8-b242a8809e27",
-                    "86c24567-fc5f-4150-a8dd-652d8c254a09",
+                    "ce08dc96-b9fb-4de7-9800-32fbcbd07558",
+                    "44b4fab2-5d0c-482c-95d8-a7c60536473b",
                 },
             },
         };

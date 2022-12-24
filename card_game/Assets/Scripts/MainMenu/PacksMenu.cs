@@ -120,35 +120,6 @@ public class PacksMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        //var loadedPacks = SaveDataManager.Instance.UserPacks;
-        //foreach (var loadedPack in loadedPacks)
-        //{
-        //    if (!AllPacks.Keys.Contains(loadedPack))
-        //    {
-        //        AllPacks.Add(loadedPack, 1);
-
-        //        var packSlot = Instantiate(PackSlotPrefab, PacksScrollViewContent.transform);
-        //        var uiPackSlot = packSlot.GetComponent<PackSlot>();
-        //        uiPackSlot.IncreaseAmount();
-        //        uiPackSlot.pack = loadedPack;
-
-        //        var pack = Instantiate(PackPrefab, packSlot.transform);
-        //        var uiPack = pack.GetComponent<UIPackController>();
-        //        uiPack.packsScreen = this;
-        //        uiPack.SetFromPack(loadedPack);
-        //        uiPack.packSlot = uiPackSlot;
-        //        uiPack.transform.SetSiblingIndex(0);
-        //        UIPackList.Add(uiPack);
-
-        //    }
-        //    else
-        //    {
-        //        AllPacks[loadedPack] += 1;
-        //        var uiPack = UIPackList.Where(uiPack => uiPack.pack == loadedPack).ElementAt(0);
-        //        uiPack.packSlot.IncreaseAmount();
-        //    }
-        //}
-
         var loadedPacks = SaveDataManager.Instance.UserPacks;
         foreach(var loadedPack in loadedPacks)
         {
@@ -168,7 +139,6 @@ public class PacksMenu : MonoBehaviour
 
     private void OnDisable()
     {
-        //SaveUnusedPacks();
         OnOpenedCardsPanelClick();
         ResetPacks();
     }
