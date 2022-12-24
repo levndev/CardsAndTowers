@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3e8e19095afd264c833204c4b1b1b61, type: 3}
+  m_Name: AggroDefault
+  m_EditorClassIdentifier: 
+  UID: c78b2710-02f0-441e-9d5a-683ce123cf16
+  towerBase: {fileID: 11400000, guid: ee80b87e8cf705d47af213bb98319be4, type: 2}
+  TurretSprite: {fileID: 21300000, guid: c26546d80f35fe343b192e4f5c69ccb0, type: 3}
+  AggroPriority: 1
+  AggroRange: 15
+  deathEffect: {fileID: 1839823062534221149, guid: 9700bf37e72339a4f968b822da1b2a2f, type: 3}
+  MaxHealth: 50
+  RotationSpeed: 45

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EntityTracker : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class EntityTracker : MonoBehaviour
     }
     private List<GameObject> entitiesInRange = new List<GameObject>();
     public TargetType TypeFilter;
-
+    public UnityEvent<EntityTracker, GameObject> OnEntityEnterRange = new();
+    public UnityEvent<EntityTracker, GameObject> OnEntityLeaveRange = new();
     private void OnTriggerEnter2D(Collider2D other)
     {
         var entity = other.gameObject;
@@ -22,6 +24,7 @@ public class EntityTracker : MonoBehaviour
             TypeFilter.HasFlag(TargetType.Tower) && entity.GetComponent<TowerController>())
         {
             entitiesInRange.Add(entity);
+            OnEntityEnterRange?.Invoke(this, entity);
         }
     }
 
@@ -29,7 +32,10 @@ public class EntityTracker : MonoBehaviour
     {
         var entity = other.gameObject;
         if (entity != null)
+        {
             entitiesInRange.Remove(entity);
+            OnEntityLeaveRange?.Invoke(this, entity);
+        }
     }
 
     public GameObject GetClosestEntity()

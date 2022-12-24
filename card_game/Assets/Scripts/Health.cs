@@ -3,12 +3,21 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public double current;
+    private double current;
+    private double max;
     public GameObject healthbar;
     private float healthbarWidth;
-    public double Max;
     private bool alive = true;
     public bool DestroyAutomatically = true;
+    public double Max
+    {
+        get => max;
+        set
+        {
+            max = value;
+            current = value;
+        }
+    }
     public double Current
     {
         get => current;
@@ -17,10 +26,14 @@ public class Health : MonoBehaviour
             current = value;
             if (healthbar != null)
             {
-                healthbar.transform.localScale = new Vector3(
-                    (float)(healthbarWidth * current / Max),
-                    healthbar.transform.localScale.y,
-                    healthbar.transform.localScale.z);
+                var x = (float)(healthbarWidth * current / max);
+                if (float.IsNormal(x))
+                {
+                    healthbar.transform.localScale = new Vector3(
+                        x,
+                        healthbar.transform.localScale.y,
+                        healthbar.transform.localScale.z);
+                }
             }
         }
     }
@@ -30,7 +43,7 @@ public class Health : MonoBehaviour
 
     void Start()
     {
-        current = Max;
+        current = max;
         if (healthbar != null)
             healthbarWidth = healthbar.transform.localScale.x;
     }

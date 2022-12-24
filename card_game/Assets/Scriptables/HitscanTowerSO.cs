@@ -22,7 +22,7 @@ public class HitscanTowerSO : TowerSO
     [SerializeField] private GameObject shootEffect;
     [SerializeField] private GameObject deathEffect;
     [SerializeField] private float bulletSpawnPointHeight;
-
+    [SerializeField] protected int AggroPriority;
     public override void Init(TowerController sender)
     {
         base.Init(sender);
@@ -37,6 +37,7 @@ public class HitscanTowerSO : TowerSO
         collider.radius = rangeRadius;
         collider.isTrigger = true;
         state.Tracker = sender.gameObject.AddComponent<EntityTracker>();
+        state.Tracker.OnEntityEnterRange.AddListener(OnEnemyEnterRange);
         state.Tracker.TypeFilter = EntityTracker.TargetType.Enemy;
         state.Turret.GetComponent<SpriteRenderer>().sprite = TurretSprite;
         sender.State = state;
@@ -96,6 +97,16 @@ public class HitscanTowerSO : TowerSO
             var hit = Instantiate(projectile, state.BulletSpawnPoint.position, state.BulletSpawnPoint.rotation);
             hit.Activate(state.BulletSpawnPoint.transform.position, state.Target);
             Instantiate(shootEffect, state.BulletSpawnPoint.position, state.BulletSpawnPoint.rotation);
+        }
+    }
+
+    public void OnEnemyEnterRange(EntityTracker sender, GameObject entity)
+    {
+        var tower = sender.gameObject.GetComponent<TowerController>();
+        var enemy = entity.GetComponent<BasicEnemy>();
+        if (enemy != null)
+        {
+            enemy.OnTowerRangeEnter(tower, AggroPriority);
         }
     }
 }

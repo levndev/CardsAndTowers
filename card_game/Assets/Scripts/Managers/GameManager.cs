@@ -203,10 +203,13 @@ public class GameManager : MonoBehaviour
             {
                 if (cardUI.gameObject.TryGetComponent<Outline>(out var outline))
                 {
-                    if (CurrentEnergy >= Hand[i].Cost)
-                        outline.enabled = true;
-                    else
-                        outline.enabled = false;
+                    if (Hand[i] != null)
+                    {
+                        if (CurrentEnergy >= Hand[i].Cost)
+                            outline.enabled = true;
+                        else
+                            outline.enabled = false;
+                    }
                 }
             }
         }

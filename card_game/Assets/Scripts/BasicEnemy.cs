@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Priority_Queue;
 public class BasicEnemy : MonoBehaviour
 {
     public float RotationSpeed;
@@ -20,7 +20,7 @@ public class BasicEnemy : MonoBehaviour
     private Vector3? goal = null;
     private bool aggroedOnTower = false;
     private Stack<Vector3> currentPath;
-    private Queue<BasicTowerController> aggroedTowers = new();
+    private SimplePriorityQueue<TowerController, int> aggroedTowers;
     private List<Health> targets;
     public float AttackCooldown;
     public double AttackDamage;
@@ -31,7 +31,7 @@ public class BasicEnemy : MonoBehaviour
     private void Awake()
     {
         targets = new List<Health>();
-        aggroedTowers = new Queue<BasicTowerController>();
+        aggroedTowers = new ();
         rigidbody = transform.GetComponent<Rigidbody2D>();
     }
 
@@ -158,13 +158,13 @@ public class BasicEnemy : MonoBehaviour
         return next;
     }
 
-    public void OnTowerRangeEnter(BasicTowerController tower)
+    public void OnTowerRangeEnter(TowerController tower, int priority)
     {
         if (mapManager == null)
         {
             mapManager = GameManager.Instance.MapManager;
         }
-        aggroedTowers.Enqueue(tower);
+        aggroedTowers.Enqueue(tower, priority);
     }
 
     public void OnTargetTowerDeath()

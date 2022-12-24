@@ -26,7 +26,7 @@ public class SprayTowerSO : TowerSO
     [SerializeField] private GameObject deathEffect;
     [SerializeField] private float bulletSpawnPointHeight;
     [SerializeField, Tooltip("In degrees.")] private float spread;
-
+    [SerializeField] protected int AggroPriority;
     public override void Init(TowerController sender)
     {
         base.Init(sender);
@@ -41,6 +41,7 @@ public class SprayTowerSO : TowerSO
         collider.radius = rangeRadius;
         collider.isTrigger = true;
         state.Tracker = sender.gameObject.AddComponent<EntityTracker>();
+        state.Tracker.OnEntityEnterRange.AddListener(OnEnemyEnterRange);
         state.Tracker.TypeFilter = EntityTracker.TargetType.Enemy;
         state.Turret.GetComponent<SpriteRenderer>().sprite = TurretSprite;
         sender.State = state;
@@ -105,6 +106,16 @@ public class SprayTowerSO : TowerSO
             var rotation = state.BulletSpawnPoint.rotation * randomRotation;
             Instantiate(projectile, state.BulletSpawnPoint.position, rotation);
             Instantiate(shootEffect, state.BulletSpawnPoint.position, state.BulletSpawnPoint.rotation);
+        }
+    }
+
+    public void OnEnemyEnterRange(EntityTracker sender, GameObject entity)
+    {
+        var tower = sender.gameObject.GetComponent<TowerController>();
+        var enemy = entity.GetComponent<BasicEnemy>();
+        if (enemy != null)
+        {
+            enemy.OnTowerRangeEnter(tower, AggroPriority);
         }
     }
 }

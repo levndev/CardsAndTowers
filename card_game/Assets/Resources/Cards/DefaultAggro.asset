@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e404fb969624a4aaacb536f6ddd5dc, type: 3}
+  m_Name: DefaultAggro
+  m_EditorClassIdentifier: 
+  UID: 8d99d6de-ad93-4c41-8694-62a3039230d3
+  Cost: 10
+  Name: Aggro tower
+  Art: {fileID: 21300000, guid: c26546d80f35fe343b192e4f5c69ccb0, type: 3}
+  Tower: {fileID: 11400000, guid: 67512b8e489a6304aaf368a6ce605bdb, type: 2}
+  type: 0
