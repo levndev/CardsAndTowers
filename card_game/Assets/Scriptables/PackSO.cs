@@ -13,10 +13,4 @@ public class PackSO : ResourceSO
         this.Name = Name;
         this.Art = Art;
     }
-
-    public static PackSO LoadFromFile(string fileName)
-    {
-        var pack = Resources.Load<PackSO>("Packs/" + fileName);
-        return pack;
-    }
 }

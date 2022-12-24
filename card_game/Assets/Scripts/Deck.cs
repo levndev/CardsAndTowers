@@ -6,7 +6,18 @@ using UnityEngine;
 public class Deck
 {
     public string Name;
-    private List<CardSO> deckList = new List<CardSO>();
+    public List<CardSO> deckList { get; private set; } = new List<CardSO>();
+
+    public Deck(string name, List<CardSO> deckList)
+    {
+        this.Name = name;
+        this.deckList = deckList;
+    }
+
+    public Deck()
+    {
+
+    }
 
     public static Deck LoadFromFile(string name)
     {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,8 @@ public class CollectionMenu : MonoBehaviour
     //private int CardsInRow = 5;
     //private int verticalSpacing = 100;
     private List<Deck> UserDecks;
+
+    public static Action<object, DeckEventArgs> DeckAction;
 
     void Start()
     {

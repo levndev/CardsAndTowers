@@ -7,16 +7,19 @@ using System.IO;
 using System.Linq;
 using TMPro;
 using Unity.Mathematics;
+using System;
+using UnityEngine.Events;
+using Unity.VisualScripting;
 
 public class PacksMenu : MonoBehaviour
 {
-    //public ScrollView AvailablePacks;
+    //public static UnityEvent<PackSO> PackOpened;
 
-    //public GameObject PacksScrollView;
+    public static Action<object, PackSO, CardSO[]> PackOpened;
+
     public GameObject PacksScrollViewContent;
 
     public GameObject OpenedCardsPanel;
-    //public GameObject OpenedCardsScrollView;
     public UnityEngine.UI.Button OpenedCardsPanelButton;
 
     public GameObject PackSlotPrefab;
@@ -30,14 +33,22 @@ public class PacksMenu : MonoBehaviour
     public List<UIPackController> UIPackList = new List<UIPackController>();
     //public Dictionary<PackSO, int> AllPacks = new Dictionary<PackSO, int>();
 
-    private string availablePacksFileName = "packs.txt";
+    //private string availablePacksFileName = "packs.txt";
 
 
     public void onPackClick(UIPackController sender)
     {
+        if (!SaveDataManager.Instance.UserPacks.ContainsKey(sender.pack))
+        {
+            throw new Exception("You dont have this pack on your account. SUSSY");
+        }
         var newCards = sender.GenerateCards();
+
+        PackOpened?.Invoke(this, sender.pack, newCards);
+
         if (newCards != null)
         {
+            //CardsAcquired?.Invoke(newCards);
             foreach (var card in newCards)
             {
                 var uiCardSlot = Instantiate(CardSlotPrefab, OpenedCardsPanel.transform);
@@ -47,17 +58,14 @@ public class PacksMenu : MonoBehaviour
                 uiCardController.CurrentCardState = UICardController.CardState.inPack;
                 uiCardController.packsScreen = this;
                 uiCardController.SetFromCard(card);
-                //uiCardController.transform.SetSiblingIndex(0);
             }
         }
-        //llPacks[sender.pack] -= 1;
+
         sender.packSlot.DecreseAmount();
         if (sender.packSlot.Amount <= 0)
         {
-            //AllPacks.Remove(sender.pack);
             Destroy(sender.gameObject.transform.parent.gameObject);
         }
-        //SaveUnusedPacks();
         HelpMessage.gameObject.SetActive(false);
     }
 
