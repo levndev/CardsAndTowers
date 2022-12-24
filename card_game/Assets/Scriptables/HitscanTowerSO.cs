@@ -16,6 +16,8 @@ public class HitscanTowerSO : TowerSO
     [SerializeField] private double fireRate;
     [SerializeField] private HitscanProjectile projectile;
     [SerializeField] private float rangeRadius;
+    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float fireAngleThreshold;
     [SerializeField] private Sprite TurretSprite;
     [SerializeField] private GameObject shootEffect;
     [SerializeField] private GameObject deathEffect;
@@ -62,21 +64,30 @@ public class HitscanTowerSO : TowerSO
                 return;
         }
 
-        RotateTo(state.Target.transform.position);
-        if (state.FireCooldown >= 1 / fireRate)
+        RotateTo(state.Target.transform.position, out var canFire);
+        if (canFire)
         {
-            Shoot();
-            state.FireCooldown = 0;
+            if (state.FireCooldown >= 1 / fireRate)
+            {
+                Shoot();
+                state.FireCooldown = 0;
+            }
+            else
+                state.FireCooldown += Time.fixedDeltaTime;
         }
-        else
-            state.FireCooldown += Time.fixedDeltaTime;
 
 
-        void RotateTo(Vector2 fireTarget)
+        void RotateTo(Vector2 fireTarget, out bool canFire)
         {
             var directionToTarget = fireTarget - (Vector2)state.Turret.transform.position;
             var angleToTarget = Vector2.SignedAngle(state.Turret.transform.up, directionToTarget);
-            state.Turret.transform.RotateAround(state.Base.transform.position, Vector3.forward, angleToTarget);
+            canFire = Math.Abs(angleToTarget) < fireAngleThreshold;
+            float rotationAngle;
+            if (Math.Abs(angleToTarget) < rotationSpeed)
+                rotationAngle = angleToTarget;
+            else
+                rotationAngle = angleToTarget > 0 ? rotationSpeed : -rotationSpeed;
+            state.Turret.transform.RotateAround(state.Base.transform.position, Vector3.forward, rotationAngle);
         }
 
             

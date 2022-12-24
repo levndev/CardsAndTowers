@@ -20,7 +20,7 @@ public class BasicEnemy : MonoBehaviour
     private Vector3? goal = null;
     private bool aggroedOnTower = false;
     private Stack<Vector3> currentPath;
-    private Queue<BasicTowerController> aggroedTowers;
+    private Queue<BasicTowerController> aggroedTowers = new();
     private List<Health> targets;
     public float AttackCooldown;
     public double AttackDamage;
