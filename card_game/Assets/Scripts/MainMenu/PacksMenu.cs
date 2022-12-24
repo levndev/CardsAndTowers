@@ -50,14 +50,14 @@ public class PacksMenu : MonoBehaviour
                 //uiCardController.transform.SetSiblingIndex(0);
             }
         }
-        AllPacks[sender.pack] -= 1;
+        //llPacks[sender.pack] -= 1;
         sender.packSlot.DecreseAmount();
         if (sender.packSlot.Amount <= 0)
         {
-            AllPacks.Remove(sender.pack);
+            //AllPacks.Remove(sender.pack);
             Destroy(sender.gameObject.transform.parent.gameObject);
         }
-        SaveUnusedPacks();
+        //SaveUnusedPacks();
         HelpMessage.gameObject.SetActive(false);
     }
 
