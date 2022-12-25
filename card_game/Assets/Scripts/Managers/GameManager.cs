@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
         SetPause(GameState != GameState.Paused);
     }
 
-    private void SetPause(bool pause)
+    public void SetPause(bool pause)
     {
         GameState = pause ? GameState.Paused : GameState.None;
         Time.timeScale = pause ? 0 : 1;
