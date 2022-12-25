@@ -16,13 +16,13 @@ namespace YG
         {
             new CardSaveData
             {
-                UID = "b60fd3e1-67d3-4e3e-bd76-e9d922d992c9",
+                UID = "b9cfe01a-2434-4980-b024-3d53a0f83b40",
                 Amount = 1,
                 Level = 1,
             },
             new CardSaveData
             {
-                UID = "b5025eb8-1d44-44cc-8f80-002014ab15fc",
+                UID = "8d99d6de-ad93-4c41-8694-62a3039230d3",
                 Amount = 1,
                 Level = 1,
             },
@@ -34,10 +34,11 @@ namespace YG
                 Name = "Default",
                 Cards = new List<string>
                 {
-                    "ce08dc96-b9fb-4de7-9800-32fbcbd07558",
-                    "44b4fab2-5d0c-482c-95d8-a7c60536473b",
+                    "b5025eb8-1d44-44cc-8f80-002014ab15fc",
+                    "58afd0e9-c88c-4092-baf3-f57d9a8c647f",
                 },
             },
+            
         };
         public List<PackSaveData> Packs = new()
         {
@@ -47,6 +48,6 @@ namespace YG
                 Amount = 1000
             }
         };
-        public string LastUsedDeck;
+        public string LastUsedDeck = "Default";
     }
 }

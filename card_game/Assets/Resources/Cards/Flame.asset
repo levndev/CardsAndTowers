@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e404fb969624a4aaacb536f6ddd5dc, type: 3}
   m_Name: Flame
   m_EditorClassIdentifier: 
+  UID: 58afd0e9-c88c-4092-baf3-f57d9a8c647f
   Cost: 10
   Name: Flame
   Art: {fileID: 21300000, guid: ad7fc49e0236a9944ab345ffe2a08d42, type: 3}

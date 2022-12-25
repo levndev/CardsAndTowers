@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e404fb969624a4aaacb536f6ddd5dc, type: 3}
   m_Name: Lighting2
   m_EditorClassIdentifier: 
+  UID: d78e9bbe-7388-46b1-8638-726823124860
   Cost: 5
   Name: Chain Lighting
   Art: {fileID: 21300000, guid: 7baa93379805e04478b42850a060999f, type: 3}

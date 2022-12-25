@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e404fb969624a4aaacb536f6ddd5dc, type: 3}
   m_Name: Basic
   m_EditorClassIdentifier: 
+  UID: b9cfe01a-2434-4980-b024-3d53a0f83b40
   Cost: 5
   Name: Basic
   Art: {fileID: 21300000, guid: 55ddcf84b85e72b45b51ebec1c791b46, type: 3}

@@ -13,8 +13,6 @@ using Unity.VisualScripting;
 
 public class PacksMenu : MonoBehaviour
 {
-    //public static UnityEvent<PackSO> PackOpened;
-
     public static Action<object, PackSO, CardSO[]> PackOpened;
 
     public GameObject PacksScrollViewContent;
@@ -31,9 +29,6 @@ public class PacksMenu : MonoBehaviour
     public TextMeshProUGUI HelpMessage;
 
     public List<UIPackController> UIPackList = new List<UIPackController>();
-    //public Dictionary<PackSO, int> AllPacks = new Dictionary<PackSO, int>();
-
-    //private string availablePacksFileName = "packs.txt";
 
 
     public void onPackClick(UIPackController sender)
@@ -43,12 +38,12 @@ public class PacksMenu : MonoBehaviour
             throw new Exception("You dont have this pack on your account. SUSSY");
         }
         var newCards = sender.GenerateCards();
+        HelpMessage.gameObject.SetActive(false);
 
         PackOpened?.Invoke(this, sender.pack, newCards);
 
         if (newCards != null)
         {
-            //CardsAcquired?.Invoke(newCards);
             foreach (var card in newCards)
             {
                 var uiCardSlot = Instantiate(CardSlotPrefab, OpenedCardsPanel.transform);
@@ -66,10 +61,9 @@ public class PacksMenu : MonoBehaviour
         {
             Destroy(sender.gameObject.transform.parent.gameObject);
         }
-        HelpMessage.gameObject.SetActive(false);
     }
 
-    public void onCardClick(UICardController sender)
+    public void OnCardClick(UICardController sender)
     {
 
     }
@@ -83,48 +77,6 @@ public class PacksMenu : MonoBehaviour
         HelpMessage.gameObject.SetActive(true);
     }
 
-
-    //public List<PackSO> LoadPacks()
-    //{
-    //    var packs = new List<PackSO>();
-    //    try
-    //    {
-    //        var path = Application.persistentDataPath + "/" + availablePacksFileName;
-    //        if (!File.Exists(path))
-    //        {
-    //            string[] text =
-    //            {
-    //                "Classic 2"
-    //            };
-    //            File.WriteAllLines(path, text);
-    //        }
-    //        var lines = File.ReadAllLines(path);
-    //        foreach (var line in lines.Select(str => str.Split(' ')))
-    //        {
-    //            for (var i = 0; i < int.Parse(line[1]); i++)
-    //            {
-    //                packs.Add(PackSO.LoadFromFile(line[0]));
-    //            }
-    //        }
-    //    }
-    //    catch (System.Exception e)
-    //    {
-    //        Debug.Log("Something wrong loading packs. SUSSY");
-    //        Debug.Log(e.Message);
-    //    }
-    //    return packs;
-    //}
-
-    //public void SaveUnusedPacks()
-    //{
-    //    using (StreamWriter sw = File.CreateText(Application.persistentDataPath + "/" + availablePacksFileName))
-    //    {
-    //        foreach (var (pack, amount) in AllPacks)
-    //        {
-    //            sw.WriteLine(pack.Name + " " + amount);
-    //        }
-    //    }
-    //}
 
     private void OnEnable()
     {

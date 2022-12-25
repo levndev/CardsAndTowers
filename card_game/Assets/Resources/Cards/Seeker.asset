@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e404fb969624a4aaacb536f6ddd5dc, type: 3}
   m_Name: Seeker
   m_EditorClassIdentifier: 
+  UID: 08bf50e7-2d8d-49b1-84ab-8634a0d702c3
   Cost: 1
   Name: Seeker
   Art: {fileID: 21300000, guid: 62590a71517426848bfbb27c29c49871, type: 3}

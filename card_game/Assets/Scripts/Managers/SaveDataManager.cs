@@ -64,6 +64,7 @@ public class SaveDataManager : MonoBehaviour
     {
         AllCards = Resources.LoadAll<CardSO>("Cards").ToDictionary(i => i.UID);
         AllPacks = Resources.LoadAll<PackSO>("Packs").ToDictionary(pack => pack.Name);
+        LoadUserCards();
         LoadUserDecks();
         LoadUserPacks();
         CurrentDeck = YandexGame.savesData.LastUsedDeck != null ? YandexGame.savesData.LastUsedDeck : null;
@@ -71,13 +72,40 @@ public class SaveDataManager : MonoBehaviour
 
     public Deck GetDeck(string name)
     {
-        return UserDecks.ContainsKey(name) ? UserDecks[name] : null;
+        return UserDecks.ContainsKey(name) ? UserDecks[name].Clone() : null;
+    }
+
+    private void LoadUserCards()
+    {
+        foreach (var cardSave in YandexGame.savesData.Cards)
+        {
+            UserCards.Add(AllCards[cardSave.UID], cardSave);
+        }
     }
 
     private void LoadUserDecks()
     {
         foreach (var deckSave in YandexGame.savesData.Decks)
         {
+            var deck = new Deck();
+            deck.Name = deckSave.Name;
+            foreach (var cardID in deckSave.Cards)
+            {
+                deck.AddToList(AllCards[cardID]);
+            }
+            UserDecks[deck.Name] = deck;
+        }
+        if(UserDecks.Count == 0)
+        {
+            var deckSave = new DeckSaveData
+            {
+                Name = "Default",
+                Cards = new List<string>
+                {
+                    "b5025eb8-1d44-44cc-8f80-002014ab15fc",
+                    "58afd0e9-c88c-4092-baf3-f57d9a8c647f",
+                },
+            };
             var deck = new Deck();
             deck.Name = deckSave.Name;
             foreach (var cardID in deckSave.Cards)
@@ -107,18 +135,19 @@ public class SaveDataManager : MonoBehaviour
                 break;
 
             case DeckAction.Created:
-                UserDecks.Add(args.Name, new Deck(args.Deck.Name, args.Deck.deckList));
+                UserDecks.Add(args.Name, args.Deck.Clone());
                 break;
 
             case DeckAction.Changed:
                 UserDecks.Remove(args.Name);
-                UserDecks.Add(args.Name, new Deck(args.Deck.Name, args.Deck.deckList));
+                UserDecks.Add(args.Name, args.Deck.Clone());
                 break;
 
             case DeckAction.Renamed:
-                UserDecks.Add(args.Name, new Deck(args.Deck.Name, args.Deck.deckList));
+                UserDecks.Add(args.Name, args.Deck.Clone());
                 break;
         }
+        CurrentDeck = args.Name;
         UpdateUserDeckSaves();
 
     }
@@ -144,6 +173,10 @@ public class SaveDataManager : MonoBehaviour
             {
                 UserCards[acquiredCard].Amount += 1;
             }
+            else
+            {
+                UserCards.Add(acquiredCard, new CardSaveData() { Amount = 1, UID = acquiredCard.UID, Level = 1 });
+            }
         }
 
         UpdateUserCardsPacks();
@@ -154,12 +187,15 @@ public class SaveDataManager : MonoBehaviour
         YandexGame.savesData.Cards = GetUserCardsSave();
         YandexGame.savesData.Packs = GetUserPacksSaves();
         YandexGame.SaveProgress();
+        //YandexGame.LoadProgress();
     }
 
-    private void UpdateUserDeckSaves() 
+    private void UpdateUserDeckSaves()
     {
         YandexGame.savesData.Decks = GetUserDecksSaves();
+        YandexGame.savesData.LastUsedDeck = CurrentDeck;
         YandexGame.SaveProgress();
+        //YandexGame.LoadProgress();
     }
 
     private List<PackSaveData> GetUserPacksSaves()
@@ -185,20 +221,19 @@ public class SaveDataManager : MonoBehaviour
     private List<DeckSaveData> GetUserDecksSaves()
     {
         var saves = new List<DeckSaveData>();
-        foreach((var deckName, var deck) in UserDecks)
+        foreach ((var deckName, var deck) in UserDecks)
         {
             var save = new DeckSaveData();
-            save.Name= deckName;
+            save.Name = deckName;
             save.Cards = new();
-            foreach(var card in deck.deckList)
+            foreach (var card in deck.deckList)
             {
                 save.Cards.Add(card.UID);
             }
+            saves.Add(save);
         }
         return saves;
     }
-
-
 
 
 }

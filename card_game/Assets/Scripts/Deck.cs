@@ -19,25 +19,25 @@ public class Deck
 
     }
 
-    public static Deck LoadFromFile(string name)
-    {
-        var deck = new Deck();
-        try
-        {
-            var lines = File.ReadAllLines(Application.persistentDataPath + "/" + name + ".txt");
-            deck.Name = name;
-            foreach (var line in lines)
-            {
-                deck.AddToList(CardSO.LoadfromFile(line));
-            }
-        }
-        catch
-        {
-            Debug.Log($"Can not load deck \"{name}\" from file");
-            return null;
-        }
-        return deck;
-    }
+    //public static Deck LoadFromFile(string name)
+    //{
+    //    var deck = new Deck();
+    //    try
+    //    {
+    //        var lines = File.ReadAllLines(Application.persistentDataPath + "/" + name + ".txt");
+    //        deck.Name = name;
+    //        foreach (var line in lines)
+    //        {
+    //            deck.AddToList(CardSO.LoadfromFile(line));
+    //        }
+    //    }
+    //    catch
+    //    {
+    //        Debug.Log($"Can not load deck \"{name}\" from file");
+    //        return null;
+    //    }
+    //    return deck;
+    //}
 
     public static void SaveDeck(Deck deck)
     {
@@ -82,5 +82,17 @@ public class Deck
     public void RemoveFromDeck(CardSO card)
     {
         deckList.Remove(card);
+    }
+
+    public Deck Clone()
+    {
+        var newDeck = new Deck();
+        newDeck.Name = new string(Name);
+        newDeck.deckList = new();
+        foreach(var card in deckList)
+        {
+            newDeck.AddToList(card);
+        }
+        return newDeck;
     }
 }

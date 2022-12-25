@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 675d1263b176b404583ef58e41b16888, type: 3}
   m_Name: Seeker
   m_EditorClassIdentifier: 
+  UID: e9f834bd-b501-45dd-b080-2480dad52524
   towerBase: {fileID: 11400000, guid: 63a11101d22891941b8bfb54261e58d9, type: 2}
   fireRate: 0.5
   projectile: {fileID: -1816565676918862405, guid: 0446250062e1b3548a1ded56daec7b4d, type: 3}
@@ -22,3 +23,4 @@ MonoBehaviour:
   shootEffect: {fileID: 2338906543606726676, guid: ea0dbfb4a6782974780bd73ec414c32e, type: 3}
   deathEffect: {fileID: 1839823062534221149, guid: 9700bf37e72339a4f968b822da1b2a2f, type: 3}
   bulletSpawnPointHeight: 2.5
+  AggroPriority: 0

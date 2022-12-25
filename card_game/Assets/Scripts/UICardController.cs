@@ -12,7 +12,7 @@ public class UICardController : MonoBehaviour
     public int HandIndex;
     public Button Button;
     public GameManager GameManager;
-    public Deck deck;
+    //public Deck deck;
     public CardState CurrentCardState;
     public CollectionMenu collectionScreen;
     public PacksMenu packsScreen;
@@ -50,11 +50,11 @@ public class UICardController : MonoBehaviour
         }
         if(CurrentCardState == CardState.inCollection || CurrentCardState == CardState.inDeck)
         {
-            collectionScreen.onCardClick(this);
+            collectionScreen.OnCardClick(this);
         }
         if(CurrentCardState == CardState.inPack)
         {
-            packsScreen.onCardClick(this);
+            packsScreen.OnCardClick(this);
         }
     }
 

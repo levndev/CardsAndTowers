@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 675d1263b176b404583ef58e41b16888, type: 3}
   m_Name: Lighting2
   m_EditorClassIdentifier: 
+  UID: 386e44c1-533c-499e-b1f2-4de10dffb78d
   towerBase: {fileID: 11400000, guid: ee80b87e8cf705d47af213bb98319be4, type: 2}
   fireRate: 1
   projectile: {fileID: -1682275523651106635, guid: 9c70076d089d57c4581f8b67edeb7052, type: 3}
@@ -22,3 +23,4 @@ MonoBehaviour:
   shootEffect: {fileID: 2338906543606726676, guid: ea0dbfb4a6782974780bd73ec414c32e, type: 3}
   deathEffect: {fileID: 1839823062534221149, guid: 9700bf37e72339a4f968b822da1b2a2f, type: 3}
   bulletSpawnPointHeight: 0.9
+  AggroPriority: 0

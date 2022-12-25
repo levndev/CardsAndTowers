@@ -71,7 +71,8 @@ public class GameManager : MonoBehaviour
         HandSize = HandPositions.Count;
         try
         {
-            var deckList = global::Deck.LoadFromFile("deck1").GetDeckList();
+            //var deckList = global::Deck.LoadFromFile("deck1").GetDeckList();
+            var deckList = SaveDataManager.Instance.GetDeck(SaveDataManager.Instance.CurrentDeck).GetDeckList();
             foreach (var card in deckList)
             {
                 Deck.Enqueue(card);
