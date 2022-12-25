@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    [SerializeField]
     private double current;
+    [SerializeField]
     private double max;
     public GameObject healthbar;
     private float healthbarWidth;
