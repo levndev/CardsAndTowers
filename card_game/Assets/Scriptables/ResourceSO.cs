@@ -21,6 +21,7 @@ public class ResourceSO : ScriptableObject
 
     public void AssignNewUID()
     {
+        Debug.Log($"sUSSY : {name}");
         UID = System.Guid.NewGuid().ToString();
 #if UNITY_EDITOR
         UnityEditor.EditorUtility.SetDirty(this);

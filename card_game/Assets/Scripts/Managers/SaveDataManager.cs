@@ -20,14 +20,15 @@ public class SaveDataManager : MonoBehaviour
     public Dictionary<PackSO, uint> UserPacks = new();
 
     public string CurrentDeck;
-
+    public bool ResetSaves = false;
+    private bool SaveProgress = false;
     public static SaveDataManager Instance
     {
         get
         {
             if (_instance == null)
             {
-                Debug.Log("Sussy");
+                //Debug.Log("Sussy");
             }
             return _instance;
         }
@@ -50,20 +51,58 @@ public class SaveDataManager : MonoBehaviour
         }
         else
         {
-            throw new System.Exception("SaveDataManager already exists");
+            //throw new System.Exception("SaveDataManager already exists");
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (SaveProgress)
+        {
+            SaveProgress = false;
+            YandexGame.SaveProgress();
+        }
     }
 
     public void OnDataGet()
     {
         AllCards = Resources.LoadAll<CardSO>("Cards").ToDictionary(i => i.UID);
         AllPacks = Resources.LoadAll<PackSO>("Packs").ToDictionary(pack => pack.Name);
+
+        if (YandexGame.savesData.isFirstSession || ResetSaves)
+        {
+            var defaultSave = Resources.Load<DefaultSaveDataSO>("DefaultSaveData");
+            YandexGame.savesData.Cards = new();
+            YandexGame.savesData.Packs = new();
+            YandexGame.savesData.Decks = new();
+            YandexGame.savesData.isFirstSession = false;
+            foreach(var card in defaultSave.StarterCards)
+            {
+                YandexGame.savesData.Cards.Add(new CardSaveData
+                {
+                    UID = card.UID,
+                    Amount = 1,
+                    Level = 1,
+                });
+                
+            }
+            YandexGame.savesData.Decks.Add(new DeckSaveData
+            {
+                Name = "Starter deck",
+                Cards = defaultSave.StarterDeck.Select(i => i.UID).ToList(),
+            });
+            foreach (var pack in defaultSave.StarterPacks)
+            {
+                YandexGame.savesData.Packs.Add(new PackSaveData
+                {
+                    Name = pack.Name,
+                    Amount = 1,
+                });
+            }
+            YandexGame.savesData.LastUsedDeck = "Starter deck";
+            SaveProgress = true;
+        }
         LoadUserCards();
         LoadUserDecks();
         LoadUserPacks();
@@ -79,7 +118,10 @@ public class SaveDataManager : MonoBehaviour
     {
         foreach (var cardSave in YandexGame.savesData.Cards)
         {
-            UserCards.Add(AllCards[cardSave.UID], cardSave);
+            if (UserCards.ContainsKey(AllCards[cardSave.UID]))
+                UserCards[AllCards[cardSave.UID]].Amount += cardSave.Amount;
+            else
+                UserCards.Add(AllCards[cardSave.UID], cardSave);
         }
     }
 
@@ -95,25 +137,25 @@ public class SaveDataManager : MonoBehaviour
             }
             UserDecks[deck.Name] = deck;
         }
-        if(UserDecks.Count == 0)
-        {
-            var deckSave = new DeckSaveData
-            {
-                Name = "Default",
-                Cards = new List<string>
-                {
-                    "b5025eb8-1d44-44cc-8f80-002014ab15fc",
-                    "58afd0e9-c88c-4092-baf3-f57d9a8c647f",
-                },
-            };
-            var deck = new Deck();
-            deck.Name = deckSave.Name;
-            foreach (var cardID in deckSave.Cards)
-            {
-                deck.AddToList(AllCards[cardID]);
-            }
-            UserDecks[deck.Name] = deck;
-        }
+        //if(UserDecks.Count == 0)
+        //{
+        //    var deckSave = new DeckSaveData
+        //    {
+        //        Name = "Default",
+        //        Cards = new List<string>
+        //        {
+        //            "b5025eb8-1d44-44cc-8f80-002014ab15fc",
+        //            "58afd0e9-c88c-4092-baf3-f57d9a8c647f",
+        //        },
+        //    };
+        //    var deck = new Deck();
+        //    deck.Name = deckSave.Name;
+        //    foreach (var cardID in deckSave.Cards)
+        //    {
+        //        deck.AddToList(AllCards[cardID]);
+        //    }
+        //    UserDecks[deck.Name] = deck;
+        //}
     }
 
     private void LoadUserPacks()
@@ -122,7 +164,10 @@ public class SaveDataManager : MonoBehaviour
 
         foreach (var packSave in YandexGame.savesData.Packs)
         {
-            UserPacks.Add(AllPacks[packSave.Name], packSave.Amount);
+            if (UserPacks.ContainsKey(AllPacks[packSave.Name]))
+                UserPacks[AllPacks[packSave.Name]] += packSave.Amount;
+            else
+                UserPacks.Add(AllPacks[packSave.Name], packSave.Amount);
         }
     }
 

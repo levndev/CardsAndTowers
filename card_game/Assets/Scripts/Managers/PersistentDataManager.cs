@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class PersistentDataManager : MonoBehaviour
 {
-    void Start()
+    private static PersistentDataManager Instance = null;
+
+    private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

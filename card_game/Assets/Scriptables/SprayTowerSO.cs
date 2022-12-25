@@ -27,6 +27,8 @@ public class SprayTowerSO : TowerSO
     [SerializeField] private float bulletSpawnPointHeight;
     [SerializeField, Tooltip("In degrees.")] private float spread;
     [SerializeField] protected int AggroPriority;
+    [SerializeField] private int MaxHealth;
+
     public override void Init(TowerController sender)
     {
         base.Init(sender);
@@ -48,6 +50,7 @@ public class SprayTowerSO : TowerSO
 
         if (sender.TryGetComponent<Health>(out var health))
         {
+            health.Max = MaxHealth;
             health.Death += () => Instantiate(deathEffect, state.Turret.transform.position, new Quaternion());
         }
     }

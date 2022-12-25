@@ -23,6 +23,7 @@ public class HitscanTowerSO : TowerSO
     [SerializeField] private GameObject deathEffect;
     [SerializeField] private float bulletSpawnPointHeight;
     [SerializeField] protected int AggroPriority;
+    [SerializeField] private int MaxHealth;
     public override void Init(TowerController sender)
     {
         base.Init(sender);
@@ -44,6 +45,7 @@ public class HitscanTowerSO : TowerSO
 
         if (sender.TryGetComponent<Health>(out var health))
         {
+            health.Max = MaxHealth;
             health.Death += () => Instantiate(deathEffect, state.Turret.transform.position, new Quaternion());
         }
     }

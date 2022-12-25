@@ -24,3 +24,5 @@ MonoBehaviour:
   shootEffect: {fileID: 2338906543606726676, guid: ea0dbfb4a6782974780bd73ec414c32e, type: 3}
   deathEffect: {fileID: 1839823062534221149, guid: 9700bf37e72339a4f968b822da1b2a2f, type: 3}
   bulletSpawnPointHeight: 1.2
+  AggroPriority: 0
+  MaxHealth: 20

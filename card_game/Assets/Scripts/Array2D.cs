@@ -10,7 +10,7 @@ public class Array2D<T>
     public Array2D(Vector2Int HalfSize)
     {
         halfSize = HalfSize;
-        map = new T[halfSize.x * 2, halfSize.y * 2];
+        map = new T[halfSize.x * 2 + 1, halfSize.y * 2 + 1];
     }
 
     public T Get(Vector2Int index, bool safe = true)
@@ -52,7 +52,7 @@ public class Array2D<T>
         y += halfSize.y;
         return x >= 0 &&
                 y >= 0 &&
-                x < halfSize.x * 2 &&
-                y < halfSize.y * 2;
+                x < halfSize.x * 2 + 1 &&
+                y < halfSize.y * 2 + 1;
     }
 }
