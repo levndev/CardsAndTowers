@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     public GameObject TowerPrefab;
     public GameObject WallPrefab;
     public GameObject TowerPlacementEffect;
+
     public static GameManager Instance
     {
         get
