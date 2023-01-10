@@ -96,7 +96,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         InputManager.Touched += OnTap;
-        InvokeRepeating("GenerateEnergy", 0, 1);
         ConfirmBuildingButton.onClick.AddListener(OnConfirmBuildingButtonClick);
         BuildWallButton.onClick.AddListener(OnWallBuildingButtonClick);
         Base.GetComponent<Health>().Death += BaseDestroyed;
@@ -139,6 +138,7 @@ public class GameManager : MonoBehaviour
     {
         if (GameState == GameState.Paused)
             return;
+
         if (TimeToWinLeft > 0)
         {
             TimeToWinLeft -= Time.deltaTime;
@@ -149,6 +149,9 @@ public class GameManager : MonoBehaviour
             SetPause(true);
             WinPanel.SetActive(true);
         }
+
+        GenerateEnergy();
+
         for (var i = 0; i < HandSize; i++)
         {
             if (Deck.Count == 0 || deckDrawTimerEnabled)
@@ -194,6 +197,16 @@ public class GameManager : MonoBehaviour
         }
         UpdateEnergyDisplay();
         UpdateCardsOutlines();
+
+
+        void GenerateEnergy()
+        {
+            CurrentEnergy += EnergyGenerationRate * Time.deltaTime;
+            if (CurrentEnergy >= MaxEnergy)
+            {
+                CurrentEnergy = MaxEnergy;
+            }
+        }
     }
 
     public void UpdateCardsOutlines()
@@ -465,15 +478,6 @@ public class GameManager : MonoBehaviour
             GameState = GameState.WallBuilding;
             cameraTarget.Enabled = false;
             VisibleGrid.SetActive(true);
-        }
-    }
-
-    private void GenerateEnergy()
-    {
-        CurrentEnergy += EnergyGenerationRate;
-        if (CurrentEnergy >= MaxEnergy)
-        {
-            CurrentEnergy = MaxEnergy;
         }
     }
 
