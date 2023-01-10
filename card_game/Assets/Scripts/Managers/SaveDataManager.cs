@@ -137,25 +137,6 @@ public class SaveDataManager : MonoBehaviour
             }
             UserDecks[deck.Name] = deck;
         }
-        //if(UserDecks.Count == 0)
-        //{
-        //    var deckSave = new DeckSaveData
-        //    {
-        //        Name = "Default",
-        //        Cards = new List<string>
-        //        {
-        //            "b5025eb8-1d44-44cc-8f80-002014ab15fc",
-        //            "58afd0e9-c88c-4092-baf3-f57d9a8c647f",
-        //        },
-        //    };
-        //    var deck = new Deck();
-        //    deck.Name = deckSave.Name;
-        //    foreach (var cardID in deckSave.Cards)
-        //    {
-        //        deck.AddToList(AllCards[cardID]);
-        //    }
-        //    UserDecks[deck.Name] = deck;
-        //}
     }
 
     private void LoadUserPacks()
@@ -177,6 +158,7 @@ public class SaveDataManager : MonoBehaviour
         {
             case DeckAction.Removed:
                 UserDecks.Remove(args.Name);
+                //CurrentDeck= null;
                 break;
 
             case DeckAction.Created:
@@ -192,7 +174,15 @@ public class SaveDataManager : MonoBehaviour
                 UserDecks.Add(args.Name, args.Deck.Clone());
                 break;
         }
-        CurrentDeck = args.Name;
+        if(args.DeckAction!=DeckAction.Removed)
+        {
+            CurrentDeck = args.Name;
+        }
+        else
+        {
+            CurrentDeck = null;
+        }
+        
         UpdateUserDeckSaves();
 
     }

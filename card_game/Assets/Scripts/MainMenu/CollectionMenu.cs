@@ -163,6 +163,13 @@ public class CollectionMenu : MonoBehaviour
         //show message that save was successful 
     }
 
+    public void OnConfirmRemovalButtonClick()
+    {
+        var args = new DeckEventArgs(WorkingDeck.Name, WorkingDeck.Clone(), global::DeckAction.Removed);
+        WorkingDeck = null;
+        DeckAction?.Invoke(this, args);
+        Reload();
+    }
 
     
 
@@ -196,13 +203,19 @@ public class CollectionMenu : MonoBehaviour
     {
         if (SaveDataManager.Instance.UserDecks.ContainsKey(newName))
         {
-            Debug.Log("Deck with this name already exists. Enter differnt name");
+            Debug.Log("Deck with this name already exists. Enter different name");
             deckNameInputField.text = "Invalid name";
             return;
         }
 
+        if (WorkingDeck == null)
+        {
+            WorkingDeck= new Deck(null, new());
+        }
+
         WorkingDeck.Name = newName;
         DeckEventArgs args;
+
 
         if (WorkingDeck.Name == null)
             args = new DeckEventArgs(WorkingDeck.Name, WorkingDeck.Clone(), global::DeckAction.Created);
@@ -214,25 +227,20 @@ public class CollectionMenu : MonoBehaviour
     }
 
 
-
-    //public void ShowDeckByID(int id)
-    //{
-    //    var dropdown = deckSelectionDropdown.GetComponent<TMP_Dropdown>();
-
-    //    ShowDeckByName(dropdown.options[id].text);
-    //}
-
-
     private void ShowSelectedDeck()
     {
         var dropdown = deckSelectionDropdown.GetComponent<TMP_Dropdown>();
         ShowDeckByName(dropdown.options[dropdown.value].text);
     }
 
+    
 
     public void ShowDeckByName(string name)
     {
         ClearDeckUI();
+        if (name == null)
+            return;
+
         var deck = SaveDataManager.Instance.GetDeck(name);
         if (deck == null)
         {

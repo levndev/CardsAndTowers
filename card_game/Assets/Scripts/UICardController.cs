@@ -69,5 +69,6 @@ public class UICardController : MonoBehaviour
         costText.text = card.Cost.ToString();
         nameText.text = card.Name;
         artImage.sprite = card.Art;
+        artImage.preserveAspect = true;
     }
 }
