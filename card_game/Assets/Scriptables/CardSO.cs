@@ -9,6 +9,7 @@ public class CardSO : ResourceSO
     public string Name;
     public Sprite Art;
     public TowerSO Tower;
+    public GameObject SpellEffect;
     public Type type;
     public CardSO(int Cost, string Name, Sprite Art, Type type)
     {

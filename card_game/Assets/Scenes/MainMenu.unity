@@ -1403,6 +1403,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5608388857507974287, guid: 1ffc030f1fe1e9c44955c47af2fc099f, type: 3}
+      propertyPath: ResetSaves
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 761523068, guid: 1ffc030f1fe1e9c44955c47af2fc099f, type: 3}
       propertyPath: m_Enabled
       value: 0

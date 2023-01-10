@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DefaultSaveData
   m_EditorClassIdentifier: 
   StarterCards:
+  - {fileID: 11400000, guid: 9cfc70a8953202d499c387946f25a100, type: 2}
   - {fileID: 11400000, guid: 78c70f410a0cdaa468ac116dbfdb3e80, type: 2}
   - {fileID: 11400000, guid: 6342c7333dad2b4488e6cbb966bed19e, type: 2}
   - {fileID: 11400000, guid: c50838481fd257341a995c40cf64dd41, type: 2}
@@ -23,6 +24,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a9471c07491a8ef448408b7541f5e7da, type: 2}
   - {fileID: 11400000, guid: 2911d7058b1238f4996b1fdd124eeec3, type: 2}
   StarterDeck:
+  - {fileID: 11400000, guid: 9cfc70a8953202d499c387946f25a100, type: 2}
   - {fileID: 11400000, guid: 78c70f410a0cdaa468ac116dbfdb3e80, type: 2}
   - {fileID: 11400000, guid: 6342c7333dad2b4488e6cbb966bed19e, type: 2}
   - {fileID: 11400000, guid: c50838481fd257341a995c40cf64dd41, type: 2}

@@ -284,7 +284,7 @@ public class GameManager : MonoBehaviour
                 {
                     CurrentEnergy -= card.Cost;
 
-                    //Instantiate(Tower, touch.Position, new Quaternion());
+                    Instantiate(card.SpellEffect, touch.Position, new Quaternion());
                     Hand[CurrentCardSelected] = null;
                     Deck.Enqueue(card);
                     Destroy(HandPositions[CurrentCardSelected].transform.GetChild(0).gameObject);
