@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Priority_Queue;
+using System.Linq;
+
 public class BasicEnemy : MonoBehaviour
 {
     public float RotationSpeed;
@@ -26,12 +28,12 @@ public class BasicEnemy : MonoBehaviour
     public double AttackDamage;
     private float AttackCooldownTimeLeft;
     private bool CanAttack = true;
-    private bool Stopped = false;
+    private bool Fighting = false;
 
     private void Awake()
     {
         targets = new List<Health>();
-        aggroedTowers = new ();
+        aggroedTowers = new();
         rigidbody = transform.GetComponent<Rigidbody2D>();
     }
 
@@ -39,44 +41,11 @@ public class BasicEnemy : MonoBehaviour
     {
         Health.Death += () => Instantiate(DeathEffect, transform.position, new Quaternion());
         Health.Damaged += () => Instantiate(HitEffect, transform.position, new Quaternion());
-
     }
 
     private void Update()
     {
-        if (CanAttack)
-        {
-            if (targets.Count > 0)
-            {
-                if (targets[0] == null)
-                {
-                    targets.RemoveAt(0);
-                }
-                else
-                {
-                    if (AttackEffect != null)
-                    {
-                        var attackPoint = (targets[0].gameObject.transform.position + transform.position) / 2;
-                        Instantiate(AttackEffect, attackPoint, new Quaternion());
-                    }
-
-                    if (targets[0].TakeDamage(AttackDamage) <= 0)
-                    {
-                        targets.RemoveAt(0);
-                        if (targets.Count == 0)
-                            Stopped = false;
-                    }
-                    CanAttack = false;
-                    AttackCooldownTimeLeft = AttackCooldown;
-                }
-            }
-            else
-            {
-                if (Stopped)
-                    Stopped = false;
-            }
-        }
-        else
+        if (!CanAttack)
         {
             AttackCooldownTimeLeft -= Time.deltaTime;
             if (AttackCooldownTimeLeft < 0)
@@ -84,6 +53,28 @@ public class BasicEnemy : MonoBehaviour
                 AttackCooldownTimeLeft = 0;
                 CanAttack = true;
             }
+        }
+        targets.RemoveAll(i => i == null);
+        if (targets.Count == 0)
+        {
+            Fighting = false;
+            return;
+        }
+        if (CanAttack)
+        {
+            if (AttackEffect != null)
+            {
+                var attackPoint = (targets[0].gameObject.transform.position + transform.position) / 2;
+                Instantiate(AttackEffect, attackPoint, new Quaternion());
+            }
+            if (targets[0].TakeDamage(AttackDamage) <= 0)
+            {
+                targets.RemoveAt(0);
+                if (targets.Count == 0)
+                    Fighting = false;
+            }
+            CanAttack = false;
+            AttackCooldownTimeLeft = AttackCooldown;
         }
     }
 
@@ -93,7 +84,7 @@ public class BasicEnemy : MonoBehaviour
         {
             mapManager = GameManager.Instance.MapManager;
         }
-        if (Stopped)
+        if (Fighting)
         {
             Movement = Vector2.zero;
             return;
@@ -178,7 +169,7 @@ public class BasicEnemy : MonoBehaviour
         {
             var health = other.gameObject.GetComponent<Health>();
             targets.Add(health);
-            Stopped = true;
+            Fighting = true;
         }
     }
 
