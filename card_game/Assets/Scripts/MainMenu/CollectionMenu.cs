@@ -104,7 +104,12 @@ public class CollectionMenu : MonoBehaviour
     {
         ClearCollectionUI();
 
-        var cards = SaveDataManager.Instance.UserCards;
+        var cards = new List<(CardSO, CardSaveData)>();
+        foreach ((var cardSO, var cardData) in SaveDataManager.Instance.UserCards)
+        {
+            cards.Add((cardSO, cardData));
+        }
+        cards.Sort((first, second) => first.Item1.Cost - second.Item1.Cost);
         foreach ((var cardSO, var cardData) in cards)
         {
             //Change CardSlotPrefab to have level and amount
@@ -124,6 +129,8 @@ public class CollectionMenu : MonoBehaviour
 
         }
     }
+
+    
 
 
     private void ClearCollectionUI()
@@ -154,20 +161,25 @@ public class CollectionMenu : MonoBehaviour
 
     public void OnCardClick(UICardController sender)
     {
-        if (sender.CurrentCardState == UICardController.CardState.inCollection)
+        if (sender.CurrentCardState == UICardController.CardState.inCollection && WorkingDeck.Name != null)
         {
             if (WorkingDeck.CanAddToDeck(sender.card))
             {
                 WorkingDeck.AddToList(sender.card);
-                AddCardToDeckUI(sender.card);
+                ClearDeckUI();
+
+                ShowDeckUI(WorkingDeck);
+                ConfirmChangesButton.gameObject.SetActive(true);
+
             }
         }
         if (sender.CurrentCardState == UICardController.CardState.inDeck)
         {
             WorkingDeck.RemoveFromDeck(sender.card);
             RemoveCardFromDeckUI(sender);
+            ConfirmChangesButton.gameObject.SetActive(true);
+
         }
-        ConfirmChangesButton.gameObject.SetActive(true);
     }
 
     public void OnConfirmChangesButtonClick()
@@ -182,6 +194,7 @@ public class CollectionMenu : MonoBehaviour
     {
         var args = new DeckEventArgs(WorkingDeck.Name, WorkingDeck.Clone(), global::DeckAction.Removed);
         WorkingDeck = null;
+        ConfirmChangesButton.gameObject.SetActive(false) ;
         DeckAction?.Invoke(this, args);
         Reload();
     }
@@ -213,12 +226,19 @@ public class CollectionMenu : MonoBehaviour
 
     public void OnDeckNameEndEdit(string newName)
     {
+        if (string.IsNullOrWhiteSpace(newName))
+        {
+            deckNameInputField.text = "Invalid name";
+            return;
+        }
+
         if (SaveDataManager.Instance.UserDecks.ContainsKey(newName))
         {
             Debug.Log("Deck with this name already exists. Enter different name");
             deckNameInputField.text = "Invalid name";
             return;
         }
+        
 
         if (WorkingDeck == null)
         {
@@ -238,18 +258,20 @@ public class CollectionMenu : MonoBehaviour
         Reload();
     }
 
+    public void OnDeckNameInputFieldSelection(string newName)
+    {
+        deckNameInputField.text = "";
+    }
+
 
     private void ShowSelectedDeck()
     {
         var dropdown = deckSelectionDropdown.GetComponent<TMP_Dropdown>();
-        if(dropdown.value != dropdown.options.Count - 1)
+        if (dropdown.value != dropdown.options.Count - 1)
         {
             ShowDeckByName(dropdown.options[dropdown.value].text);
-            
         }
-        
     }
-
 
 
     public void ShowDeckByName(string name)
@@ -265,7 +287,7 @@ public class CollectionMenu : MonoBehaviour
         }
 
 
-        foreach (var cardSO in deck.GetDeckList())
+        foreach (var cardSO in deck.GetDeckList(true))
         {
             AddCardToDeckUI(cardSO);
         }
@@ -286,5 +308,13 @@ public class CollectionMenu : MonoBehaviour
     {
         DeckUICards.Remove(card);
         Destroy(card.transform.parent.gameObject);
+    }
+
+    private void ShowDeckUI(Deck deck)
+    {
+        foreach (var card in deck.GetDeckList(true))
+        {
+            AddCardToDeckUI(card);
+        }
     }
 }

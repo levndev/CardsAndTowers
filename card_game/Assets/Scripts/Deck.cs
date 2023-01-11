@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class Deck
@@ -18,26 +19,6 @@ public class Deck
     {
 
     }
-
-    //public static Deck LoadFromFile(string name)
-    //{
-    //    var deck = new Deck();
-    //    try
-    //    {
-    //        var lines = File.ReadAllLines(Application.persistentDataPath + "/" + name + ".txt");
-    //        deck.Name = name;
-    //        foreach (var line in lines)
-    //        {
-    //            deck.AddToList(CardSO.LoadfromFile(line));
-    //        }
-    //    }
-    //    catch
-    //    {
-    //        Debug.Log($"Can not load deck \"{name}\" from file");
-    //        return null;
-    //    }
-    //    return deck;
-    //}
 
     public static void SaveDeck(Deck deck)
     {
@@ -61,10 +42,22 @@ public class Deck
         return generatedQueue;
     }
 
-    public List<CardSO> GetDeckList()
+    public List<CardSO> GetDeckList(bool sorted = false)
     {
+        if (sorted)
+        {
+            return GetSortedDeckList();
+        }
         return deckList;
     }
+
+    private List<CardSO> GetSortedDeckList()
+    {
+        var sorted = deckList.ToList();
+        sorted.Sort((card1, card2) => card1.Cost - card2.Cost);
+        return sorted;
+    }
+
 
     public void AddToList(CardSO card)
     {
@@ -89,7 +82,7 @@ public class Deck
         var newDeck = new Deck();
         newDeck.Name = new string(Name);
         newDeck.deckList = new();
-        foreach(var card in deckList)
+        foreach (var card in deckList)
         {
             newDeck.AddToList(card);
         }
