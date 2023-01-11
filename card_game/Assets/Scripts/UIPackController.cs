@@ -10,25 +10,29 @@ public class UIPackController : MonoBehaviour
     public PackSlot packSlot;
     public TextMeshProUGUI Name;
     public Image ArtImage;
-    public Button PackButton;
+    //public Button PackButton;
     public PacksMenu packsScreen;
     //public GameObject PackPrefab;
     //public GameObject PackSlotPrefab;
 
     void Start()
     {
-        PackButton.onClick.AddListener(onButtonClick);
+        //PackButton.onClick.AddListener(onButtonClick);
     }
 
     public CardSO[] GenerateCards()
     {
-        var cards = new CardSO[6];
-        for(var i = 0; i < 5; i += 2)
+        var openedCards = new CardSO[6];
+        var allCards = SaveDataManager.Instance.AllCards.Values;
+        
+        for(var i = 0; i < 6; i ++)
         {
-            cards[i] = CardSO.LoadfromFile("Basic");
-            cards[i + 1] = CardSO.LoadfromFile("Sniper");
+            
+            openedCards[i] = allCards.ChooseRandom(card=>1);
+            //cards[i] = CardSO.LoadfromFile("Basic");
+            //cards[i + 1] = CardSO.LoadfromFile("Sniper");
         }
-        return cards;
+        return openedCards;
     }
 
     public void onButtonClick()
