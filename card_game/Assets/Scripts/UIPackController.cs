@@ -29,8 +29,6 @@ public class UIPackController : MonoBehaviour
         {
             
             openedCards[i] = allCards.ChooseRandom(card=>1);
-            //cards[i] = CardSO.LoadfromFile("Basic");
-            //cards[i + 1] = CardSO.LoadfromFile("Sniper");
         }
         return openedCards;
     }
