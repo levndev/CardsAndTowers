@@ -1,0 +1,20 @@
+{
+    "Data" : [
+        {
+            "Id" : "100gold",
+            "Resource" : "Gold",
+            "Amount" : "100"
+        },
+        {
+            "Id" : "250gold",
+            "Resource" : "Gold",
+            "Amount" : "250"
+        },
+        {
+            "Id" : "500gold",
+            "Resource" : "Gold",
+            "Amount" : "500"
+        }
+    ]
+}
+

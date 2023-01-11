@@ -16,5 +16,6 @@ namespace YG
         public List<DeckSaveData> Decks = new();
         public List<PackSaveData> Packs = new();
         public string LastUsedDeck;
+        public uint GoldAmount;
     }
 }

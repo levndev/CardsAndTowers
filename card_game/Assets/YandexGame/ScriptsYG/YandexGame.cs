@@ -6,6 +6,8 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections;
 using UnityEngine.UI;
+using System.Threading;
+using System.Linq;
 
 namespace YG
 {
@@ -1023,32 +1025,21 @@ namespace YG
 #if !UNITY_EDITOR
             PaymentsData = JsonUtility.FromJson<JsonPayments>(data);
 #else
-            PaymentsData.id = new string[3];
-            PaymentsData.id[0] = "test";
-            PaymentsData.id[1] = "test2";
-            PaymentsData.id[2] = "test3";
-
-            PaymentsData.title = new string[3];
-            PaymentsData.title[0] = "Gun";
-            PaymentsData.title[1] = "Armor";
-            PaymentsData.title[2] = "Grenade";
-
-            PaymentsData.description = new string[3];
-            PaymentsData.description[0] = "Testing purchases in the editor";
-            PaymentsData.description[1] = "Second testing of purchases in the editor";
-            PaymentsData.description[2] = "Third test purchase";
-
-            PaymentsData.imageURI = new string[3];
-            PaymentsData.imageURI[0] = "https://drive.google.com/u/0/uc?id=1WLAXG3U1taoC0EQGNtsan7pejy-ada4Y&export=download";
-            PaymentsData.imageURI[1] = "https://drive.google.com/u/0/uc?id=1bDj5v6yFe4M9gezD71FI7tDwC9a7Pdip&export=download";
-            PaymentsData.imageURI[2] = "https://drive.google.com/u/0/uc?id=1uSQKQo4gctLQ_XOd7kd5ul9R-qBWAtEN&export=download";
-
-            PaymentsData.priceValue = new string[3];
-            PaymentsData.priceValue[0] = "10";
-            PaymentsData.priceValue[1] = "15";
-            PaymentsData.priceValue[2] = "20";
-
-            PaymentsData.purchased = new int[3];
+            var purchaseCount = infoYG.EditorPurchases.Count;
+            PaymentsData.id = new string[purchaseCount];
+            PaymentsData.title = new string[purchaseCount];
+            PaymentsData.description = new string[purchaseCount];
+            PaymentsData.imageURI = new string[purchaseCount];
+            PaymentsData.priceValue = new string[purchaseCount];
+            PaymentsData.purchased = new int[purchaseCount];
+            for (var i = 0; i < purchaseCount; i++)
+            {
+                PaymentsData.id[i] = infoYG.EditorPurchases[i].Id;
+                PaymentsData.title[i] = infoYG.EditorPurchases[i].Title;
+                PaymentsData.description[i] = infoYG.EditorPurchases[i].Description;
+                PaymentsData.imageURI[i] = infoYG.EditorPurchases[i].IconURL;
+                PaymentsData.priceValue[i] = infoYG.EditorPurchases[i].Price;
+            }
 #endif
             GetPaymentsEvent?.Invoke();
         }

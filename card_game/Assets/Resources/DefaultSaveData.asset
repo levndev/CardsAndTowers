@@ -37,3 +37,4 @@ MonoBehaviour:
   StarterPacks:
   - {fileID: 11400000, guid: 1a9d6394ae280984f9908f0d66357a16, type: 2}
   - {fileID: 11400000, guid: 1a9d6394ae280984f9908f0d66357a16, type: 2}
+  StarterGold: 250

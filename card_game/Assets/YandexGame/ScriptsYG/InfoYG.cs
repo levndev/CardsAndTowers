@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityToolbag;
 
 namespace YG
@@ -149,7 +150,7 @@ namespace YG
         [Tooltip("Вы можете выключить запись лога в консоль.")]
         public bool debug = true;
 
-
+        public List<EditorPurchase> EditorPurchases;
 
         public bool[] LangArr()
         {

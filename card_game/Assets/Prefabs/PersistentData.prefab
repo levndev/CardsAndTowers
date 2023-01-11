@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9024311054202072880}
   - component: {fileID: -5608388857507974287}
+  - component: {fileID: 2453806996596628012}
   - component: {fileID: 761523069}
   - component: {fileID: 761523068}
   - component: {fileID: 8327340977509198973}
@@ -47,6 +48,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc578b36e1555649b5987c5c05b78fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GoldAmount: 0
+  CurrentDeck: 
+  ResetSaves: 0
+--- !u!114 &2453806996596628012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4667206407352641114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e20bd39e7e2dc6944afe36a3b37cf5ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PurchaseData: {fileID: 4900000, guid: 8598597dd7da2ad408e6026edccc706a, type: 3}
 --- !u!114 &761523069
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,7 +9,6 @@ using YG;
 public class SaveDataManager : MonoBehaviour
 {
     private static SaveDataManager _instance;
-    // Start is called before the first frame update
     public Dictionary<string, CardSO> AllCards = new();
     public Dictionary<string, PackSO> AllPacks = new();
 
@@ -18,6 +17,16 @@ public class SaveDataManager : MonoBehaviour
     //public List<CardSaveData> UserCards = new();
     public Dictionary<CardSO, CardSaveData> UserCards = new();
     public Dictionary<PackSO, uint> UserPacks = new();
+    public Action GoldUpdated;
+    public uint GoldAmount
+    {
+        get => goldAmount;
+        set {
+            goldAmount = value;
+            GoldUpdated?.Invoke();
+        }
+    }
+    private uint goldAmount;
 
     public string CurrentDeck;
     public bool ResetSaves = false;
@@ -77,15 +86,14 @@ public class SaveDataManager : MonoBehaviour
             YandexGame.savesData.Packs = new();
             YandexGame.savesData.Decks = new();
             YandexGame.savesData.isFirstSession = false;
-            foreach (var card in defaultSave.StarterCards)
-            {
+            YandexGame.savesData.GoldAmount = defaultSave.StarterGold;
+            foreach(var card in defaultSave.StarterCards) {
                 YandexGame.savesData.Cards.Add(new CardSaveData
                 {
                     UID = card.UID,
                     Amount = 1,
                     Level = 1,
                 });
-
             }
             YandexGame.savesData.Decks.Add(new DeckSaveData
             {
@@ -103,6 +111,7 @@ public class SaveDataManager : MonoBehaviour
             YandexGame.savesData.LastUsedDeck = "Starter deck";
             SaveProgress = true;
         }
+        goldAmount = YandexGame.savesData.GoldAmount;
         LoadUserCards();
         LoadUserDecks();
         LoadUserPacks();
@@ -215,6 +224,12 @@ public class SaveDataManager : MonoBehaviour
         }
 
         UpdateUserCardsPacks();
+    }
+
+    public void UpdateGold()
+    {
+        YandexGame.savesData.GoldAmount = GoldAmount;
+        YandexGame.SaveProgress();
     }
 
     private void UpdateUserCardsPacks()
