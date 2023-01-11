@@ -77,7 +77,7 @@ public class SaveDataManager : MonoBehaviour
             YandexGame.savesData.Packs = new();
             YandexGame.savesData.Decks = new();
             YandexGame.savesData.isFirstSession = false;
-            foreach(var card in defaultSave.StarterCards)
+            foreach (var card in defaultSave.StarterCards)
             {
                 YandexGame.savesData.Cards.Add(new CardSaveData
                 {
@@ -85,7 +85,7 @@ public class SaveDataManager : MonoBehaviour
                     Amount = 1,
                     Level = 1,
                 });
-                
+
             }
             YandexGame.savesData.Decks.Add(new DeckSaveData
             {
@@ -106,7 +106,7 @@ public class SaveDataManager : MonoBehaviour
         LoadUserCards();
         LoadUserDecks();
         LoadUserPacks();
-        CurrentDeck = YandexGame.savesData.LastUsedDeck != null ? YandexGame.savesData.LastUsedDeck : null;
+        CurrentDeck = YandexGame.savesData.LastUsedDeck != null ? YandexGame.savesData.LastUsedDeck : UserDecks.Keys.FirstOrDefault();
     }
 
     public Deck GetDeck(string name)
@@ -174,15 +174,15 @@ public class SaveDataManager : MonoBehaviour
                 UserDecks.Add(args.Name, args.Deck.Clone());
                 break;
         }
-        if(args.DeckAction!=DeckAction.Removed)
+        if (args.DeckAction != DeckAction.Removed)
         {
             CurrentDeck = args.Name;
         }
         else
         {
-            CurrentDeck = null;
+            CurrentDeck = UserDecks.Keys.FirstOrDefault();
         }
-        
+
         UpdateUserDeckSaves();
 
     }

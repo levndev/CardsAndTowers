@@ -385,7 +385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8900108877752362583
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2781,6 +2781,7 @@ MonoBehaviour:
   deckSelectionDropdown: {fileID: 6766828783018434598}
   deckNameInputField: {fileID: 8409895116067457930}
   ConfirmChangesButton: {fileID: 5992646084246481173}
+  DeleteDeckButton: {fileID: 2287656385585505115}
 --- !u!1 &7195001000774938566
 GameObject:
   m_ObjectHideFlags: 0

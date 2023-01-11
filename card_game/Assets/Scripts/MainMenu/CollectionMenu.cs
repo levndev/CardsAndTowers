@@ -33,6 +33,7 @@ public class CollectionMenu : MonoBehaviour
     public TMP_InputField deckNameInputField;
 
     public UnityEngine.UI.Button ConfirmChangesButton;
+    public UnityEngine.UI.Button DeleteDeckButton;
 
     public static Action<object, DeckEventArgs> DeckAction;
 
@@ -66,13 +67,15 @@ public class CollectionMenu : MonoBehaviour
         ClearDeckSelectionDropdown();
         FillCollectionWithUserCards();
         FillDropdownWithUserDecks();
-        ShowDeckByName(SaveDataManager.Instance.CurrentDeck);
+        //ShowDeckByName(SaveDataManager.Instance.CurrentDeck);
+        ShowSelectedDeck();
     }
 
 
     private void FillDropdownWithUserDecks()
     {
         var dropdown = deckSelectionDropdown.GetComponent<TMP_Dropdown>();
+
         var list = new List<TMP_Dropdown.OptionData>();
         foreach ((var deckName, var deck) in SaveDataManager.Instance.UserDecks)
         {
@@ -80,8 +83,20 @@ public class CollectionMenu : MonoBehaviour
         }
         list.Add(new TMP_Dropdown.OptionData("Create New Deck"));
         dropdown.AddOptions(list);
-        dropdown.SetValueWithoutNotify(list.FindIndex(data => data.text == SaveDataManager.Instance.CurrentDeck));
-        
+
+        if (SaveDataManager.Instance.CurrentDeck != null)
+        {
+            //dropdown.value = list.FindIndex(data => data.text == SaveDataManager.Instance.CurrentDeck);
+            dropdown.SetValueWithoutNotify(list.FindIndex(data => data.text == SaveDataManager.Instance.CurrentDeck));
+            OnDeckSelectionValueChange(dropdown.value);
+        }
+        else
+        {
+            //dropdown.value = 0;
+            dropdown.SetValueWithoutNotify(0);
+            OnDeckSelectionValueChange(0);
+        }
+
 
     }
 
@@ -171,7 +186,7 @@ public class CollectionMenu : MonoBehaviour
         Reload();
     }
 
-    
+
 
     private void ClearDeckSelectionDropdown()
     {
@@ -185,18 +200,15 @@ public class CollectionMenu : MonoBehaviour
         if (id != deckSelectionDropdown.GetComponent<TMP_Dropdown>().options.Count - 1)
         {
             ShowSelectedDeck();
-
+            DeleteDeckButton.gameObject.SetActive(true);
         }
         else
         {
             WorkingDeck = new Deck(null, new());
 
             deckNameInputField.text = "Enter deck name here";
+            DeleteDeckButton.gameObject.SetActive(false);
         }
-
-
-        //var dropdown = deckSelectionDropdown.GetComponent<TMP_Dropdown>();
-        //ShowDeckByName(dropdown.options[id].text); 
     }
 
     public void OnDeckNameEndEdit(string newName)
@@ -210,7 +222,7 @@ public class CollectionMenu : MonoBehaviour
 
         if (WorkingDeck == null)
         {
-            WorkingDeck= new Deck(null, new());
+            WorkingDeck = new Deck(null, new());
         }
 
         WorkingDeck.Name = newName;
@@ -230,10 +242,15 @@ public class CollectionMenu : MonoBehaviour
     private void ShowSelectedDeck()
     {
         var dropdown = deckSelectionDropdown.GetComponent<TMP_Dropdown>();
-        ShowDeckByName(dropdown.options[dropdown.value].text);
+        if(dropdown.value != dropdown.options.Count - 1)
+        {
+            ShowDeckByName(dropdown.options[dropdown.value].text);
+            
+        }
+        
     }
 
-    
+
 
     public void ShowDeckByName(string name)
     {
@@ -246,6 +263,7 @@ public class CollectionMenu : MonoBehaviour
         {
             throw new Exception("You dont have this deck");
         }
+
 
         foreach (var cardSO in deck.GetDeckList())
         {
