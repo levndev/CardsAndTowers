@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: LocalTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: LocalTable
+  m_TableCollectionNameGuidString: e710fc60db7c43343a7917cab14f2534
+  m_Entries:
+  - m_Id: 206933458944
+    m_Key: play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3934130405376
+    m_Key: collection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4093136470016
+    m_Key: open_packs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4278059139072
+    m_Key: store
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4340801732608
+    m_Key: exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4532296876032
+    m_Key: back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4575275909120
+    m_Key: retry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4753017929728
+    m_Key: collection_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5168249831424
+    m_Key: collection_enter_deck_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6968185061376
+    m_Key: collection_confirm_changes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7217557405696
+    m_Key: yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7267318628352
+    m_Key: no
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7303695826944
+    m_Key: collection_click_on_pack_to_open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7890223104000
+    m_Key: collection_invalid_name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8070678839296
+    m_Key: game_time_left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12490317627392
+    m_Key: levelSelection_difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14689550598144
+    m_Key: game_paused
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14812305293312
+    m_Key: game_exit_to_menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14993239179264
+    m_Key: game_you_have_won
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15168770801664
+    m_Key: continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15747601530880
+    m_Key: collection_delete_deck_warning
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16232031059968
+    m_Key: store_currency
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16330882416640
+    m_Key: store_packs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16435911983104
+    m_Key: store_sales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16560101130240
+    m_Key: store_gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16916130430976
+    m_Key: store_title
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 9157508273818042392
+  references:
+    version: 2
+    RefIds:
+    - rid: 9157508273818042392
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1673520966090

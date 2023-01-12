@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 2905847081721376579}
   - component: {fileID: 4332583167250626475}
   - component: {fileID: 3894915215301858549}
+  - component: {fileID: 4061854018227159025}
   m_Layer: 5
   m_Name: GoldAmount
   m_TagString: Untagged
@@ -212,6 +213,34 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4061854018227159025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666631036266624413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:e710fc60db7c43343a7917cab14f2534
+    m_TableEntryReference:
+      m_KeyId: 16560101130240
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &4957432314097175302
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +298,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GoldAmountText: {fileID: 3894915215301858549}
+  localGoldAmount:
+    m_TableReference:
+      m_TableCollectionName: GUID:e710fc60db7c43343a7917cab14f2534
+    m_TableEntryReference:
+      m_KeyId: 16560101130240
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &4957432315764333912
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,6 +441,7 @@ GameObject:
   - component: {fileID: 6952389088446623636}
   - component: {fileID: 6029135144406583938}
   - component: {fileID: 7467173946813443403}
+  - component: {fileID: 6826433924289749356}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -455,7 +497,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: STORE
+  m_text: "\u041C\u0430\u0433\u0430\u0437\u0438\u043D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -524,6 +566,46 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6826433924289749356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8455646379274833481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:e710fc60db7c43343a7917cab14f2534
+    m_TableEntryReference:
+      m_KeyId: 16916130430976
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7467173946813443403}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &8879240349112347004
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,6 +801,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4957432315764333915}
     m_Modifications:
+    - target: {fileID: 2281536037620535291, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 16435911983104
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281536037620535291, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:e710fc60db7c43343a7917cab14f2534
+      objectReference: {fileID: 0}
     - target: {fileID: 2824422302551185087, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
       propertyPath: m_Name
       value: SalesTabButton
@@ -757,7 +847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6922278429426241525, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
       propertyPath: m_Text
-      value: Sales
+      value: "\u0410\u043A\u0446\u0438\u0438"
       objectReference: {fileID: 0}
     - target: {fileID: 8879423111218857112, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
       propertyPath: m_Pivot.x
@@ -976,6 +1066,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4957432315764333915}
     m_Modifications:
+    - target: {fileID: 2281536037620535291, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 16330882416640
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281536037620535291, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:e710fc60db7c43343a7917cab14f2534
+      objectReference: {fileID: 0}
     - target: {fileID: 2824422302551185087, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
       propertyPath: m_Name
       value: PacksTabButton
@@ -1014,7 +1112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6922278429426241525, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
       propertyPath: m_Text
-      value: Packs
+      value: "\u041F\u0430\u043A\u0438"
       objectReference: {fileID: 0}
     - target: {fileID: 8879423111218857112, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
       propertyPath: m_Pivot.x
@@ -1152,7 +1250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3820377081770728234, guid: 1ca8177686f454a48baef12e70b4fd2d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 240
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 3820377081770728234, guid: 1ca8177686f454a48baef12e70b4fd2d, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1244,6 +1342,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4957432315764333915}
     m_Modifications:
+    - target: {fileID: 2281536037620535291, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
+      propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
+      value: 16232031059968
+      objectReference: {fileID: 0}
+    - target: {fileID: 2281536037620535291, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
+      propertyPath: m_StringReference.m_TableReference.m_TableCollectionName
+      value: GUID:e710fc60db7c43343a7917cab14f2534
+      objectReference: {fileID: 0}
     - target: {fileID: 2824422302551185087, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
       propertyPath: m_Name
       value: CurrencyTabButton
@@ -1286,7 +1392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6922278429426241525, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
       propertyPath: m_Text
-      value: Currency
+      value: "\u0412\u0430\u043B\u044E\u0442\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 6922278429426241525, guid: 8799e5f38b4ee7743a245c975c95c50b, type: 3}
       propertyPath: m_FontData.m_FontSize

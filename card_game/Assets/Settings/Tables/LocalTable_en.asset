@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: LocalTable_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: e710fc60db7c43343a7917cab14f2534, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 9157508273818042429
+  m_TableData:
+  - m_Id: 206933458944
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3934130405376
+    m_Localized: Collection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4093136470016
+    m_Localized: Open Packs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4278059139072
+    m_Localized: Store
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4340801732608
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4532296876032
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4575275909120
+    m_Localized: Retry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4753017929728
+    m_Localized: My collection
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5168249831424
+    m_Localized: Enter deck name here
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6968185061376
+    m_Localized: Confirm changes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7217557405696
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7267318628352
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7303695826944
+    m_Localized: Click on pack to open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7890223104000
+    m_Localized: Invalid name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8070678839296
+    m_Localized: 'Time left: {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 9157508273818042429
+  - m_Id: 12490317627392
+    m_Localized: 'Difficulty: {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 9157508273818042429
+  - m_Id: 14689550598144
+    m_Localized: Paused
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14812305293312
+    m_Localized: Exit to menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14993239179264
+    m_Localized: You`ve won!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15168770801664
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15747601530880
+    m_Localized: Do you really want to delete this deck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16232031059968
+    m_Localized: Currency
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16330882416640
+    m_Localized: Packs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16435911983104
+    m_Localized: Sales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16560101130240
+    m_Localized: 'Gold : {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 9157508273818042429
+  - m_Id: 16916130430976
+    m_Localized: Store
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 9157508273818042429
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0000f219570700000000f2205c0b00000000f2b20f0f0000
