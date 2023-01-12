@@ -17,13 +17,13 @@ public class SaveDataManager : MonoBehaviour
     //public List<CardSaveData> UserCards = new();
     public Dictionary<CardSO, CardSaveData> UserCards = new();
     public Dictionary<PackSO, uint> UserPacks = new();
-    public Action GoldUpdated;
+    public Action GoldChanged;
     public uint GoldAmount
     {
         get => goldAmount;
         set {
             goldAmount = value;
-            GoldUpdated?.Invoke();
+            GoldChanged?.Invoke();
         }
     }
     private uint goldAmount;
@@ -49,6 +49,7 @@ public class SaveDataManager : MonoBehaviour
         YandexGame.GetDataEvent += OnDataGet;
         PacksMenu.PackOpened += OnPackOpen;
         CollectionMenu.DeckAction += OnDeckAction;
+        PurchaseManager.Instance.PackBought += OnPackAcquired;
         //PacksMenu.CardsAcquired += OnCardsAcquired;
     }
 
@@ -194,6 +195,22 @@ public class SaveDataManager : MonoBehaviour
 
         UpdateUserDeckSaves();
 
+    }
+
+    private void OnPackAcquired(string id, uint amount)
+    {
+        if (AllPacks.TryGetValue(id, out var pack))
+        {
+            if (UserPacks.ContainsKey(pack))
+            {
+                UserPacks[pack] = UserPacks[pack] + amount;
+            }
+            else
+            {
+                UserPacks.Add(pack, amount);
+            }
+            UpdateUserCardsPacks();
+        }
     }
 
     private void OnPackOpen(object sender, PackSO pack, CardSO[] acquiredCards)

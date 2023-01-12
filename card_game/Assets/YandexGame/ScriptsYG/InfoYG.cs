@@ -150,7 +150,7 @@ namespace YG
         [Tooltip("Вы можете выключить запись лога в консоль.")]
         public bool debug = true;
 
-        public List<EditorPurchase> EditorPurchases;
+        public List<PurchaseData> EditorPurchases;
 
         public bool[] LangArr()
         {

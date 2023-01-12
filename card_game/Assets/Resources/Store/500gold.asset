@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 001bcd93c24e6b548aa3d9fb7b8676d9, type: 3}
+  m_Name: 500gold
+  m_EditorClassIdentifier: 
+  Id: 500gold
+  Title: 500 Gold bars
+  Description: Test 3
+  ImageURI: https://drive.google.com/u/0/uc?id=1uSQKQo4gctLQ_XOd7kd5ul9R-qBWAtEN&export=download
+  PaymentType: 1
+  PaymentAmount: 20
+  Results:
+  - ResourceType: 0
+    Amount: 500
+    ResultId: 

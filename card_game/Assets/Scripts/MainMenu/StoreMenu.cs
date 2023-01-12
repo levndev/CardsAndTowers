@@ -8,7 +8,7 @@ public class StoreMenu : MonoBehaviour
     public TMPro.TextMeshProUGUI GoldAmountText;
     void Start()
     {
-        SaveDataManager.Instance.GoldUpdated += UpdatePlayerStashText;
+        SaveDataManager.Instance.GoldChanged += UpdatePlayerStashText;
     }
 
     private void OnEnable()

@@ -85,6 +85,6 @@ MonoBehaviour:
   SDKStartDelay: 0
   debug: 1
   EditorPurchases:
-  - {fileID: 11400000, guid: f54269dcba1252f49850e23bcdf80f11, type: 2}
-  - {fileID: 11400000, guid: b1a8ba2a2c4803042a0b50ae21456cd5, type: 2}
+  - {fileID: 11400000, guid: 282dcd9e005cd1344a21d7450ce9b3d9, type: 2}
+  - {fileID: 11400000, guid: 738c9a0176057f545941b8280472e0d4, type: 2}
   - {fileID: 11400000, guid: a6c320666b8c5dd46a4cfb39f5ba786a, type: 2}

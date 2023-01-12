@@ -7,23 +7,22 @@ using YG;
 
 public class PurchasePanelController : MonoBehaviour
 {
-    public string PurchaseID;
+    public PurchaseData Data;
     public TMPro.TextMeshProUGUI Title;
     public TMPro.TextMeshProUGUI Cost;
     public TMPro.TextMeshProUGUI Description;
     public GameObject Icon;
     void Start()
     {
-        var purchase = YandexGame.PurchaseByID(PurchaseID);
-        Title.text = purchase.title;
-        Cost.text = purchase.priceValue;
-        Description.text = purchase.description;
-        Icon.GetComponent<ImageLoadYG>().Load(purchase.imageURI);
+        Title.text = Data.Title;
+        Cost.text = Data.PaymentAmount.ToString();
+        Description.text = Data.Description;
+        if (Data.ImageURI != null && Data.ImageURI != "") 
+            Icon.GetComponent<ImageLoadYG>().Load(Data.ImageURI);
     }
 
     public void Buy()
     {
-        if (PurchaseID != null)
-            YandexGame.BuyPayments(PurchaseID);
+        Data.Process();
     }
 }

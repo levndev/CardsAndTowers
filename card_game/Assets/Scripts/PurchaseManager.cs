@@ -1,21 +1,42 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using YG;
+using static PurchaseData;
+
 public class PurchaseManager : MonoBehaviour
 {
-    public TextAsset PurchaseData;
-    private Dictionary<string, PurchaseResult> Purchases = new ();
+    public Action<string, uint> PackBought;
+    private static PurchaseManager _instance;
+    public static PurchaseManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                //Debug.Log("Sussy");
+            }
+            return _instance;
+        }
+    }
+    public Dictionary<string, PurchaseData> Purchases = new ();
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            //throw new System.Exception("SaveDataManager already exists");
+        }
+    }
     void Start()
     {
-
-        var purchaseList = JsonUtility.FromJson<PurchaseResultList>(PurchaseData.text);
-        foreach (var purchase in purchaseList.Data)
-        {
-            Purchases.Add(purchase.Id, purchase);
-        }
+        Purchases = Resources.LoadAll<PurchaseData>("Store").ToDictionary(i => i.Id);
         YandexGame.PurchaseSuccessEvent += PurchaseSuccess;
     }
 
@@ -23,16 +44,21 @@ public class PurchaseManager : MonoBehaviour
     {
         if (Purchases.TryGetValue(id, out var purchase))
         {
-            switch(purchase.Resource)
+            var saveData = SaveDataManager.Instance;
+            foreach (var result in purchase.Results)
             {
-                case PurchaseResult.ResourceType.Gold:
-                    SaveDataManager.Instance.GoldAmount += purchase.Amount;
-                    SaveDataManager.Instance.UpdateGold();
-                    break;
-                case PurchaseResult.ResourceType.Pack:
-                    break;
-                case PurchaseResult.ResourceType.Card:
-                    break;
+                switch (result.ResourceType)
+                {
+                    case PurchaseResult.Resource.Gold:
+                        saveData.GoldAmount += result.Amount;
+                        saveData.UpdateGold();
+                        break;
+                    case PurchaseResult.Resource.Card:
+                        break;
+                    case PurchaseResult.Resource.Pack:
+                        PackBought?.Invoke(result.ResultId, result.Amount);
+                        break;
+                }
             }
         }
         else

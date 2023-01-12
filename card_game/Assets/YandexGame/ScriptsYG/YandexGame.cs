@@ -1037,8 +1037,8 @@ namespace YG
                 PaymentsData.id[i] = infoYG.EditorPurchases[i].Id;
                 PaymentsData.title[i] = infoYG.EditorPurchases[i].Title;
                 PaymentsData.description[i] = infoYG.EditorPurchases[i].Description;
-                PaymentsData.imageURI[i] = infoYG.EditorPurchases[i].IconURL;
-                PaymentsData.priceValue[i] = infoYG.EditorPurchases[i].Price;
+                PaymentsData.imageURI[i] = infoYG.EditorPurchases[i].ImageURI;
+                PaymentsData.priceValue[i] = infoYG.EditorPurchases[i].PaymentAmount.ToString();
             }
 #endif
             GetPaymentsEvent?.Invoke();

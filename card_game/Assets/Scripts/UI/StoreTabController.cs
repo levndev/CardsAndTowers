@@ -7,15 +7,17 @@ public class StoreTabController : MonoBehaviour
 {
     public GameObject Content;
     public GameObject PurchasePanel;
-
+    public List<PurchaseData> Purchases = new();
     private void Populate()
     {
         Clear();
-        for (var i = 0; i < YandexGame.PaymentsData.id.Length; i++)
+        foreach(var data in Purchases)
         {
-            var id = YandexGame.PaymentsData.id[i];
-            var panel = Instantiate(PurchasePanel, Content.transform);
-            panel.GetComponent<PurchasePanelController>().PurchaseID = id;
+            if (PurchaseManager.Instance.Purchases.ContainsKey(data.Id))
+            {
+                var panel = Instantiate(PurchasePanel, Content.transform);
+                panel.GetComponent<PurchasePanelController>().Data = data;
+            }
         }
     }
 
