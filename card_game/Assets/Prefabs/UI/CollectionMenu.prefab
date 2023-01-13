@@ -212,7 +212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 356, y: -144.8689}
+  m_AnchoredPosition: {x: 355.63, y: -100}
   m_SizeDelta: {x: 627.4, y: 122.97778}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1909579029
@@ -983,10 +983,10 @@ RectTransform:
   m_Father: {fileID: 7803394541283878031}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 51.93, y: -0.367}
-  m_SizeDelta: {x: 428.93, y: 68.418}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 51.930008, y: -0.36699677}
+  m_SizeDelta: {x: -133.26001, y: -31.582}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8485168053654241272
 CanvasRenderer:
@@ -1016,7 +1016,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Confirm Changes
+  m_text: "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1137,7 +1137,6 @@ GameObject:
   - component: {fileID: 1934988095047292662}
   - component: {fileID: 2910956522312677611}
   - component: {fileID: 8409895116067457930}
-  - component: {fileID: 2555748744716777771}
   m_Layer: 5
   m_Name: InputField (TMP)
   m_TagString: Untagged
@@ -1163,7 +1162,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 577.5225, y: -363.64}
+  m_AnchoredPosition: {x: 581, y: -342}
   m_SizeDelta: {x: 415.012, y: 65.95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1934988095047292662
@@ -1314,8 +1313,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435
-    \u043A\u043E\u043B\u043E\u0434\u044B"
+  m_Text: 
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -1327,46 +1325,6 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
---- !u!114 &2555748744716777771
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3450518756813809248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: GUID:e710fc60db7c43343a7917cab14f2534
-    m_TableEntryReference:
-      m_KeyId: 5168249831424
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8409895116067457930}
-        m_TargetAssemblyTypeName: TMPro.TMP_InputField, Unity.TextMeshPro
-        m_MethodName: set_text
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  references:
-    version: 2
-    RefIds: []
 --- !u!1 &3570366077473090019
 GameObject:
   m_ObjectHideFlags: 0
@@ -2305,7 +2263,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 577.52, y: -274.89}
+  m_AnchoredPosition: {x: 580.9975, y: -253.25}
   m_SizeDelta: {x: 415.02, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4944587227645139335
@@ -2449,7 +2407,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 577.52, y: -127.186}
+  m_AnchoredPosition: {x: 580.9975, y: -105.545975}
   m_SizeDelta: {x: 415.01, y: 517.092}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7011281697994112684
@@ -2733,7 +2691,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -292.999, y: -95}
+  m_AnchoredPosition: {x: -289.5215, y: -73.35998}
   m_SizeDelta: {x: 1250.136, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7011281698813458575
@@ -3039,8 +2997,39 @@ MonoBehaviour:
   DeckCardSlotPrefab: {fileID: 8194536033042387475, guid: 13729e82c67f7744592f71519443d18f, type: 3}
   deckSelectionDropdown: {fileID: 6766828783018434598}
   deckNameInputField: {fileID: 8409895116067457930}
+  deckNameFieldPlaceholder: {fileID: 8361884466308791013}
   ConfirmChangesButton: {fileID: 5992646084246481173}
   DeleteDeckButton: {fileID: 2287656385585505115}
+  deckNameEnter:
+    m_TableReference:
+      m_TableCollectionName: GUID:e710fc60db7c43343a7917cab14f2534
+    m_TableEntryReference:
+      m_KeyId: 5168249831424
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  deckNameInvalid:
+    m_TableReference:
+      m_TableCollectionName: GUID:e710fc60db7c43343a7917cab14f2534
+    m_TableEntryReference:
+      m_KeyId: 7890223104000
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  deckCreateNew:
+    m_TableReference:
+      m_TableCollectionName: GUID:e710fc60db7c43343a7917cab14f2534
+    m_TableEntryReference:
+      m_KeyId: 397892299915264
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &7195001000774938566
 GameObject:
   m_ObjectHideFlags: 0
@@ -3107,8 +3096,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435
-    \u043A\u043E\u043B\u043E\u0434\u044B\u200B"
+  m_text: "\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3402,8 +3390,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 651.11, y: -445}
-  m_SizeDelta: {x: 562.19, y: 100}
+  m_AnchoredPosition: {x: 587.595, y: -461.714}
+  m_SizeDelta: {x: 435.161, y: 133.429}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &736852421384627336
 CanvasRenderer:
@@ -4026,7 +4014,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8593810012298922518}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 

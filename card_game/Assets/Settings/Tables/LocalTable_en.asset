@@ -147,6 +147,10 @@ MonoBehaviour:
     m_Localized: 1 Classic pack
     m_Metadata:
       m_Items: []
+  - m_Id: 397892299915264
+    m_Localized: Create new
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

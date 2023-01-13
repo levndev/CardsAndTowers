@@ -69,7 +69,7 @@ public class Deck
 
     public bool CanAddToDeck(CardSO card)
     {
-        return !deckList.Contains(card);
+        return deckList.Count < 10 && !deckList.Contains(card);
     }
 
     public void RemoveFromDeck(CardSO card)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using YG;
@@ -31,11 +32,21 @@ public class CollectionMenu : MonoBehaviour
     public GameObject deckSelectionDropdown;
 
     public TMP_InputField deckNameInputField;
+    public TextMeshProUGUI deckNameFieldPlaceholder;
 
     public UnityEngine.UI.Button ConfirmChangesButton;
     public UnityEngine.UI.Button DeleteDeckButton;
 
     public static Action<object, DeckEventArgs> DeckAction;
+
+
+    public LocalizedString deckNameEnter;
+    public LocalizedString deckNameInvalid;
+    public LocalizedString deckCreateNew;
+
+    private string localDeckNameEnter;
+    private string localDeckNameInvalid;
+    private string localDeckCreateNew;
 
     void Start()
     {
@@ -48,6 +59,7 @@ public class CollectionMenu : MonoBehaviour
         FillCollectionWithUserCards();
         FillDropdownWithUserDecks();
         ShowDeckByName(SaveDataManager.Instance.CurrentDeck);
+        SignUpForLocalStrings(true);
     }
 
 
@@ -58,6 +70,23 @@ public class CollectionMenu : MonoBehaviour
         ClearDeckUI();
         ClearCollectionUI();
         ClearDeckSelectionDropdown();
+        SignUpForLocalStrings(false);
+    }
+
+    private void SignUpForLocalStrings(bool flag)
+    {
+        if (flag)
+        {
+            deckNameEnter.StringChanged += ChangeDeckNameEnterText;
+            deckCreateNew.StringChanged += ChangeDeckCreateNewText;
+            deckNameInvalid.StringChanged += ChangeDeckNameInvalidText;
+        }
+        else
+        {
+            deckNameEnter.StringChanged -= ChangeDeckNameEnterText;
+            deckCreateNew.StringChanged -= ChangeDeckCreateNewText;
+            deckNameInvalid.StringChanged -= ChangeDeckNameInvalidText;
+        }
     }
 
     private void Reload()
@@ -81,7 +110,7 @@ public class CollectionMenu : MonoBehaviour
         {
             list.Add(new TMP_Dropdown.OptionData(deckName));
         }
-        list.Add(new TMP_Dropdown.OptionData("Create New Deck"));
+        list.Add(new TMP_Dropdown.OptionData(localDeckCreateNew));
         dropdown.AddOptions(list);
 
         if (SaveDataManager.Instance.CurrentDeck != null)
@@ -219,31 +248,42 @@ public class CollectionMenu : MonoBehaviour
         {
             WorkingDeck = new Deck(null, new());
 
-            deckNameInputField.text = "Enter deck name here";
+            deckNameInputField.text = "";
+            deckNameFieldPlaceholder.text = localDeckNameEnter;
             DeleteDeckButton.gameObject.SetActive(false);
+            ConfirmChangesButton.gameObject.SetActive(false);
         }
     }
 
     public void OnDeckNameEndEdit(string newName)
     {
+
+        if (WorkingDeck == null)
+        {
+            WorkingDeck = new Deck(null, new());
+        }
+
+        
+        if(newName == WorkingDeck.Name || (string.IsNullOrWhiteSpace(newName) && WorkingDeck.Name != null))
+        {
+            deckNameInputField.text = WorkingDeck.Name;
+        }
+
         if (string.IsNullOrWhiteSpace(newName))
         {
-            deckNameInputField.text = "Invalid name";
+            deckNameInputField.text = localDeckNameInvalid;
             return;
         }
 
         if (SaveDataManager.Instance.UserDecks.ContainsKey(newName))
         {
             Debug.Log("Deck with this name already exists. Enter different name");
-            deckNameInputField.text = "Invalid name";
+            deckNameInputField.text = localDeckNameInvalid;
             return;
         }
         
 
-        if (WorkingDeck == null)
-        {
-            WorkingDeck = new Deck(null, new());
-        }
+        
 
         WorkingDeck.Name = newName;
         DeckEventArgs args;
@@ -316,5 +356,22 @@ public class CollectionMenu : MonoBehaviour
         {
             AddCardToDeckUI(card);
         }
+    }
+
+
+    private void ChangeDeckNameEnterText(string s)
+    {
+        localDeckNameEnter = s;
+    }
+
+    private void ChangeDeckCreateNewText(string s)
+    {
+        localDeckCreateNew = s;
+        Reload();
+    }
+
+    private void ChangeDeckNameInvalidText(string s)
+    {
+        localDeckNameInvalid = s;
     }
 }

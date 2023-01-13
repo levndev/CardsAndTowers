@@ -139,6 +139,10 @@ MonoBehaviour:
     m_Key: purchase_1classic_description
     m_Metadata:
       m_Items: []
+  - m_Id: 397892299915264
+    m_Key: collection_deck_create_new
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
