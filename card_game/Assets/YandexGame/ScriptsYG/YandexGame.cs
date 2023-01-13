@@ -8,6 +8,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Threading;
 using System.Linq;
+using Unity.VisualScripting;
 
 namespace YG
 {
@@ -1020,7 +1021,7 @@ namespace YG
         #region Payments
         public static Action GetPaymentsEvent;
 
-        public void PaymentsEntries(string data)
+        public async void PaymentsEntries(string data)
         {
 #if !UNITY_EDITOR
             PaymentsData = JsonUtility.FromJson<JsonPayments>(data);
@@ -1029,6 +1030,7 @@ namespace YG
             PaymentsData.id = new string[purchaseCount];
             PaymentsData.title = new string[purchaseCount];
             PaymentsData.description = new string[purchaseCount];
+            
             PaymentsData.imageURI = new string[purchaseCount];
             PaymentsData.priceValue = new string[purchaseCount];
             PaymentsData.purchased = new int[purchaseCount];
@@ -1036,7 +1038,7 @@ namespace YG
             {
                 PaymentsData.id[i] = infoYG.EditorPurchases[i].Id;
                 PaymentsData.title[i] = infoYG.EditorPurchases[i].Title;
-                PaymentsData.description[i] = infoYG.EditorPurchases[i].Description;
+                PaymentsData.description[i] = await infoYG.EditorPurchases[i].Description.GetLocalizedStringAsync().Task;
                 PaymentsData.imageURI[i] = infoYG.EditorPurchases[i].ImageURI;
                 PaymentsData.priceValue[i] = infoYG.EditorPurchases[i].PaymentAmount.ToString();
             }

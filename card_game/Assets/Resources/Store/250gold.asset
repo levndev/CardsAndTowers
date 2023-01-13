@@ -14,7 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 250gold
   Title: 250 Gold bars
-  Description: Test 2
+  Description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e710fc60db7c43343a7917cab14f2534
+    m_TableEntryReference:
+      m_KeyId: 332881942040576
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables:
+    - name: 0
+      variable:
+        rid: 6049904704701333511
   ImageURI: https://drive.google.com/u/0/uc?id=1bDj5v6yFe4M9gezD71FI7tDwC9a7Pdip&export=download
   PaymentType: 1
   PaymentAmount: 15
@@ -22,3 +33,10 @@ MonoBehaviour:
   - ResourceType: 0
     Amount: 250
     ResultId: 
+  references:
+    version: 2
+    RefIds:
+    - rid: 6049904704701333511
+      type: {class: IntVariable, ns: UnityEngine.Localization.SmartFormat.PersistentVariables, asm: Unity.Localization}
+      data:
+        m_Value: 250

@@ -119,6 +119,26 @@ MonoBehaviour:
     m_Key: store_title
     m_Metadata:
       m_Items: []
+  - m_Id: 328418346946560
+    m_Key: purchase_100gold_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332520539836416
+    m_Key: purchase_250gold_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332722373939200
+    m_Key: purchase_500gold_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332881942040576
+    m_Key: purchase_gold_description
+    m_Metadata:
+      m_Items: []
+  - m_Id: 333608361938944
+    m_Key: purchase_1classic_description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

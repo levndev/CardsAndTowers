@@ -14,7 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 1classic
   Title: 1 Classic pack
-  Description: Test 4
+  Description:
+    m_TableReference:
+      m_TableCollectionName: GUID:e710fc60db7c43343a7917cab14f2534
+    m_TableEntryReference:
+      m_KeyId: 333608361938944
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   ImageURI: 
   PaymentType: 0
   PaymentAmount: 1000
@@ -22,3 +30,6 @@ MonoBehaviour:
   - ResourceType: 1
     Amount: 1
     ResultId: Classic
+  references:
+    version: 2
+    RefIds: []

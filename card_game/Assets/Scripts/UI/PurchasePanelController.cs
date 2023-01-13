@@ -16,7 +16,11 @@ public class PurchasePanelController : MonoBehaviour
     {
         Title.text = Data.Title;
         Cost.text = Data.PaymentAmount.ToString();
-        Description.text = Data.Description;
+        var op = Data.Description.GetLocalizedStringAsync();
+        if (op.IsDone)
+            Description.text = op.Result;
+        else
+            op.Completed += (op) => Description.text = op.Result;
         if (Data.ImageURI != null && Data.ImageURI != "") 
             Icon.GetComponent<ImageLoadYG>().Load(Data.ImageURI);
     }

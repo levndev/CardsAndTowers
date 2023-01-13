@@ -126,10 +126,31 @@ MonoBehaviour:
     m_Localized: Store
     m_Metadata:
       m_Items: []
+  - m_Id: 328418346946560
+    m_Localized: 100 Gold bars
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332520539836416
+    m_Localized: 250 Gold bars
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332722373939200
+    m_Localized: '500 Gold '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 332881942040576
+    m_Localized: '{0} Gold bars'
+    m_Metadata:
+      m_Items:
+      - rid: 9157508273818042429
+  - m_Id: 333608361938944
+    m_Localized: 1 Classic pack
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
     - rid: 9157508273818042429
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0000f219570700000000f2205c0b00000000f2b20f0f0000
+        m_Entries: 0000f219570700000000f2205c0b00000000f2b20f0f00000050e81dc12e0100

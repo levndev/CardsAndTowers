@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using YG;
+using UnityEngine.Localization;
 
 [CreateAssetMenu(menuName = "CardsAndTowers/Purchase Data")]
 public class PurchaseData : ScriptableObject
@@ -24,7 +25,7 @@ public class PurchaseData : ScriptableObject
     }
     public string Id;
     public string Title;
-    public string Description;
+    public LocalizedString Description;
     public string ImageURI;
     public enum Resource
     {
