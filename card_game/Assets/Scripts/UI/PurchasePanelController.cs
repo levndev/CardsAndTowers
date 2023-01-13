@@ -12,6 +12,8 @@ public class PurchasePanelController : MonoBehaviour
     public TMPro.TextMeshProUGUI Cost;
     public TMPro.TextMeshProUGUI Description;
     public GameObject Icon;
+
+
     void Start()
     {
         Title.text = Data.Title;
@@ -23,6 +25,13 @@ public class PurchasePanelController : MonoBehaviour
             op.Completed += (op) => Description.text = op.Result;
         if (Data.ImageURI != null && Data.ImageURI != "") 
             Icon.GetComponent<ImageLoadYG>().Load(Data.ImageURI);
+
+        Data.Description.StringChanged += DesctriptionLocalChange;
+    }
+
+    void DesctriptionLocalChange(string s)
+    {
+        Description.text = s;
     }
 
     public void Buy()
