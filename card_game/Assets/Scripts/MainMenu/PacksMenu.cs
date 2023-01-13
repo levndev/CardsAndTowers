@@ -27,6 +27,7 @@ public class PacksMenu : MonoBehaviour
     public GameObject CardSlotPrefab;
 
     public TextMeshProUGUI HelpMessage;
+    public TextMeshProUGUI NoPacksMessage;
 
     public List<UIPackController> UIPackList = new List<UIPackController>();
 
@@ -95,12 +96,18 @@ public class PacksMenu : MonoBehaviour
             uiPack.transform.SetSiblingIndex(0);
             UIPackList.Add(uiPack);
         }
+        if(loadedPacks.Count == 0)
+        {
+            NoPacksMessage.gameObject.SetActive(true);
+            HelpMessage.gameObject.SetActive(false);
+        }
     }
 
     private void OnDisable()
     {
         OnOpenedCardsPanelClick();
         ResetPacks();
+        NoPacksMessage.gameObject.SetActive(false);
     }
 
     private void ResetPacks()
