@@ -143,6 +143,14 @@ MonoBehaviour:
     m_Key: collection_deck_create_new
     m_Metadata:
       m_Items: []
+  - m_Id: 419171530833920
+    m_Key: packs_no_packs_message
+    m_Metadata:
+      m_Items: []
+  - m_Id: 423474052071424
+    m_Key: game_player_lost
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
