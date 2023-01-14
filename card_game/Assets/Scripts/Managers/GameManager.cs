@@ -44,7 +44,10 @@ public class GameManager : MonoBehaviour
     public GameObject LosePanel;
     public GameObject TowerPrefab;
     public GameObject WallPrefab;
+    public float WallCost;
     public GameObject TowerPlacementEffect;
+
+    private float totalWallEnergyCost;
 
     public static GameManager Instance
     {
@@ -337,11 +340,14 @@ public class GameManager : MonoBehaviour
             {
                 if (MapManager.GetGhost(position))
                     continue;
+                if (totalWallEnergyCost >= CurrentEnergy)
+                    continue;
                 var ghostPosition = MapManager.GetBuildingCenter(position, buildingSize);
                 if (ghostPosition == oldGhostPosition)
                     continue;
                 oldGhostPosition = ghostPosition;
                 var ghost = Instantiate(WallPrefab, ghostPosition, new Quaternion());
+                totalWallEnergyCost += WallCost;
                 var ghostMode = ghost.GetComponent<GhostMode>();
                 ghostMode.Enable();
                 var ghostState = MapManager.IsValidPlacement(position, buildingSize)
@@ -451,6 +457,7 @@ public class GameManager : MonoBehaviour
                 if (ghost.GetComponent<GhostMode>().GetState() == GhostMode.States.ViablePosition)
                 {
                     var wall = Instantiate(WallPrefab);
+                    CurrentEnergy -= WallCost;
                     MapManager.AddObject(wall, ghost.transform.position, false);
                     MapManager.RegeneratePaths();
                 }
@@ -473,12 +480,14 @@ public class GameManager : MonoBehaviour
             GameState = GameState.None;
             cameraTarget.Enabled = true;
             VisibleGrid.SetActive(false);
+            totalWallEnergyCost = 0;
         }
         else
         {
             GameState = GameState.WallBuilding;
             cameraTarget.Enabled = false;
             VisibleGrid.SetActive(true);
+            totalWallEnergyCost = 0;
         }
     }
 
