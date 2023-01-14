@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8886660351508752618}
   - component: {fileID: 8886660351508752619}
+  - component: {fileID: 7789421768243475003}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -56,6 +57,7 @@ MonoBehaviour:
   BasicTurretPrefab: {fileID: 6422741524440096503, guid: b62fc16090a5c7d419fa9418dd83d472, type: 3}
   InputManager: {fileID: 0}
   MapManager: {fileID: 0}
+  Reward: {fileID: 7789421768243475003}
   VisibleGrid: {fileID: 0}
   CurrentEnergy: 0
   MaxEnergy: 15
@@ -70,12 +72,35 @@ MonoBehaviour:
   cameraTarget: {fileID: 0}
   DragCoefficient: {x: 0, y: 0}
   Base: {fileID: 0}
-  TimeToWin: 300
+  TimeToWin: 20
   TimeToWinLeft: 0
   WinTimerText: {fileID: 0}
   WinPanel: {fileID: 0}
+  PackReward: {fileID: 0}
+  GoldReward: {fileID: 0}
+  CardReward: {fileID: 0}
   LosePanel: {fileID: 0}
   TowerPrefab: {fileID: 6422741524440096503, guid: 3e8dcf2552fabd543859502ed8e655f0, type: 3}
   WallPrefab: {fileID: 0}
-  WallCost: 0.33
+  WallCost: 0
   TowerPlacementEffect: {fileID: 6671327076282542850, guid: e447a63b88b969946b0132c7096fd9e8, type: 3}
+--- !u!114 &7789421768243475003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8886660351508752616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64a31dd2b77df84d8ba432c1ea22d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Packs:
+  - Name: Classic
+    Amount: 2
+  Cards:
+  - UID: b5025eb8-1d44-44cc-8f80-002014ab15fc
+    Amount: 2
+    Level: 0
+  Gold: 200

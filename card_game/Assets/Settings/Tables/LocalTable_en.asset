@@ -175,6 +175,26 @@ MonoBehaviour:
     m_Localized: Music volume
     m_Metadata:
       m_Items: []
+  - m_Id: 698767023144960
+    m_Localized: Your reward
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698987131830272
+    m_Localized: 'Packs:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 699185908285440
+    m_Localized: 'Gold:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 702917668634624
+    m_Localized: 'Cards:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 725697730576384
+    m_Localized: Energy
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

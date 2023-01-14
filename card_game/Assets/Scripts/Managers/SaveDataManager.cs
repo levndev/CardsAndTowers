@@ -51,7 +51,10 @@ public class SaveDataManager : MonoBehaviour
         CollectionMenu.DeckAction += OnDeckAction;
         PurchaseManager.Instance.PackBought += OnPackAcquired;
         //PacksMenu.CardsAcquired += OnCardsAcquired;
+        Reward.RewardClaimed += OnRewardAcquired;
     }
+
+    
 
     private void Awake()
     {
@@ -240,6 +243,35 @@ public class SaveDataManager : MonoBehaviour
             }
         }
 
+        UpdateUserCardsPacks();
+    }
+
+    private void OnRewardAcquired(object arg1, List<PackSaveData> packs, List<CardSaveData> cards, uint gold)
+    {
+        foreach(var pack in packs)
+        {
+            if (UserPacks.ContainsKey(AllPacks[pack.Name]))
+            {
+                UserPacks[AllPacks[pack.Name]] += pack.Amount;
+            }
+            else
+            {
+                UserPacks[AllPacks[pack.Name]] = pack.Amount;
+            }
+        }
+        foreach (var card in cards)
+        {
+            if (UserCards.ContainsKey(AllCards[card.UID]))
+            {
+                UserCards[AllCards[card.UID]].Amount += card.Amount;
+            }
+            else
+            {
+                UserCards[AllCards[card.UID]] = card;
+            }
+        }
+        GoldAmount += gold;
+        UpdateGold();
         UpdateUserCardsPacks();
     }
 

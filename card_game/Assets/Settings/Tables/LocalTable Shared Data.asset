@@ -167,6 +167,26 @@ MonoBehaviour:
     m_Key: settings_music_label
     m_Metadata:
       m_Items: []
+  - m_Id: 698767023144960
+    m_Key: game_reward_got
+    m_Metadata:
+      m_Items: []
+  - m_Id: 698987131830272
+    m_Key: game_reward_got_packs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 699185908285440
+    m_Key: game_reward_got_gold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 702917668634624
+    m_Key: game_reward_got_cards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 725697730576384
+    m_Key: game_energy
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

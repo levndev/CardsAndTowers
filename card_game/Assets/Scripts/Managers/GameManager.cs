@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     public GameObject BasicTurretPrefab;
     public InputManager InputManager;
     public MapManager MapManager;
+    public Reward Reward;
     public GameObject VisibleGrid;
     public float CurrentEnergy;
     public float MaxEnergy;
@@ -40,7 +42,12 @@ public class GameManager : MonoBehaviour
     public float TimeToWin;
     public float TimeToWinLeft;
     public TMPro.TextMeshProUGUI WinTimerText;
+
     public GameObject WinPanel;
+    public TextMeshProUGUI PackReward;
+    public TextMeshProUGUI GoldReward;
+    public TextMeshProUGUI CardReward;
+
     public GameObject LosePanel;
     public GameObject TowerPrefab;
     public GameObject WallPrefab;
@@ -115,6 +122,7 @@ public class GameManager : MonoBehaviour
     public void Continue()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale= 1.0f;
     }
 
     public void Quit()
@@ -130,6 +138,13 @@ public class GameManager : MonoBehaviour
     public void Pause()
     {
         SetPause(GameState != GameState.Paused);
+    }
+
+    public void Win()
+    {
+        SetPause(true);
+        WinPanel.SetActive(true);
+        Reward.GetReward();
     }
 
     public void SetPause(bool pause)
@@ -150,8 +165,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            SetPause(true);
-            WinPanel.SetActive(true);
+            Win();
         }
 
         GenerateEnergy();
