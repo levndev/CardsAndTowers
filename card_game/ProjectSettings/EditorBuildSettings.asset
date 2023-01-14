@@ -18,14 +18,41 @@ EditorBuildSettings:
     path: Assets/Scenes/Level1-3.unity
     guid: 11530c302b24cf54b977faed4bf75632
   - enabled: 1
+    path: Assets/Scenes/Level1-4.unity
+    guid: 078e2c29b35664d44bbefeb9368b2ddf
+  - enabled: 1
+    path: Assets/Scenes/Level1-5.unity
+    guid: 8cbf586ae52f8564994c354930a7b902
+  - enabled: 1
     path: Assets/Scenes/Level2-1.unity
     guid: f9f7a4914cffba64d8db6e45179be568
   - enabled: 1
     path: Assets/Scenes/Level2-2.unity
     guid: 2915d0922840f324f9f0a42510622b97
   - enabled: 1
+    path: Assets/Scenes/Level2-3.unity
+    guid: cf2546c20595d2d4bbcce74a823c34e6
+  - enabled: 1
+    path: Assets/Scenes/Level2-4.unity
+    guid: 36a26778b78c6ec42a50f3dba6aa0ebc
+  - enabled: 1
+    path: Assets/Scenes/Level2-5.unity
+    guid: fe3c8425ec82ff443b32ed19150d5877
+  - enabled: 1
     path: Assets/Scenes/Level3-1.unity
     guid: 6e3b9e2788b0f844baf228132a92946c
+  - enabled: 1
+    path: Assets/Scenes/Level3-2.unity
+    guid: 2bfca3799247d44449f01fbd8e979d4e
+  - enabled: 1
+    path: Assets/Scenes/Level3-3.unity
+    guid: e9aa49f760e8aa949b47e014a89a9c7e
+  - enabled: 1
+    path: Assets/Scenes/Level3-4.unity
+    guid: 780f1396991c2a74d919615ac867a5c0
+  - enabled: 1
+    path: Assets/Scenes/Level3-5.unity
+    guid: b2e04ea5133ed8f48a003a754cae5876
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 3ff91702824ab5b4281bea149f52b92e, type: 2}
     com.unity.localization.settings: {fileID: 11400000, guid: 55243cb7a94f7504caa57e4c1e7b49c2, type: 2}
