@@ -72,10 +72,11 @@ MonoBehaviour:
   cameraTarget: {fileID: 0}
   DragCoefficient: {x: 0, y: 0}
   Base: {fileID: 0}
-  TimeToWin: 20
+  TimeToWin: 10
   TimeToWinLeft: 0
   WinTimerText: {fileID: 0}
   WinPanel: {fileID: 0}
+  WinPanelSO: {fileID: 11400000, guid: 2c5a4e22140d558479282267903677fa, type: 2}
   PackReward: {fileID: 0}
   GoldReward: {fileID: 0}
   CardReward: {fileID: 0}

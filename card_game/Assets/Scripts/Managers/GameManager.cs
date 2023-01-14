@@ -44,9 +44,7 @@ public class GameManager : MonoBehaviour
     public TMPro.TextMeshProUGUI WinTimerText;
 
     public GameObject WinPanel;
-    public TextMeshProUGUI PackReward;
-    public TextMeshProUGUI GoldReward;
-    public TextMeshProUGUI CardReward;
+    public WinPanelSO WinPanelSO;
 
     public GameObject LosePanel;
     public GameObject TowerPrefab;
@@ -122,7 +120,7 @@ public class GameManager : MonoBehaviour
     public void Continue()
     {
         SceneManager.LoadScene(0);
-        Time.timeScale= 1.0f;
+        Time.timeScale = 1.0f;
     }
 
     public void Quit()
@@ -144,6 +142,15 @@ public class GameManager : MonoBehaviour
     {
         SetPause(true);
         WinPanel.SetActive(true);
+        WinPanelSO.GoldAmount.text = Reward.Gold.ToString();
+        foreach (var pack in Reward.Packs)
+        {
+            WinPanelSO.Pack.text += pack.Name + " X" + pack.Amount.ToString() + "\n";
+        }
+        foreach (var card in Reward.Cards)
+        {
+            WinPanelSO.Card.text = SaveDataManager.Instance.AllCards[Reward.Cards[0].UID].Name + " X" + Reward.Cards[0].Amount.ToString() + "\n";
+        }
         Reward.GetReward();
     }
 
