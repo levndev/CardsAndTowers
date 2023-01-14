@@ -26,7 +26,7 @@ MonoBehaviour:
     - name: 0
       variable:
         rid: 6049904704701333510
-  ImageURI: https://drive.google.com/u/0/uc?id=1uSQKQo4gctLQ_XOd7kd5ul9R-qBWAtEN&export=download
+  ImageURI: https://drive.google.com/uc?export=download&id=1lYNJ1cmnQxcwPmXdhMQjhr0o0VyhHcCI
   PaymentType: 1
   PaymentAmount: 20
   Results:

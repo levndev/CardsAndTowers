@@ -23,7 +23,7 @@ MonoBehaviour:
     m_FallbackState: 0
     m_WaitForCompletion: 0
     m_LocalVariables: []
-  ImageURI: 
+  ImageURI: https://drive.google.com/uc?export=download&id=18nirZrp2yLPLtQ9kD5i2GYTBli7mN9yO
   PaymentType: 0
   PaymentAmount: 1000
   Results:
