@@ -151,6 +151,22 @@ MonoBehaviour:
     m_Key: game_player_lost
     m_Metadata:
       m_Items: []
+  - m_Id: 443878514118656
+    m_Key: settings_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 676278145929216
+    m_Key: settings_master_label
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678033634119680
+    m_Key: settings_sfx_label
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678852806856704
+    m_Key: settings_music_label
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

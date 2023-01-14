@@ -159,6 +159,22 @@ MonoBehaviour:
     m_Localized: You have lost!
     m_Metadata:
       m_Items: []
+  - m_Id: 443878514118656
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 676278145929216
+    m_Localized: Master volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678033634119680
+    m_Localized: Effects volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 678852806856704
+    m_Localized: Music volume
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
