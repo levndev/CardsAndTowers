@@ -75,7 +75,15 @@ public class PacksMenu : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        HelpMessage.gameObject.SetActive(true);
+        if(SaveDataManager.Instance.UserPacks.Count > 0)
+        {
+            HelpMessage.gameObject.SetActive(true);
+        }
+        else
+        {
+            NoPacksMessage.gameObject.SetActive(true);
+        }
+
     }
 
 
@@ -101,6 +109,11 @@ public class PacksMenu : MonoBehaviour
             NoPacksMessage.gameObject.SetActive(true);
             HelpMessage.gameObject.SetActive(false);
         }
+        else
+        {
+            NoPacksMessage.gameObject.SetActive(false);
+            HelpMessage.gameObject.SetActive(true);
+        }
     }
 
     private void OnDisable()
@@ -108,6 +121,7 @@ public class PacksMenu : MonoBehaviour
         OnOpenedCardsPanelClick();
         ResetPacks();
         NoPacksMessage.gameObject.SetActive(false);
+        HelpMessage.gameObject.SetActive(false);
     }
 
     private void ResetPacks()
