@@ -157,8 +157,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   current: 0
+  max: 10
   healthbar: {fileID: 0}
-  Max: 10
   DestroyAutomatically: 1
 --- !u!1001 &7904607828439850628
 PrefabInstance:
