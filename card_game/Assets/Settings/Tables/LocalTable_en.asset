@@ -195,6 +195,10 @@ MonoBehaviour:
     m_Localized: Energy
     m_Metadata:
       m_Items: []
+  - m_Id: 737469598400512
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

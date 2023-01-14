@@ -187,6 +187,10 @@ MonoBehaviour:
     m_Key: game_energy
     m_Metadata:
       m_Items: []
+  - m_Id: 737469598400512
+    m_Key: settings_language
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
