@@ -14,6 +14,7 @@ public class SettingsMenu : MonoBehaviour
     public Slider SFXSlider;
     public Slider MusicSlider;
     public TMP_Dropdown LanguageDropdown;
+    public LocaleChanger localeChanger;
 
 
     public void MasterVolumeChanged()
@@ -43,7 +44,7 @@ public class SettingsMenu : MonoBehaviour
         if (PlayerPrefs.HasKey("LocaleID"))
         {
             LanguageDropdown.value = PlayerPrefs.GetInt("LocaleID");
-            ChangeLocale(PlayerPrefs.GetInt("LocaleID"));
+            localeChanger.ChangeLocale(PlayerPrefs.GetInt("LocaleID"));
         }
     }
     private void OnEnable()
@@ -57,36 +58,34 @@ public class SettingsMenu : MonoBehaviour
         if (PlayerPrefs.HasKey("LocaleID"))
         {
             LanguageDropdown.value = PlayerPrefs.GetInt("LocaleID");
-            ChangeLocale(PlayerPrefs.GetInt("LocaleID"));
+            localeChanger.ChangeLocale(PlayerPrefs.GetInt("LocaleID"));
         }
     }
 
-    private void Start()
-    {
-        if (PlayerPrefs.HasKey("LocaleID"))
-        {
-            LanguageDropdown.value = PlayerPrefs.GetInt("LocaleID");
-            ChangeLocale(PlayerPrefs.GetInt("LocaleID"));
-        }
-    }
+   
 
     private void OnDisable()
     {
         PlayerPrefs.Save();
     }
 
-    public void ChangeLocale(int id)
+    //public void ChangeLocale(int id)
+    //{
+    //    SetLocale(id);
+    //    StartCoroutine(SetLocale(id));
+    //}
+
+    public void OnLocaleDropdownChange(int id)
     {
-        SetLocale(id);
-        StartCoroutine(SetLocale(id));
+        localeChanger.ChangeLocale(id);
     }
 
-    private static IEnumerator SetLocale(int id)
-    {
-        yield return LocalizationSettings.InitializationOperation;
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[id];
-        PlayerPrefs.SetInt("LocaleID", id);
-        PlayerPrefs.Save();
+    //private static IEnumerator SetLocale(int id)
+    //{
+    //    yield return LocalizationSettings.InitializationOperation;
+    //    LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[id];
+    //    PlayerPrefs.SetInt("LocaleID", id);
+    //    PlayerPrefs.Save();
 
-    }
+    //}
 }

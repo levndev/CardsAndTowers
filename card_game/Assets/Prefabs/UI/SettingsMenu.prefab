@@ -877,6 +877,7 @@ MonoBehaviour:
   SFXSlider: {fileID: 818561715602415447}
   MusicSlider: {fileID: 1897331789559686839}
   LanguageDropdown: {fileID: 2732691797407479453}
+  localeChanger: {fileID: 0}
 --- !u!1 &2893193337173170762
 GameObject:
   m_ObjectHideFlags: 0
@@ -3292,7 +3293,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3366508004005334744}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
-        m_MethodName: ChangeLocale
+        m_MethodName: OnLocaleDropdownChange
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
