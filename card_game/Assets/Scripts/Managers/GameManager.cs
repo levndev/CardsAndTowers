@@ -52,6 +52,11 @@ public class GameManager : MonoBehaviour
     public float WallCost;
     public GameObject TowerPlacementEffect;
 
+    public float MaxMatter;
+    public float CurrentMatter;
+    public float MatterGenerationRate;
+    public BarSO MatterBar;
+
     private float totalWallEnergyCost;
 
     public static GameManager Instance
@@ -176,6 +181,7 @@ public class GameManager : MonoBehaviour
         }
 
         GenerateEnergy();
+        GenerateMatter();
 
         for (var i = 0; i < HandSize; i++)
         {
@@ -221,6 +227,7 @@ public class GameManager : MonoBehaviour
             DrawCooldownBar.value = 1;
         }
         UpdateEnergyDisplay();
+        UpdateMatterDisplay();
         UpdateCardsOutlines();
 
 
@@ -230,6 +237,18 @@ public class GameManager : MonoBehaviour
             if (CurrentEnergy >= MaxEnergy)
             {
                 CurrentEnergy = MaxEnergy;
+            }
+        }
+
+        void GenerateMatter()
+        {
+            if (CurrentEnergy == MaxEnergy)
+            {
+                CurrentMatter += MatterGenerationRate * Time.deltaTime;
+            }
+            if (CurrentMatter >= MaxMatter)
+            {
+                Win();
             }
         }
     }
@@ -516,6 +535,12 @@ public class GameManager : MonoBehaviour
     {
         EnergyText.text = CurrentEnergy.ToString("N0");
         EnergyBar.value = CurrentEnergy / MaxEnergy;
+    }
+
+    private void UpdateMatterDisplay()
+    {
+        MatterBar.Text.text = CurrentMatter.ToString("N0");
+        MatterBar.Slider.value = CurrentMatter / MaxMatter;
     }
 }
 

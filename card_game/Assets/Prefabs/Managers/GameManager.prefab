@@ -80,8 +80,12 @@ MonoBehaviour:
   LosePanel: {fileID: 0}
   TowerPrefab: {fileID: 6422741524440096503, guid: 3e8dcf2552fabd543859502ed8e655f0, type: 3}
   WallPrefab: {fileID: 0}
-  WallCost: 0
+  WallCost: 0.2
   TowerPlacementEffect: {fileID: 6671327076282542850, guid: e447a63b88b969946b0132c7096fd9e8, type: 3}
+  MaxMatter: 50
+  CurrentMatter: 0
+  MatterGenerationRate: 1
+  MatterBar: {fileID: 11400000, guid: 0beac6fb8aa4aa94eac0edba9fd6864c, type: 2}
 --- !u!114 &7789421768243475003
 MonoBehaviour:
   m_ObjectHideFlags: 0
