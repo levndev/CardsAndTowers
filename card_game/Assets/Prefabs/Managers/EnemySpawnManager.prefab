@@ -54,8 +54,8 @@ MonoBehaviour:
     Enemy: {fileID: 9057383143262618121, guid: 7dad485015ac16040a90fc5b98ee920a, type: 3}
   - Modifier: 1
     Enemy: {fileID: 7116616547664445224, guid: d417128ae63eba4499f24b198ded17fc, type: 3}
-  spawnCooldown: 5
-  levelDifficulty: 25
+  spawnCooldown: 1
+  levelDifficulty: 15
   difficultyScaling:
     serializedVersion: 2
     m_Curve:
