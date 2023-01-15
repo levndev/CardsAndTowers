@@ -14,7 +14,6 @@ public class SettingsMenu : MonoBehaviour
     public Slider SFXSlider;
     public Slider MusicSlider;
     public TMP_Dropdown LanguageDropdown;
-    public LocaleChanger localeChanger;
 
 
     public void MasterVolumeChanged()
@@ -44,7 +43,7 @@ public class SettingsMenu : MonoBehaviour
         if (PlayerPrefs.HasKey("LocaleID"))
         {
             LanguageDropdown.value = PlayerPrefs.GetInt("LocaleID");
-            localeChanger.ChangeLocale(PlayerPrefs.GetInt("LocaleID"));
+            LocaleChanger.Instance.ChangeLocale(PlayerPrefs.GetInt("LocaleID"));
         }
     }
     private void OnEnable()
@@ -58,34 +57,17 @@ public class SettingsMenu : MonoBehaviour
         if (PlayerPrefs.HasKey("LocaleID"))
         {
             LanguageDropdown.value = PlayerPrefs.GetInt("LocaleID");
-            localeChanger.ChangeLocale(PlayerPrefs.GetInt("LocaleID"));
+            LocaleChanger.Instance.ChangeLocale(PlayerPrefs.GetInt("LocaleID"));
         }
     }
-
-   
 
     private void OnDisable()
     {
         PlayerPrefs.Save();
     }
 
-    //public void ChangeLocale(int id)
-    //{
-    //    SetLocale(id);
-    //    StartCoroutine(SetLocale(id));
-    //}
-
     public void OnLocaleDropdownChange(int id)
     {
-        localeChanger.ChangeLocale(id);
+        LocaleChanger.Instance.ChangeLocale(id);
     }
-
-    //private static IEnumerator SetLocale(int id)
-    //{
-    //    yield return LocalizationSettings.InitializationOperation;
-    //    LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[id];
-    //    PlayerPrefs.SetInt("LocaleID", id);
-    //    PlayerPrefs.Save();
-
-    //}
 }

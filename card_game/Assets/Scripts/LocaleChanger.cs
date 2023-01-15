@@ -5,8 +5,30 @@ using UnityEngine.Localization.Settings;
 
 public class LocaleChanger : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private static LocaleChanger _instance;
+    public static LocaleChanger Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                //Debug.Log("Sussy");
+            }
+            return _instance;
+        }
+    }
     
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            //throw new System.Exception("SaveDataManager already exists");
+        }
+    }
 
     public void ChangeLocale(int id)
     {
@@ -20,6 +42,5 @@ public class LocaleChanger : MonoBehaviour
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[id];
         PlayerPrefs.SetInt("LocaleID", id);
         PlayerPrefs.Save();
-
     }
 }
