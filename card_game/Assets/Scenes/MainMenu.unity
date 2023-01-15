@@ -564,6 +564,26 @@ PrefabInstance:
       propertyPath: m_text
       value: 'Difficulty: 7'
       objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: managedReferences[6761323955117883397]
+      value: Unity.Localization UnityEngine.Localization.SmartFormat.PersistentVariables.IntVariable
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: managedReferences[6761323955117883397].m_Value
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.data[0].name
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.data[0].variable
+      value: 6761323955117883397
+      objectReference: {fileID: 0}
     - target: {fileID: 8702958576049688731, guid: 88b98179c0bd881459123d0d57888650, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -673,7 +693,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7780488, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1523,6 +1543,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: managedReferences[6761323955117883395]
+      value: Unity.Localization UnityEngine.Localization.SmartFormat.PersistentVariables.IntVariable
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: managedReferences[6761323955117883395].m_Value
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.data[0].name
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.data[0].variable
+      value: 6761323955117883395
+      objectReference: {fileID: 0}
     - target: {fileID: 8702958576049688731, guid: 88b98179c0bd881459123d0d57888650, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1924,7 +1964,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7780488, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2635,6 +2675,42 @@ PrefabInstance:
     - target: {fileID: 7060937992870955237, guid: 88b98179c0bd881459123d0d57888650, type: 3}
       propertyPath: m_text
       value: 'Difficulty: 4'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: managedReferences[6761323955117883394]
+      value: Unity.Localization UnityEngine.Localization.SmartFormat.PersistentVariables.IntVariable
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: managedReferences[6761323955117883394].m_Value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_UpdateString.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.data[0].name
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.data[0].variable
+      value: 6761323955117883394
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_UpdateString.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_UpdateString.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_UpdateString.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: TMPro.TMP_Text, Unity.TextMeshPro
       objectReference: {fileID: 0}
     - target: {fileID: 8702958576049688731, guid: 88b98179c0bd881459123d0d57888650, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3539,6 +3615,26 @@ PrefabInstance:
     - target: {fileID: 7060937992870955237, guid: 88b98179c0bd881459123d0d57888650, type: 3}
       propertyPath: m_text
       value: 'Difficulty: 6'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: managedReferences[6761323955117883396]
+      value: Unity.Localization UnityEngine.Localization.SmartFormat.PersistentVariables.IntVariable
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: managedReferences[6761323955117883396].m_Value
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.data[0].name
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775322805470468953, guid: 88b98179c0bd881459123d0d57888650, type: 3}
+      propertyPath: m_StringReference.m_LocalVariables.Array.data[0].variable
+      value: 6761323955117883396
       objectReference: {fileID: 0}
     - target: {fileID: 8702958576049688731, guid: 88b98179c0bd881459123d0d57888650, type: 3}
       propertyPath: m_AnchorMax.y
