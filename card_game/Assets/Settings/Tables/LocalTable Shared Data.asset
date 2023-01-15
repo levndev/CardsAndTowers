@@ -191,6 +191,10 @@ MonoBehaviour:
     m_Key: settings_language
     m_Metadata:
       m_Items: []
+  - m_Id: 1011950121492480
+    m_Key: tutorial_button
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
